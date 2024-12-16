@@ -1,0 +1,54 @@
+<footer class="bg-white dark:bg-neutral-900 border-t border-gray-200 dark:border-gray-700">
+  <div class="max-w-7xl mx-auto px-6 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Контактная информация -->
+      <div>
+        <h3 class="text-gray-900 dark:text-white font-semibold mb-4">Contact</h3>
+        <ul class="space-y-2">
+          @for (link of contactLinks; track link.url) {
+            <li>
+              <a [href]="link.url"
+                 [target]="link.isEmail ? undefined : '_blank'"
+                 [rel]="link.isEmail ? undefined : 'noopener noreferrer'"
+                 class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                {{ link.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Навигация -->
+      <div>
+        <h3 class="text-gray-900 dark:text-white font-semibold mb-4">Navigation</h3>
+        <ul class="space-y-2">
+          @for (link of navigationLinks; track link.path) {
+            <li>
+              <a [routerLink]="link.path"
+                 class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                {{ link.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Локации -->
+      <div>
+        <h3 class="text-gray-900 dark:text-white font-semibold mb-4">Locations</h3>
+        <ul class="space-y-2">
+          @for (location of locations; track location) {
+            <li class="text-gray-600 dark:text-gray-300">{{ location }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Копирайт -->
+    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <p class="text-center text-gray-600 dark:text-gray-400">
+        © {{currentYear}} {{copyrightText}}
+      </p>
+    </div>
+  </div>
+</footer>

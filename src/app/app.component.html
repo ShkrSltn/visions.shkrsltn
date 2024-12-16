@@ -1,0 +1,22 @@
+<div class="relative" appRipple>
+  <header>
+    <app-header />
+  </header>
+
+  <div [class.content-blurred]="blurService.isBlurred()">
+    <main class="flex-grow">
+      <router-outlet />
+    </main>
+    <footer>
+      <app-footer />
+    </footer>
+  </div>
+
+  @if (blurService.isBlurred()) {
+  <div class="fixed inset-0 flex items-center justify-center z-40 pointer-events-none">
+    <p class="text-4xl md:text-6xl text-neutral-900 dark:text-white font-bold text-center px-4">
+      Give me back my vision, please!
+    </p>
+  </div>
+  }
+</div>
