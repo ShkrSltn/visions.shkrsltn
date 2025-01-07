@@ -1,0 +1,175 @@
+<section class="min-h-screen bg-neutral-900 overflow-visible">
+  <div class="container mx-auto px-6 py-20 overflow-visible">
+    <!-- Hero Section -->
+    <div class="relative min-h-[90vh] flex items-center overflow-visible">
+      <!-- Декоративные элементы фона для Hero секции -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute -top-20 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-40 left-1/4 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <!-- Контент -->
+      <div class="relative z-10 max-w-4xl" @fadeInUp>
+        <!-- Маленький элемент над заголовком -->
+        <div class="flex flex-wrap gap-3 mb-6">
+          @for (tag of tags; track tag.label) {
+          <span class="inline-block px-4 py-2 rounded-full text-sm font-medium" [ngClass]="[tag.color === 'emerald' ? 'bg-emerald-500/10 text-emerald-400' : 
+                            tag.color === 'blue' ? 'bg-blue-500/10 text-blue-400' : 
+                            'bg-purple-500/10 text-purple-400']">
+            {{ tag.label }}
+          </span>
+          }
+        </div>
+        <h1 class="text-7xl font-bold mb-8 bg-gradient-to-r from-emerald-400 to-blue-500 text-transparent bg-clip-text">
+          {{ personalInfo.name }}
+        </h1>
+
+        <p class="text-2xl text-gray-400 max-w-2xl leading-relaxed mb-12">
+          {{ personalInfo.description }}
+        </p>
+
+        <!-- Добавляем секцию с навыками -->
+        <div class="mb-12">
+          <div class="skills-container">
+            <div class="flex flex-wrap gap-3">
+              @for (skill of hardSkills; track skill.name) {
+              <app-skill-card [skill]="skill"></app-skill-card>
+              }
+              @for (skill of softSkills; track skill.name) {
+              <app-skill-card [skill]="skill"></app-skill-card>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="/contact"
+            class="group inline-flex items-center gap-3 px-8 py-4 bg-black-800 text-white rounded-full  transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+            <span class="font-medium">Contact me</span>
+            <fa-icon [icon]="faPaperPlane"
+              class="text-sm transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
+            </fa-icon>
+          </a>
+
+          <!-- Добавим вторую кнопку для баланса -->
+          <a href="#projects"
+            class="group inline-flex items-center gap-3 px-8 py-4 border border-emerald-500/30 text-emerald-400 rounded-full hover:bg-emerald-500/10 transition-all">
+            <span class="font-medium">To see my projects</span>
+            <fa-icon [icon]="faArrowRight"
+              class="text-sm transform group-hover:translate-x-1 transition-all duration-300">
+            </fa-icon>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Projects Section -->
+    <div class="projects-section relative overflow-visible z-1" @fadeInUp>
+      <!-- Декоративные элементы для Projects секции -->
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute -top-40 left-1/3 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+      </div>
+      <h2 class="text-4xl mb-12 font-light">{{ sections.projects.title }}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (project of projects; track project.title) {
+        <div
+          class="project-card group bg-neutral-800/50 backdrop-blur-sm rounded-xl p-8 hover:transform hover:scale-105 transition-all cursor-pointer border border-neutral-700/50 hover:border-emerald-500/50">
+          <div class="mb-6">
+            <fa-icon class="text-4xl text-emerald-400 group-hover:scale-110 transition-transform"></fa-icon>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4">{{project.title}}</h3>
+          <p class="text-gray-400 mb-6 line-clamp-3">{{project.description}}</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            @for (tech of project.technologies; track tech) {
+            <span class="text-xs px-3 py-1 bg-neutral-700/50 rounded-full text-emerald-300">
+              {{tech}}
+            </span>
+            }
+          </div>
+          @if (project.link) {
+          <a [href]="project.link" target="_blank"
+            class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 group-hover:translate-x-2 transition-all">
+            <span>View Project</span>
+            <fa-icon [icon]="faArrowRight"></fa-icon>
+          </a>
+          }
+        </div>
+        } @empty {
+        <div class="col-span-full text-center text-gray-400">
+          {{ sections.projects.emptyMessage }}
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-section mt-32 relative overflow-visible z-2">
+      <!-- Декоративные элементы для Contact секции -->
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute -top-20 right-0 w-88 h-88 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 left-1/4 w-76 h-76 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 right-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div class="relative z-10">
+        <h2 class="text-4xl mb-12 font-light">{{ sections.contact.title }}</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <!-- Contact Info -->
+          <div class="space-y-6">
+            <p class="text-gray-300 text-lg leading-relaxed">
+              {{ sections.contact.description }}
+            </p>
+
+            <div class="flex flex-col space-y-4">
+              @for (link of socialLinks; track link.url) {
+              <a [href]="link.url" target="_blank"
+                class="inline-flex items-center gap-3 text-gray-300 hover:text-emerald-400 transition-colors group w-fit">
+                <fa-icon [icon]="link.icon" class="text-xl text-emerald-400 group-hover:scale-110 transition-transform">
+                </fa-icon>
+                <span>{{ link.label }}</span>
+              </a>
+              }
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <form
+            class="space-y-6 bg-neutral-800/30 p-8 rounded-xl backdrop-blur-sm border border-neutral-700/50 blur-exempt"
+            (ngSubmit)="onSubmit()" #contactForm="ngForm">
+            <div class="space-y-2">
+              <label for="name" class="block text-sm font-medium text-gray-300">Full Name</label>
+              <input type="text" id="name" name="name" [(ngModel)]="contactData.name" required placeholder="John Doe"
+                class="w-full px-4 py-3 bg-neutral-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 text-gray-100 placeholder-gray-500">
+            </div>
+
+            <div class="space-y-2">
+              <label for="email" class="block text-sm font-medium text-gray-300">Email Address</label>
+              <input type="email" id="email" name="email" [(ngModel)]="contactData.email" required
+                placeholder="john@example.com"
+                class="w-full px-4 py-3 bg-neutral-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 text-gray-100 placeholder-gray-500">
+            </div>
+
+            <div class="space-y-2">
+              <label for="message" class="block text-sm font-medium text-gray-300">Your Message</label>
+              <textarea id="message" name="message" [(ngModel)]="contactData.message" required rows="4"
+                placeholder="Tell me about your project..."
+                class="w-full px-4 py-3 bg-neutral-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 text-gray-100 placeholder-gray-500"></textarea>
+            </div>
+
+            <button type="submit" [disabled]="!contactForm.form.valid"
+              class="w-full px-6 py-4 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2">
+              <span>Send Message</span>
+              <fa-icon [icon]="faPaperPlane" class="text-sm"></fa-icon>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

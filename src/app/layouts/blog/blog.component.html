@@ -1,0 +1,86 @@
+<section class="min-h-screen bg-neutral-900 pt-32 pb-20">
+    <div class="container mx-auto px-6">
+        <!-- Заголовок -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-light mb-4">Blog</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                Thoughts, tutorials and insights about web development and technology
+            </p>
+        </div>
+
+        <!-- Список постов -->
+        <div class="max-w-4xl mx-auto space-y-8">
+            @for (post of blogPosts; track post.id) {
+            <article class="group">
+                <!-- Контейнер поста -->
+                <div class="flex flex-col md:flex-row gap-8 p-6 bg-neutral-800/20 
+                            rounded-lg backdrop-blur-sm border border-neutral-800/50 
+                            hover:border-emerald-500/30 transition-all duration-300">
+
+                    <!-- Изображение -->
+                    <div
+                        class="md:w-1/3 h-48 md:h-auto rounded-lg overflow-hidden bg-neutral-800 flex items-center justify-center">
+                        @if (hasImage(post)) {
+                        <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-full object-cover transition-transform duration-300
+                                        group-hover:scale-105">
+                        } @else {
+                        <fa-icon [icon]="faNewspaper" class="text-6xl text-emerald-500/50 transform transition-all duration-300
+                                           group-hover:scale-110 group-hover:text-emerald-400">
+                        </fa-icon>
+                        }
+                    </div>
+
+                    <!-- Контент -->
+                    <div class="md:w-2/3 flex flex-col justify-between">
+                        <div>
+                            <!-- Теги -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                @for (tag of post.tags; track tag) {
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 
+                                           rounded-full text-sm">
+                                    {{ tag }}
+                                </span>
+                                }
+                            </div>
+
+                            <!-- Заголовок -->
+                            <h2 class="text-2xl font-semibold mb-3 
+                                     relative overflow-hidden
+                                     group-hover:text-emerald-400 
+                                     transition-all duration-300 ease-out
+                                     before:content-[''] before:absolute before:bottom-0 
+                                     before:left-0 before:w-full before:h-[2px] 
+                                     before:bg-emerald-400 before:origin-left
+                                     before:scale-x-0 group-hover:before:scale-x-100
+                                     before:transition-transform before:duration-300">
+                                {{ post.title }}
+                            </h2>
+
+                            <!-- Описание -->
+                            <p class="text-gray-400 mb-4 line-clamp-2">
+                                {{ post.excerpt }}
+                            </p>
+                        </div>
+
+                        <!-- Мета-информация -->
+                        <div class="flex items-center gap-6 text-sm text-gray-500">
+                            <div class="flex items-center gap-2">
+                                <fa-icon [icon]="faUser"></fa-icon>
+                                <span>{{ post.author }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <fa-icon [icon]="faCalendar"></fa-icon>
+                                <span>{{ post.date | date:'mediumDate' }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <fa-icon [icon]="faClock"></fa-icon>
+                                <span>{{ post.readTime }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            }
+        </div>
+    </div>
+</section>

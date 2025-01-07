@@ -1,0 +1,32 @@
+<section class="min-h-screen bg-neutral-900 py-20">
+    <div class="container mx-auto px-6">
+        <h1 class="text-4xl font-light mb-12">Projects</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @for (project of projects; track project.title) {
+            <div class="project-card group bg-neutral-800/50 backdrop-blur-sm rounded-xl p-8 
+                    hover:transform hover:scale-105 transition-all cursor-pointer 
+                    border border-neutral-700/50 hover:border-emerald-500/50">
+                <h3 class="text-2xl font-semibold mb-4">{{project.title}}</h3>
+                <p class="text-gray-400 mb-6 line-clamp-3">{{project.description}}</p>
+
+                <div class="flex flex-wrap gap-2 mb-6">
+                    @for (tech of project.technologies; track tech) {
+                    <span class="text-xs px-3 py-1 bg-neutral-700/50 rounded-full text-emerald-300">
+                        {{tech}}
+                    </span>
+                    }
+                </div>
+
+                @if (project.link) {
+                <a [href]="project.link" target="_blank" class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 
+                      group-hover:translate-x-2 transition-all">
+                    <span>View Project</span>
+                    <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
+                </a>
+                }
+            </div>
+            }
+        </div>
+    </div>
+</section>

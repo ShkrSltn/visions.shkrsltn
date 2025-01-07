@@ -1,0 +1,99 @@
+<section class="min-h-screen bg-neutral-900 pt-32 pb-20">
+    <div class="container mx-auto px-6">
+        <!-- Intro Section -->
+        <div
+            class="bg-neutral-800/20 rounded-lg p-8 mb-8 backdrop-blur-sm border border-neutral-800/50 hover:border-emerald-500/30 transition-all duration-300">
+            <div class="flex items-start gap-6">
+                <div>
+                    <h1 class="text-4xl font-light mb-6 inline-flex items-center gap-3">
+                        About Me
+                        <span class="text-emerald-500">👨‍💻</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-400 leading-relaxed">
+                        Hi! I'm a Full Stack developer with a passion for creating elegant and efficient solutions.
+                        My programming journey started with simple curiosity that grew into a professional career.
+                    </p>
+
+                    <div class="mt-8 flex gap-8 text-sm text-gray-400">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-code"></i>
+                            <span>{{ yearsOfExperience }} years of experience</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-coffee"></i>
+                            <span>∞ cups of coffee</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>{{ projectsCompleted }}+ projects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="mb-20">
+            <h2 class="text-3xl font-light mb-8 flex items-center gap-3">
+                <fa-icon [icon]="faGraduationCap" class="text-emerald-400"></fa-icon>
+                Education
+            </h2>
+
+            <div class="grid gap-8">
+                @for (edu of education; track edu.institution) {
+                <div class="bg-neutral-800/30 p-8 rounded-xl backdrop-blur-sm border border-neutral-700/50">
+                    <h3 class="text-xl font-semibold mb-2">{{ edu.degree }}</h3>
+                    <div class="text-emerald-400 mb-2">{{ edu.institution }}</div>
+                    <div class="text-gray-400 mb-4">{{ edu.period }}</div>
+                    <p class="text-gray-300">{{ edu.description }}</p>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="mb-20">
+            <h2 class="text-3xl font-light mb-8 flex items-center gap-3">
+                <fa-icon [icon]="faBriefcase" class="text-emerald-400"></fa-icon>
+                Experience
+            </h2>
+
+            <div class="grid gap-8">
+                @for (exp of experience; track exp.company) {
+                <div class="bg-neutral-800/30 p-8 rounded-xl backdrop-blur-sm border border-neutral-700/50">
+                    <h3 class="text-xl font-semibold mb-2">{{ exp.position }}</h3>
+                    <div class="text-emerald-400 mb-2">{{ exp.company }}</div>
+                    <div class="text-gray-400 mb-4">{{ exp.period }}</div>
+                    <p class="text-gray-300 mb-4">{{ exp.description }}</p>
+                    <div class="flex flex-wrap gap-2">
+                        @for (tech of exp.technologies; track tech) {
+                        <span class="px-3 py-1 bg-neutral-700/50 rounded-full text-emerald-300 text-sm">
+                            {{ tech }}
+                        </span>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Interests Section -->
+        <div>
+            <h2 class="text-3xl font-light mb-8">Interests & Hobbies</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @for (interest of interests; track interest.name) {
+                <div class="bg-neutral-800/30 p-6 rounded-xl backdrop-blur-sm border border-neutral-700/50 
+                      hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <fa-icon [icon]="interest.icon" class="text-2xl text-emerald-400"></fa-icon>
+                        <h3 class="text-lg font-medium">{{ interest.name }}</h3>
+                    </div>
+                    <p class="text-gray-400">{{ interest.description }}</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

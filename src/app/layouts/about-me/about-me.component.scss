@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  
+  .section-title {
+    @apply text-3xl font-light mb-8;
+    
+    &::after {
+      content: '';
+      @apply block w-24 h-1 bg-emerald-500/30 mt-4;
+    }
+  }
+}
+
+// Анимации для карточек при наведении
+.experience-card, .education-card, .interest-card {
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.1);
+  }
+}
