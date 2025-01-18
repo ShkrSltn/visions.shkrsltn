@@ -34,7 +34,7 @@ export class BlogComponent {
 
   // Демо данные для блога
   blogPosts: BlogPost[] = [
-    {
+   /*  {
       id: 1,
       title: 'Getting Started with Angular 17',
       excerpt: 'Learn about the latest features in Angular 17 and how to implement them in your projects.',
@@ -63,7 +63,7 @@ export class BlogComponent {
       readTime: '10 min',
       tags: ['JavaScript', 'Web Development', 'Performance'],
       imageUrl: 'assets/images/blog/javascript.jpg'
-    }
+    } */
     // Добавьте больше постов по необходимости
   ];
 

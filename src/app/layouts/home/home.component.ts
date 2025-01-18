@@ -35,6 +35,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { SkillCardComponent } from '../../shared/components/skill-card/skill-card.component';
 import { ProjectsService } from '../../core/services/projects.service';
+import { SKILLS } from '../../shared/data/skills.data';
 
 
 interface ContactData {
@@ -133,6 +134,9 @@ export class HomeComponent implements OnInit {
   // Проекты
   projects: Project[] = [];
 
+  // Заменяем определение массива skills на импорт
+  skills: Skill[] = SKILLS;
+
   constructor(private projectsService: ProjectsService) { }
 
   ngOnInit() {
@@ -140,210 +144,6 @@ export class HomeComponent implements OnInit {
       projects => this.projects = projects
     );
   }
-
-  // Навыки (существующий код)
-  // Обновляем skills массив:
-  skills: Skill[] = [
-    {
-      name: 'Angular',
-      type: 'hard',
-      icon: faAngular,
-      details: {
-        level: 'Advanced',
-        experience: '2+ years',
-        description: 'Development of complex web applications using Angular 17+, RxJS, NgRx',
-        projects: ['Current Work Projects', 'Personal Portfolio']
-      }
-    },
-    {
-      name: 'Vue',
-      type: 'hard',
-      icon: faVuejs,
-      details: {
-        level: 'Advanced',
-        experience: '2+ years',
-        description: 'Creating interactive web applications with Vue 3, Vuex, Composition API',
-        projects: ['E-commerce Dashboard', 'Client Projects']
-      }
-    },
-    {
-      name: 'Spring Boot',
-      type: 'hard',
-      icon: faJava,
-      details: {
-        level: 'Intermediate',
-        experience: '1+ year',
-        description: 'Development of REST APIs and microservices using Spring Boot',
-        projects: ['Backend Services', 'API Development']
-      }
-    },
-    {
-      name: 'FastAPI',
-      type: 'hard',
-      icon: faPython,
-      details: {
-        level: 'Intermediate',
-        experience: '1+ year',
-        description: 'Building high-performance APIs using FastAPI and Python',
-        projects: ['Data Processing API', 'Integration Services']
-      }
-    },
-    {
-      name: 'Docker',
-      type: 'hard',
-      icon: faDocker,
-      details: {
-        level: 'Intermediate',
-        experience: '6+ months',
-        description: 'Application containerization, creating Docker-compose configurations',
-        projects: ['Microservices Deployment', 'Development Environments']
-      }
-    },
-    {
-      name: 'Cloud Services',
-      type: 'hard',
-      icon: faCloud,
-      details: {
-        level: 'Intermediate',
-        experience: '6+ months',
-        description: 'Working with GCP, application deployment and scaling',
-        projects: ['Cloud Infrastructure', 'Production Deployments']
-      }
-    },
-    {
-      name: 'Git',
-      type: 'hard',
-      icon: faGitAlt,
-      details: {
-        level: 'Advanced',
-        experience: '2+ years',
-        description: 'Version control, branching strategies, code review',
-        projects: ['All Projects']
-      }
-    },
-    {
-      name: 'CI/CD',
-      type: 'hard',
-      icon: faCogs,
-      details: {
-        level: 'Advanced',
-        experience: '2+ years',
-        description: 'Setting up pipelines in GitHub Actions and GitLab CI',
-        projects: ['Automation Projects', 'Development Workflows']
-      }
-    },
-    {
-      name: 'HTML5',
-      type: 'hard',
-      icon: faHtml5,
-      details: {
-        level: 'Advanced',
-        experience: '3+ years',
-        description: 'Semantic markup, accessibility, SEO optimization',
-        projects: ['All Frontend Projects']
-      }
-    },
-    {
-      name: 'CSS3',
-      type: 'hard',
-      icon: faCss3,
-      details: {
-        level: 'Advanced',
-        experience: '3+ years',
-        description: 'Responsive design, CSS Grid, Flexbox, animations',
-        projects: ['UI Development', 'Personal Projects']
-      }
-    },
-    {
-      name: 'JavaScript',
-      type: 'hard',
-      icon: faJs,
-      details: {
-        level: 'Advanced',
-        experience: '3+ years',
-        description: 'ES6+, asynchronous programming, DOM manipulation',
-        projects: ['Frontend Development', 'Web Applications']
-      }
-    },
-    {
-      name: 'Communication',
-      type: 'soft',
-      icon: faComments,
-      details: {
-        level: 'Advanced',
-        experience: 'Ongoing',
-        description: 'Effective communication in international teams',
-        projects: ['Team Projects']
-      }
-    },
-    {
-      name: 'Problem Solving',
-      type: 'soft',
-      icon: faBrain,
-      details: {
-        level: 'Advanced',
-        experience: 'Ongoing',
-        description: 'Analytical thinking and solving complex technical challenges',
-        projects: ['All Projects']
-      }
-    },
-    {
-      name: 'English',
-      type: 'soft',
-      icon: faComments,
-      details: {
-        level: 'Professional (B2-C1)',
-        experience: '10+ years',
-        description: 'Professional working proficiency, daily use in international work environment in Switzerland',
-        projects: ['International Team Communication', 'Technical Documentation']
-      }
-    },
-    {
-      name: 'Turkish',
-      type: 'soft',
-      icon: faComments,
-      details: {
-        level: 'Native',
-        experience: 'Lifetime',
-        description: 'Native language, heritage language from family background',
-        projects: ['Cultural Projects', 'Family Communication']
-      }
-    },
-    {
-      name: 'Russian',
-      type: 'soft',
-      icon: faComments,
-      details: {
-        level: 'Native',
-        experience: 'Lifetime',
-        description: 'Native proficiency, grew up speaking Russian in Ukraine',
-        projects: ['Business Communication', 'Technical Writing']
-      }
-    },
-    {
-      name: 'Ukrainian',
-      type: 'soft',
-      icon: faComments,
-      details: {
-        level: 'Native',
-        experience: 'Lifetime',
-        description: 'Native proficiency, grew up in Ukraine',
-        projects: ['Local Projects', 'Official Documentation']
-      }
-    },
-    {
-      name: 'German',
-      type: 'soft',
-      icon: faComments,
-      details: {
-        level: 'Basic (A1-A2)',
-        experience: '1.5 years',
-        description: 'Currently learning German since moving to Switzerland',
-        projects: ['Daily Communication', 'Language Courses']
-      }
-    }
-  ];
-
 
   // Форма контактов
   contactData: ContactData = {

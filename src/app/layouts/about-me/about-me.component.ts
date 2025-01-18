@@ -45,32 +45,25 @@ interface Interest {
 export class AboutMeComponent implements OnInit {
   education: Education[] = [
     {
-      degree: 'Bachelor of Computer Science',
+      degree: 'Bachelor of Computer Engineering',
       institution: 'Odesa I.I.Mechnikov National University',
-      period: '2019 - 2023',
-      description: 'Specialization in software development and information technology'
+      period: '2018 - 2022',
+      description: 'Specialization in software development and information technology. We learned bases of programming, algorithms, data structures, databases, networks, etc. Lots of math, lots of theory and more. And I was a good student, I was a good student, I was a good student. You said it 3 times, so its true.'
     },
     {
-      degree: 'Full Stack Development',
-      institution: 'Bern University of Applied Sciences',
-      period: '2023 - Present',
-      description: 'In-depth study of modern web technologies and development practices'
+      degree: 'Alumni',
+      institution: 'Powercoders',
+      period: '2024.04 - 2024.08',
+      description: 'Powercoders its a non-profit organization that helps refugees to learn programming and find a job in Switzerland. I had chance to learn a lot of about technologies and programming. And more important, I had chance to meet a lot of people from different cultures and backgrounds. It was very great adventure.'
     }
   ];
 
   experience: Experience[] = [
     {
-      position: 'Full Stack Developer',
-      company: 'Freelance',
-      period: '2021 - Present',
-      description: 'Development of web applications for various clients, from small businesses to startups',
-      technologies: ['Angular', 'React', 'Node.js', 'PostgreSQL']
-    },
-    {
-      position: 'Research Assistant',
+      position: 'Pratikant',
       company: 'BFH',
-      period: '2023 - Present',
-      description: 'Participation in research projects, development of data analysis tools',
+      period: '2024.08 - Present',
+      description: 'Participation in research projects, development of software for non-profit projects. Its a nice feeling to work on projects that do not have an idea to make money, but to help people, I love it. ',
       technologies: ['Python', 'FastAPI', 'Docker', 'ML']
     }
   ];
@@ -79,27 +72,22 @@ export class AboutMeComponent implements OnInit {
     {
       name: 'Programming',
       icon: faCode,
-      description: 'Learning new technologies and creating useful projects'
+      description: 'Learning new technologies and approaches. I just love feeling when I realize that I can do something that I never thought I could do.'
     },
     {
       name: 'Books',
       icon: faBook,
-      description: 'Psychology, science fiction and technical literature'
+      description: 'Mostly any kind of books, but I love psychology most, because I have curious mind and I want to understand how people think and behave.'
     },
     {
-      name: 'Movies',
+      name: 'Movies and series',
       icon: faFilm,
-      description: 'Art house, science fiction and documentaries'
+      description: 'I mean, I do not understand people who not like movies. I love watching movies, I love analyzing them, I love discussing them. I love everything about movies.'
     },
     {
       name: 'Games',
       icon: faGamepad,
-      description: 'Strategy games and games with interesting storylines'
-    },
-    {
-      name: 'Coffee',
-      icon: faCoffee,
-      description: 'Love good coffee and coffee culture'
+      description: 'Games with interesting stories, kind of same as movies, but here you can be a part of the story.'
     }
   ];
 
