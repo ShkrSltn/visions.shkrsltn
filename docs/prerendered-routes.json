@@ -1,0 +1,9 @@
+{
+  "routes": {
+    "/visions.shkrsltn": {},
+    "/visions.shkrsltn/about-me": {},
+    "/visions.shkrsltn/blog": {},
+    "/visions.shkrsltn/contact-me": {},
+    "/visions.shkrsltn/projects": {}
+  }
+}
