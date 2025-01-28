@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.DEPLOY_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,4 +32,4 @@ jobs:
         with:
           folder: dist/shkrsltnv-visions/browser # путь к собранным файлам
           branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.DEPLOY_TOKEN }}
