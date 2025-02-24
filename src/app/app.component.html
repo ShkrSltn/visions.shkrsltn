@@ -1,4 +1,7 @@
-<button (click)="showText()" class="reveal-button">Нажимай блет</button>
-<h1 [class.visible]="isTextVisible" class="animated-text">{{ Sanya }}</h1>
-<button (click)="showText2()" class="reveal-button">Нажимай блет</button>
-<h1 [class.visible]="isTextVisible2" class="animated-text">{{ Sanya2 }}</h1>
+<app-header></app-header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer></app-footer>

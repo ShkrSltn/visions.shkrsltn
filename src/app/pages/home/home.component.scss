@@ -1,0 +1,160 @@
+:host {
+  display: block;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  font-family: "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
+}
+
+.container {
+  min-height: 100vh;
+}
+
+// Hero section
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 0 10vw;
+}
+
+.hero-text {
+  h1 {
+    font-size: 12vw;
+    font-weight: 800;
+    line-height: 0.9;
+    margin: 0;
+    letter-spacing: -0.5vw;
+    color: #ffffff;
+    mix-blend-mode: difference;
+  }
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 5vh;
+  left: 10vw;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+
+  span {
+    margin-right: 1rem;
+  }
+
+  .scroll-line {
+    width: 60px;
+    height: 1px;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      animation: scrollLine 1.5s ease infinite;
+    }
+  }
+}
+
+// Sections
+.sections {
+  padding: 15vh 10vw;
+}
+
+.section {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 20vh;
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-number {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #666;
+    margin-right: 2rem;
+  }
+
+  h2 {
+    font-size: 8vw;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 0;
+      height: 4px;
+      background-color: #ffffff;
+      transition: width 0.8s ease;
+    }
+
+    &:hover:after {
+      width: 100%;
+    }
+  }
+}
+
+// Animations
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s forwards;
+  animation-delay: calc(var(--animation-order, 0) * 0.2s);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollLine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: 15vw;
+  }
+
+  .section {
+    flex-direction: column;
+
+    .section-number {
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 12vw;
+    }
+  }
+}

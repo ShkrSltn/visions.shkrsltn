@@ -1,0 +1,36 @@
+<footer>
+  <div class="footer-container">
+    <div class="footer-main">
+      <div class="footer-logo">
+        <h2>{{ logoText }}</h2>
+      </div>
+
+      <div class="footer-links">
+        <ul>
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/about-me">About</a></li>
+          <li><a routerLink="/projects">Projects</a></li>
+          <li><a routerLink="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-social">
+        <a href="https://github.com" target="_blank" aria-label="GitHub"
+          >GitHub</a
+        >
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"
+          >LinkedIn</a
+        >
+        <a href="https://twitter.com" target="_blank" aria-label="Twitter"
+          >Twitter</a
+        >
+      </div>
+
+      <div class="footer-copyright">
+        <p>&copy; {{ currentYear }} {{ logoText }}</p>
+      </div>
+    </div>
+  </div>
+</footer>

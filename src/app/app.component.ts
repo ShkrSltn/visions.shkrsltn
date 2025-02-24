@@ -1,24 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'portfolio';
-  Sanya: string = 'Сань ты пидор, тебя не взламывали';
-  Sanya2: string = 'Та невже';
-  isTextVisible: boolean = false;
-  isTextVisible2: boolean = false;
-  showText() {
-    this.isTextVisible = true;
-  }
-
-  showText2() {
-    this.isTextVisible2 = true;
-  }
-
+  currentYear: number = new Date().getFullYear();
 }
