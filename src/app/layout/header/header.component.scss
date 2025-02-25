@@ -20,13 +20,28 @@ nav {
 }
 
 .logo {
+  text-decoration: none;
+  transition: 0.7s;
+
   h1 {
     font-size: 1.5rem;
     font-weight: 700;
     color: #ffffff;
     letter-spacing: 2px;
     text-transform: uppercase;
+    transition: 0.7s;
     margin: 0;
+
+    &:hover {
+      color: rgb(56, 56, 56);
+      animation: logoTextChange 0.7s forwards;
+    }
+  }
+}
+
+@keyframes logoTextChange {
+  to {
+    content: attr(title);
   }
 }
 

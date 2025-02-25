@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   logoText: string = 'shkrsltnv';
+  fullLogoText:string ='shakirsultanov'
   isScrolled: boolean = false;
 
   @HostListener('window:scroll', [])
