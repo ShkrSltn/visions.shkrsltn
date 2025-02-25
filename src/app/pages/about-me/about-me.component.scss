@@ -1,0 +1,579 @@
+:host {
+  display: block;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  font-family: "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
+}
+
+.about-me-container {
+  min-height: 100vh;
+}
+
+// Hero section
+.hero {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0 10vw;
+  margin-top: 80px;
+}
+
+.hero-content {
+  text-align: center;
+
+  h1 {
+    font-size: clamp(2rem, 8vw, 6rem);
+    font-weight: 800;
+    line-height: 1;
+    margin: 0;
+    color: #ffffff;
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-top: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: #aeaeae;
+  }
+}
+
+// Section title
+.section-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #666;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: #666;
+  }
+}
+
+// Bio section
+.bio {
+  padding: 10vh 10vw;
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .bio-content {
+    display: flex;
+    gap: 5rem;
+
+    .bio-image {
+      flex: 1;
+
+      .image-placeholder {
+        width: 100%;
+        aspect-ratio: 3/4;
+        background-color: #1a1a1a;
+        border-radius: 4px;
+      }
+    }
+
+    .bio-text {
+      flex: 2;
+
+      h2 {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        margin-bottom: 2rem;
+        line-height: 1.2;
+      }
+
+      p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        color: #aeaeae;
+      }
+    }
+  }
+}
+
+// Skills section
+.skills {
+  padding: 10vh 10vw;
+  background-color: rgba(255, 255, 255, 0.02);
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .skills-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .skill-category {
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: #aeaeae;
+      }
+    }
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .skill-name {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .skill-level {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 500;
+
+      &.beginner {
+        background-color: rgba(255, 99, 71, 0.2);
+        color: #ff6347;
+      }
+
+      &.intermediate {
+        background-color: rgba(255, 165, 0, 0.2);
+        color: #ffa500;
+      }
+
+      &.advanced {
+        background-color: rgba(46, 204, 113, 0.2);
+        color: #2ecc71;
+      }
+
+      &.expert {
+        background-color: rgba(52, 152, 219, 0.2);
+        color: #3498db;
+      }
+    }
+  }
+}
+
+// Education section
+.education {
+  padding: 10vh 10vw;
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // Вертикальная временная шкала
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 5rem;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.4rem;
+    top: 0.5rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #aeaeae;
+    border: 4px solid #0f0f0f;
+  }
+
+  .timeline-content {
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-date {
+      font-size: 0.9rem;
+      color: #aeaeae;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-institution {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #aeaeae;
+    }
+  }
+
+  // Горизонтальная временная шкала карьеры
+  .career-path {
+    padding: 10vh 0;
+    opacity: 0;
+    transform: translateY(50px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .horizontal-timeline {
+    position: relative;
+    padding: 4rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow-x: auto;
+
+    // Линия шкалы
+    .timeline-track {
+      position: absolute;
+      top: 4rem;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    // События на шкале
+    .timeline-event {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 180px;
+      margin: 0 1rem;
+      z-index: 2;
+
+      &.current {
+        .event-dot {
+          background-color: #ffffff;
+          transform: scale(1.2);
+
+          &:after {
+            width: 100%;
+          }
+        }
+
+        .event-content {
+          background-color: rgba(255, 255, 255, 0.05);
+
+          .event-number {
+            color: #ffffff;
+          }
+
+          h4 {
+            color: #ffffff;
+          }
+        }
+      }
+
+      &.future {
+        opacity: 0.6;
+
+        .event-content {
+          border-style: dashed;
+        }
+      }
+    }
+
+    .event-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #666;
+      margin-bottom: 2rem;
+      position: relative;
+      transition: all 0.3s ease;
+      transform: translateY(-50%);
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #ffffff;
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        transform: translateY(-50%) scale(1.2);
+
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+
+    .event-content {
+      text-align: left;
+      padding: 1.5rem;
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.03);
+      width: 100%;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-10px);
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      .event-number {
+        font-size: 1rem;
+        font-weight: 300;
+        color: #666;
+        margin-bottom: 0.5rem;
+      }
+
+      h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: #aeaeae;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+      }
+
+      .event-date {
+        font-size: 0.8rem;
+        color: #666;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Interests section
+.interests {
+  padding: 10vh 10vw;
+  background-color: rgba(255, 255, 255, 0.02);
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .interests-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 3rem;
+  }
+
+  .interest-item {
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background-color: #aeaeae;
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #aeaeae;
+    }
+  }
+}
+
+// Call to action section
+.cta {
+  padding: 15vh 10vw;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #aeaeae;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    color: #0f0f0f;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #aeaeae;
+    }
+  }
+}
+
+// Animations
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s forwards;
+  animation-delay: calc(var(--animation-order, 0) * 0.2s);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Media queries
+@media (max-width: 992px) {
+  .bio .bio-content {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .bio .bio-content .bio-image {
+    max-width: 400px;
+  }
+
+  .horizontal-timeline {
+    justify-content: flex-start;
+    padding-bottom: 2rem;
+
+    .timeline-event {
+      min-width: 160px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 40vh;
+  }
+
+  .skills .skills-grid,
+  .interests .interests-content {
+    grid-template-columns: 1fr;
+  }
+
+  .horizontal-timeline .event-content {
+    padding: 1rem;
+
+    h4 {
+      font-size: 1.1rem;
+    }
+  }
+}
