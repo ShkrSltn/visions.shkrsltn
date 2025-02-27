@@ -1,0 +1,145 @@
+// Стили для секции навыков
+.skills-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.skill-category {
+  position: relative;
+
+  .category-number {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    margin-bottom: 3rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: -0.02em;
+
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.skills-layers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  perspective: 1000px;
+}
+
+.skill-layer {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+  transform: translateZ(0) rotateX(0);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 0;
+  animation: fadeInLayer 0.6s forwards;
+
+  &:hover {
+    transform: translateZ(20px) translateY(-10px);
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+
+    .skill-name {
+      transform: translateZ(10px);
+    }
+
+    .skill-level {
+      transform: translateZ(5px);
+    }
+
+    .skill-description {
+      transform: translateZ(8px);
+    }
+  }
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .skill-name,
+  .skill-level,
+  .skill-description {
+    transition: transform 0.3s ease;
+  }
+
+  .skill-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .skill-level {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #aeaeae;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: "Montserrat", sans-serif;
+    position: relative;
+    padding-left: 1rem;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    &.beginner:before {
+      background-color: #a1887f;
+    }
+
+    &.intermediate:before {
+      background-color: #795548;
+    }
+
+    &.advanced:before {
+      background-color: #6c7a89;
+    }
+
+    &.expert:before {
+      background-color: #34495e;
+    }
+  }
+
+  .skill-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #999;
+    font-family: "Montserrat", sans-serif;
+  }
+}
+
+@keyframes fadeInLayer {
+  from {
+    opacity: 0;
+    transform: translateZ(-20px) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0) rotateX(0);
+  }
+}

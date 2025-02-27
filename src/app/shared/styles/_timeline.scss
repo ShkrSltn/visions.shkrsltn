@@ -1,0 +1,334 @@
+// Стили для вертикальной временной шкалы
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 5rem;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &-item {
+    position: relative;
+    margin-bottom: 4rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &-dot {
+    position: absolute;
+    left: -2.4rem;
+    top: 0.5rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #aeaeae;
+    border: 4px solid #0f0f0f;
+  }
+
+  &-content {
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-date,
+    .timeline-institution {
+      font-size: 0.9rem;
+      color: #aeaeae;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-institution {
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #aeaeae;
+    }
+  }
+}
+
+// Стили для горизонтальной временной шкалы
+.horizontal-timeline {
+  position: relative;
+  padding: 4rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow-x: auto;
+
+  .timeline-track {
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+  }
+
+  .timeline-event {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 180px;
+    margin: 0 1rem;
+    z-index: 2;
+
+    &:hover {
+      .event-dot {
+        transform: translateY(-50%) scale(1.2);
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    &.current {
+      .event-dot {
+        background-color: var(--accent-color);
+        transform: translateY(-50%) scale(1.2);
+
+        &:after {
+          width: 100%;
+        }
+      }
+
+      .event-content {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        animation: pulseCurrentEvent 3s ease-in-out infinite;
+
+        .event-number,
+        h4 {
+          color: #ffffff;
+        }
+      }
+    }
+
+    &.future {
+      opacity: 0.6;
+
+      .event-content {
+        border-style: dashed;
+      }
+    }
+  }
+
+  .event-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #666;
+    margin-bottom: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+    transform: translateY(-50%);
+
+    &:after {
+      display: none;
+    }
+
+    &:hover {
+      transform: translateY(-50%) scale(1.2);
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .event-content {
+    text-align: left;
+    padding: 1.5rem;
+    border-radius: 4px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    transition: all 0.5s ease;
+    transform-origin: center;
+    position: relative;
+    height: 12.5rem;
+    min-width: 12.4rem;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+      transform: scale(1.05);
+
+      .event-number,
+      h4,
+      p,
+      .event-date {
+        transform: scale(0.93);
+      }
+    }
+
+    .event-number,
+    h4,
+    p,
+    .event-date {
+      transition: transform 0.3s ease;
+    }
+
+    .event-number {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #aeaeae;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .event-date {
+      font-size: 0.8rem;
+      color: #666;
+      font-weight: 500;
+    }
+  }
+}
+
+// Медиа-запросы для временной шкалы
+@media (max-width: 1370px) {
+  .horizontal-timeline {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+    overflow-x: visible;
+
+    .timeline-track {
+      top: 0;
+      left: 2rem;
+      width: 2px;
+      height: 100%;
+    }
+
+    .timeline-event {
+      flex-direction: row;
+      align-items: flex-start;
+      width: 100%;
+      margin: 2rem 0;
+      padding-left: 3.5rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        .event-dot {
+          transform: translate(-50%, -50%) scale(1.2);
+          background-color: #ffffff;
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      &.current .event-dot {
+        background-color: var(--accent-color);
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+    .event-dot {
+      position: absolute;
+      left: 2rem;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      margin-bottom: 0;
+
+      &:hover {
+        transform: translate(-50%, -50%) scale(1.2);
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .event-content {
+      padding: 1rem;
+      height: auto;
+      min-height: 150px;
+      min-width: 0;
+
+      &:hover {
+        transform: translateX(5px);
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .horizontal-timeline {
+    .timeline-track {
+      left: 1.5rem;
+    }
+
+    .timeline-event {
+      padding-left: 3rem;
+
+      &:hover .event-dot {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+
+      &.current .event-dot {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+    .event-dot {
+      left: 1.5rem;
+      transform: translate(-50%, -50%);
+
+      &:hover {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+    .event-content {
+      padding: 0.8rem;
+      min-height: 130px;
+
+      &:hover {
+        transform: translateX(5px);
+      }
+
+      h4 {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.85rem;
+      }
+
+      .event-date {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
