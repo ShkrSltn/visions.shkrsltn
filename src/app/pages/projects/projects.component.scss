@@ -44,9 +44,10 @@
 
   &-content {
     text-align: center;
+    width: 100%;
 
     h1 {
-      font-size: clamp(2rem, 8vw, 6rem);
+      font-size: clamp(4rem, 10vw, 8rem);
       font-weight: 800;
       line-height: 1;
       margin: 0;
@@ -54,7 +55,7 @@
     }
 
     .subtitle {
-      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
       margin-top: 2rem;
       font-weight: 300;
       letter-spacing: 0.2em;
@@ -426,51 +427,6 @@
   }
 }
 
-// Call to action section
-.cta {
-  text-align: center;
-  padding: 10vh 10vw;
-  opacity: 0;
-  transform: translateY(50px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
-
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  h2 {
-    font-size: clamp(1.5rem, 4vw, 3rem);
-    margin-bottom: 1.5rem;
-  }
-
-  p {
-    font-size: 1.2rem;
-    color: #aeaeae;
-    margin-bottom: 3rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background-color: #ffffff;
-    color: #0f0f0f;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #aeaeae;
-    }
-  }
-}
-
 // Animations
 .animate-in {
   opacity: 0;
@@ -506,6 +462,16 @@
 @media (max-width: 768px) {
   .hero {
     height: 40vh;
+
+    &-content {
+      h1 {
+        font-size: clamp(3rem, 8vw, 6rem);
+      }
+
+      .subtitle {
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+      }
+    }
   }
 
   .process-steps {

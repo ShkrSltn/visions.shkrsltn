@@ -44,9 +44,10 @@
 
   &-content {
     text-align: center;
+    width: 100%;
 
     h1 {
-      font-size: clamp(2rem, 8vw, 6rem);
+      font-size: clamp(3.5rem, 10vw, 8rem);
       font-weight: 800;
       line-height: 1;
       margin: 0;
@@ -54,7 +55,7 @@
     }
 
     .subtitle {
-      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
       margin-top: 2rem;
       font-weight: 300;
       letter-spacing: 0.2em;
@@ -427,5 +428,15 @@
 
   .hero {
     height: 40vh;
+
+    &-content {
+      h1 {
+        font-size: clamp(3rem, 8vw, 6rem);
+      }
+
+      .subtitle {
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+      }
+    }
   }
 }
