@@ -1,6 +1,6 @@
-@import "../../../shared/styles/_common.scss";
-@import "../../../shared/styles/_skills.scss";
-@import "../../../shared/styles/_timeline.scss";
+@import "../../shared/styles/_common.scss";
+@import "../../shared/styles/_skills.scss";
+@import "../../shared/styles/_timeline.scss";
 
 // Применяем базовые стили компонента
 @include base-component-styles;
