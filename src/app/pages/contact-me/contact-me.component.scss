@@ -33,14 +33,14 @@
 
 // Hero section
 .hero {
-  height: 50vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   padding: 0 10vw;
-  margin-top: 80px;
+  margin-top: 0;
 
   &-content {
     text-align: center;

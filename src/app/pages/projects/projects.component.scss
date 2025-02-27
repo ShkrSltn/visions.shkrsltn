@@ -33,21 +33,21 @@
 
 // Hero section
 .hero {
-  height: 50vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   padding: 0 10vw;
-  margin-top: 80px;
+  margin-top: 0;
 
   &-content {
     text-align: center;
     width: 100%;
 
     h1 {
-      font-size: clamp(4rem, 10vw, 8rem);
+      font-size: clamp(3.5rem, 10vw, 8rem);
       font-weight: 800;
       line-height: 1;
       margin: 0;
