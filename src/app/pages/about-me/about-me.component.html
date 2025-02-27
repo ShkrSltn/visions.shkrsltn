@@ -36,46 +36,19 @@
       <div class="skill-category">
         <div class="category-number">01</div>
         <h3>Frontend Development</h3>
-        <div class="skills-grid">
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">HTML5 & CSS3</span>
-              <div class="skill-bar">
-                <div class="skill-level advanced">Advanced</div>
+        <div class="skills-layers">
+          <div
+            class="skill-layer"
+            *ngFor="let skill of frontendSkills; let i = index"
+            [style.animationDelay]="i * 0.1 + 's'"
+          >
+            <div class="skill-header">
+              <div class="skill-name">{{ skill.name }}</div>
+              <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
+                {{ skill.level }}
               </div>
             </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">JavaScript</span>
-              <div class="skill-bar">
-                <div class="skill-level advanced">Advanced</div>
-              </div>
-            </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">TypeScript</span>
-              <div class="skill-bar">
-                <div class="skill-level intermediate">Intermediate</div>
-              </div>
-            </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">Angular</span>
-              <div class="skill-bar">
-                <div class="skill-level intermediate">Intermediate</div>
-              </div>
-            </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">React</span>
-              <div class="skill-bar">
-                <div class="skill-level beginner">Beginner</div>
-              </div>
-            </div>
+            <div class="skill-description">{{ skill.description }}</div>
           </div>
         </div>
       </div>
@@ -83,38 +56,19 @@
       <div class="skill-category">
         <div class="category-number">02</div>
         <h3>Backend Development</h3>
-        <div class="skills-grid">
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">Node.js</span>
-              <div class="skill-bar">
-                <div class="skill-level intermediate">Intermediate</div>
+        <div class="skills-layers">
+          <div
+            class="skill-layer"
+            *ngFor="let skill of backendSkills; let i = index"
+            [style.animationDelay]="i * 0.1 + 's'"
+          >
+            <div class="skill-header">
+              <div class="skill-name">{{ skill.name }}</div>
+              <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
+                {{ skill.level }}
               </div>
             </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">Express</span>
-              <div class="skill-bar">
-                <div class="skill-level intermediate">Intermediate</div>
-              </div>
-            </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">MongoDB</span>
-              <div class="skill-bar">
-                <div class="skill-level beginner">Beginner</div>
-              </div>
-            </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">SQL</span>
-              <div class="skill-bar">
-                <div class="skill-level beginner">Beginner</div>
-              </div>
-            </div>
+            <div class="skill-description">{{ skill.description }}</div>
           </div>
         </div>
       </div>
@@ -122,38 +76,19 @@
       <div class="skill-category">
         <div class="category-number">03</div>
         <h3>Other Skills</h3>
-        <div class="skills-grid">
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">Git & GitHub</span>
-              <div class="skill-bar">
-                <div class="skill-level advanced">Advanced</div>
+        <div class="skills-layers">
+          <div
+            class="skill-layer"
+            *ngFor="let skill of otherSkills; let i = index"
+            [style.animationDelay]="i * 0.1 + 's'"
+          >
+            <div class="skill-header">
+              <div class="skill-name">{{ skill.name }}</div>
+              <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
+                {{ skill.level }}
               </div>
             </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">RESTful APIs</span>
-              <div class="skill-bar">
-                <div class="skill-level intermediate">Intermediate</div>
-              </div>
-            </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">Responsive Design</span>
-              <div class="skill-bar">
-                <div class="skill-level advanced">Advanced</div>
-              </div>
-            </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span class="skill-name">Problem Solving</span>
-              <div class="skill-bar">
-                <div class="skill-level advanced">Advanced</div>
-              </div>
-            </div>
+            <div class="skill-description">{{ skill.description }}</div>
           </div>
         </div>
       </div>

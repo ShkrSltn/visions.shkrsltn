@@ -1,1 +1,208 @@
-<p>contact-me works!</p>
+<div class="contact-container">
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="animate-in">GET IN TOUCH</h1>
+      <p class="subtitle animate-in">
+        Let's discuss your project or opportunity
+      </p>
+    </div>
+  </section>
+
+  <section class="contact-info animate-on-scroll">
+    <div class="section-title">Contact Information</div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <div class="icon-placeholder">
+            <span class="material-icons">email</span>
+          </div>
+        </div>
+        <h3>Email</h3>
+        <p>
+          <a href="mailto:{{ contactInfo.email }}">{{ contactInfo.email }}</a>
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <div class="icon-placeholder">
+            <span class="material-icons">phone</span>
+          </div>
+        </div>
+        <h3>Phone</h3>
+        <p>{{ contactInfo.phone }}</p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <div class="icon-placeholder">
+            <span class="material-icons">location_on</span>
+          </div>
+        </div>
+        <h3>Location</h3>
+        <p>{{ contactInfo.location }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-form-section animate-on-scroll">
+    <div class="section-title">Send Me a Message</div>
+    <div class="form-container">
+      <form
+        [formGroup]="contactForm"
+        (ngSubmit)="onSubmit()"
+        class="contact-form"
+      >
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            [ngClass]="{ invalid: formSubmitted && nameControl?.invalid }"
+          />
+          <div
+            class="error-message"
+            *ngIf="formSubmitted && nameControl?.invalid"
+          >
+            <span *ngIf="nameControl?.errors?.['required']"
+              >Name is required</span
+            >
+            <span *ngIf="nameControl?.errors?.['minlength']"
+              >Name must be at least 2 characters</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            [ngClass]="{ invalid: formSubmitted && emailControl?.invalid }"
+          />
+          <div
+            class="error-message"
+            *ngIf="formSubmitted && emailControl?.invalid"
+          >
+            <span *ngIf="emailControl?.errors?.['required']"
+              >Email is required</span
+            >
+            <span *ngIf="emailControl?.errors?.['email']"
+              >Please enter a valid email</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input
+            type="text"
+            id="subject"
+            formControlName="subject"
+            [ngClass]="{ invalid: formSubmitted && subjectControl?.invalid }"
+          />
+          <div
+            class="error-message"
+            *ngIf="formSubmitted && subjectControl?.invalid"
+          >
+            <span *ngIf="subjectControl?.errors?.['required']"
+              >Subject is required</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            formControlName="message"
+            rows="6"
+            [ngClass]="{ invalid: formSubmitted && messageControl?.invalid }"
+          ></textarea>
+          <div
+            class="error-message"
+            *ngIf="formSubmitted && messageControl?.invalid"
+          >
+            <span *ngIf="messageControl?.errors?.['required']"
+              >Message is required</span
+            >
+            <span *ngIf="messageControl?.errors?.['minlength']"
+              >Message must be at least 10 characters</span
+            >
+          </div>
+        </div>
+
+        <button type="submit" class="submit-button">Send Message</button>
+
+        <div class="form-status">
+          <div class="success-message" *ngIf="formSuccess">
+            Your message has been sent successfully! I'll get back to you soon.
+          </div>
+          <div class="error-message form-error" *ngIf="formError">
+            There was an error sending your message. Please check the form and
+            try again.
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="social-connect animate-on-scroll">
+    <div class="section-title">Connect With Me</div>
+    <div class="social-links">
+      <a
+        *ngFor="let link of socialLinks"
+        [href]="link.url"
+        target="_blank"
+        class="social-link"
+      >
+        <span class="social-name">{{ link.name }}</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="faq animate-on-scroll">
+    <div class="section-title">Frequently Asked Questions</div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3>What services do you offer?</h3>
+        <p>
+          I specialize in full-stack web development, responsive design, and
+          modern JavaScript frameworks like Angular, React, and Vue. I can help
+          with everything from simple websites to complex web applications.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What is your typical project timeline?</h3>
+        <p>
+          Project timelines vary based on complexity and scope. A simple website
+          might take 2-4 weeks, while a complex web application could take 2-3
+          months. I'll provide a detailed timeline during our initial
+          consultation.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do you offer maintenance after project completion?</h3>
+        <p>
+          Yes, I offer ongoing maintenance and support packages to ensure your
+          website or application continues to run smoothly after launch. We can
+          discuss these options based on your specific needs.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do we get started on a project?</h3>
+        <p>
+          The first step is to reach out through the contact form above. We'll
+          schedule an initial consultation to discuss your project requirements,
+          goals, and timeline. From there, I'll provide a proposal and we can
+          move forward.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

@@ -19,18 +19,21 @@ export class HomeComponent implements AfterViewInit {
     });
 
     // Первоначальная проверка видимых элементов
-    this.checkVisibility();
+    setTimeout(() => {
+      this.checkVisibility();
+    }, 100);
   }
 
-  @HostListener('window:scroll')
+  @HostListener('window:scroll', ['$event'])
   checkVisibility() {
     const elements = document.querySelectorAll('.animate-on-scroll');
 
     elements.forEach(element => {
       const position = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-      // Если элемент виден в окне просмотра
-      if (position.top < window.innerHeight * 0.8) {
+      // Если элемент виден в окне просмотра (с небольшим запасом)
+      if (position.top < windowHeight * 0.85 && position.bottom > 0) {
         element.classList.add('visible');
       }
     });
