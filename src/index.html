@@ -16,6 +16,18 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <script>
+      // Проверяем, есть ли сохраненный путь
+      (function () {
+        const redirectPath = sessionStorage.getItem("redirectPath");
+        if (redirectPath && redirectPath !== window.location.pathname) {
+          // Удаляем путь из sessionStorage
+          sessionStorage.removeItem("redirectPath");
+          // Заменяем текущий путь на сохраненный
+          history.replaceState(null, null, redirectPath);
+        }
+      })();
+    </script>
   </head>
   <body>
     <app-root></app-root>
