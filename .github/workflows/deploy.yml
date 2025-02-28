@@ -31,7 +31,9 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build -- --base-href=/visions.shkrsltn/
+        run: |
+          npm run build -- --base-href=/visions.shkrsltn/
+          cp dist/visions.shkrsltn/browser/index.html dist/visions.shkrsltn/browser/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
