@@ -1,0 +1,31 @@
+<div class="project-card">
+  <div class="project-image">
+    <div class="image-placeholder"></div>
+  </div>
+  <h3>{{ project.title }}</h3>
+  <p>{{ project.description }}</p>
+  <div class="project-tech">
+    <span *ngFor="let tech of project.technologies.slice(0, maxTechnologies)">{{
+      tech
+    }}</span>
+    <span *ngIf="project.technologies.length > maxTechnologies"
+      >+{{ project.technologies.length - maxTechnologies }}</span
+    >
+  </div>
+  <div class="project-card-links" *ngIf="displayMode === 'full'">
+    <a
+      [href]="project.demoLink"
+      target="_blank"
+      class="card-link"
+      *ngIf="project.demoLink"
+      >Demo</a
+    >
+    <a
+      [href]="project.codeLink"
+      target="_blank"
+      class="card-link"
+      *ngIf="project.codeLink"
+      >Code</a
+    >
+  </div>
+</div>

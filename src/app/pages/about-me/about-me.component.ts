@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HeroComponent } from '../../shared/components/hero/hero.component';
 
 
 interface Skill {
@@ -12,7 +13,7 @@ interface Skill {
 @Component({
   selector: 'app-about-me',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, HeroComponent],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss'
 })

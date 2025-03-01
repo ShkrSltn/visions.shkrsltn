@@ -1,11 +1,12 @@
 import { Component, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HeroComponent } from '../../shared/components/hero/hero.component';
 
 @Component({
   selector: 'app-contact-me',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HeroComponent],
   templateUrl: './contact-me.component.html',
   styleUrl: './contact-me.component.scss'
 })

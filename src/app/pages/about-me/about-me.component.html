@@ -1,10 +1,6 @@
-<div class="about-me-container">
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="animate-in">ABOUT ME</h1>
-      <p class="subtitle animate-in">Fullstack Developer & Computer Engineer</p>
-    </div>
-  </section>
+<div class="about-me-container container">
+  <app-hero title="ABOUT ME" subtitle="Fullstack Developer & Computer Engineer">
+  </app-hero>
 
   <section class="bio animate-on-scroll">
     <div class="section-title">My Journey</div>
@@ -30,12 +26,46 @@
     </div>
   </section>
 
+  <section class="education animate-on-scroll">
+    <div class="section-title">Education</div>
+
+    <!-- Вертикальная временная шкала -->
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Bachelor's in Computer Engineering</h3>
+          <p class="timeline-date">20XX - 20XX</p>
+          <p class="timeline-institution">University Name</p>
+          <p class="timeline-description">
+            Studied computer architecture, algorithms, data structures, and
+            software engineering principles. Developed strong problem-solving
+            skills and a deep understanding of computing systems.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Relevant Certifications</h3>
+          <p class="timeline-date">20XX - Present</p>
+          <p class="timeline-description">
+            Continuously expanding my knowledge through various certifications
+            and online courses in web development, cloud technologies, and
+            software engineering best practices.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="skills animate-on-scroll">
     <div class="section-title">Skills & Expertise</div>
     <div class="skills-content">
       <div class="skill-category">
         <div class="category-number">01</div>
-        <h3>Frontend Development</h3>
+        <h3>Frontend</h3>
         <div class="skills-layers">
           <div
             class="skill-layer"
@@ -55,7 +85,7 @@
 
       <div class="skill-category">
         <div class="category-number">02</div>
-        <h3>Backend Development</h3>
+        <h3>Backend</h3>
         <div class="skills-layers">
           <div
             class="skill-layer"
@@ -96,46 +126,18 @@
   </section>
 
   <section class="education animate-on-scroll">
-    <div class="section-title">Education</div>
-
-    <!-- Вертикальная временная шкала -->
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>Bachelor's in Computer Engineering</h3>
-          <p class="timeline-date">20XX - 20XX</p>
-          <p class="timeline-institution">University Name</p>
-          <p class="timeline-description">
-            Studied computer architecture, algorithms, data structures, and
-            software engineering principles. Developed strong problem-solving
-            skills and a deep understanding of computing systems.
-          </p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>Relevant Certifications</h3>
-          <p class="timeline-date">20XX - Present</p>
-          <p class="timeline-description">
-            Continuously expanding my knowledge through various certifications
-            and online courses in web development, cloud technologies, and
-            software engineering best practices.
-          </p>
-        </div>
-      </div>
-    </div>
-
     <!-- Горизонтальная временная шкала карьеры -->
     <div class="career-path animate-on-scroll">
       <div class="section-title">Career Journey</div>
       <div class="horizontal-timeline">
-        <div class="timeline-track"></div>
+        <div class="timeline-track">
+          <div class="timeline-progress"></div>
+        </div>
 
         <div class="timeline-event">
-          <div class="event-dot"></div>
+          <div class="event-dot">
+            <div class="dot-pulse"></div>
+          </div>
           <div class="event-content">
             <div class="event-number">01</div>
             <h4>Education</h4>
@@ -145,7 +147,9 @@
         </div>
 
         <div class="timeline-event">
-          <div class="event-dot"></div>
+          <div class="event-dot">
+            <div class="dot-pulse"></div>
+          </div>
           <div class="event-content">
             <div class="event-number">02</div>
             <h4>First Project</h4>
@@ -155,7 +159,9 @@
         </div>
 
         <div class="timeline-event">
-          <div class="event-dot"></div>
+          <div class="event-dot">
+            <div class="dot-pulse"></div>
+          </div>
           <div class="event-content">
             <div class="event-number">03</div>
             <h4>Freelance Work</h4>
@@ -165,7 +171,9 @@
         </div>
 
         <div class="timeline-event current">
-          <div class="event-dot"></div>
+          <div class="event-dot">
+            <div class="dot-pulse"></div>
+          </div>
           <div class="event-content">
             <div class="event-number">04</div>
             <h4>Internship</h4>
@@ -175,7 +183,9 @@
         </div>
 
         <div class="timeline-event future">
-          <div class="event-dot"></div>
+          <div class="event-dot">
+            <div class="dot-pulse"></div>
+          </div>
           <div class="event-content">
             <div class="event-number">05</div>
             <h4>Future Goals</h4>

@@ -1,17 +1,17 @@
-<div class="projects-container">
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="animate-in">PROJECTS</h1>
-      <p class="subtitle animate-in">
-        Showcasing my work and technical expertise
-      </p>
-    </div>
-  </section>
+<div class="projects-container container">
+  <app-hero
+    title="PROJECTS"
+    subtitle="Showcasing my work and technical expertise"
+  >
+  </app-hero>
 
   <section class="featured-projects animate-on-scroll">
     <div class="section-title">Featured Projects</div>
     <div class="featured-grid">
-      <div class="featured-project" *ngFor="let project of featuredProjects">
+      <div
+        class="featured-project"
+        *ngFor="let project of featuredProjects; let last = last"
+      >
         <div class="project-image">
           <div class="image-placeholder"></div>
         </div>
@@ -26,48 +26,29 @@
               [href]="project.demoLink"
               target="_blank"
               class="project-link demo"
+              *ngIf="project.demoLink"
               >Live Demo</a
             >
             <a
               [href]="project.codeLink"
               target="_blank"
               class="project-link code"
+              *ngIf="project.codeLink"
               >View Code</a
             >
           </div>
         </div>
+        <div class="project-divider" *ngIf="!last"></div>
       </div>
     </div>
   </section>
 
-  <section class="project-showcase animate-on-scroll">
-    <div class="section-title">More Projects</div>
-    <div class="projects-grid">
-      <div class="project-card" *ngFor="let project of otherProjects">
-        <div class="project-image">
-          <div class="image-placeholder"></div>
-        </div>
-        <h3>{{ project.title }}</h3>
-        <p>{{ project.description }}</p>
-        <div class="project-tech">
-          <span *ngFor="let tech of project.technologies.slice(0, 3)">{{
-            tech
-          }}</span>
-          <span *ngIf="project.technologies.length > 3"
-            >+{{ project.technologies.length - 3 }}</span
-          >
-        </div>
-        <div class="project-card-links">
-          <a [href]="project.demoLink" target="_blank" class="card-link"
-            >Demo</a
-          >
-          <a [href]="project.codeLink" target="_blank" class="card-link"
-            >Code</a
-          >
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-projects-section
+    [title]="'More Projects'"
+    [projects]="otherProjects"
+    [displayMode]="'full'"
+    [maxTechnologies]="3"
+  ></app-projects-section>
 
   <section class="project-process animate-on-scroll">
     <div class="section-title">My Development Process</div>

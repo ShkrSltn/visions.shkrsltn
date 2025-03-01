@@ -1,0 +1,111 @@
+{
+  "frontendSkills": [
+    {
+      "name": "HTML5 & CSS3",
+      "level": "Advanced",
+      "description": "Создание адаптивных, доступных и семантически структурированных веб-страниц с использованием современных CSS-техник, включая Grid и Flexbox."
+    },
+    {
+      "name": "JavaScript",
+      "level": "Advanced",
+      "description": "Разработка интерактивных веб-приложений с использованием возможностей ES6+, асинхронного программирования и манипуляций с DOM."
+    },
+    {
+      "name": "TypeScript",
+      "level": "Intermediate",
+      "description": "Разработка типобезопасных приложений с использованием интерфейсов, дженериков и продвинутых возможностей типизации."
+    },
+    {
+      "name": "Angular",
+      "level": "Intermediate",
+      "description": "Создание компонентно-ориентированных приложений с использованием сервисов, маршрутизации и управления состоянием."
+    },
+    {
+      "name": "React",
+      "level": "Beginner",
+      "description": "Создание UI-компонентов с использованием хуков, Context API и функциональных паттернов программирования."
+    }
+  ],
+  "backendSkills": [
+    {
+      "name": "Node.js",
+      "level": "Intermediate",
+      "description": "Разработка серверных приложений с использованием событийно-ориентированной архитектуры и неблокирующих операций ввода-вывода."
+    },
+    {
+      "name": "Express",
+      "level": "Intermediate",
+      "description": "Создание RESTful API с использованием middleware, маршрутизации и обработки ошибок."
+    },
+    {
+      "name": "MongoDB",
+      "level": "Beginner",
+      "description": "Проектирование схем NoSQL баз данных и выполнение CRUD-операций с использованием Mongoose ODM."
+    },
+    {
+      "name": "SQL",
+      "level": "Beginner",
+      "description": "Работа с реляционными базами данных, написание запросов и управление отношениями в базе данных."
+    },
+    {
+      "name": "Java",
+      "level": "Intermediate",
+      "description": "Разработка корпоративных приложений с использованием Spring Boot и других фреймворков."
+    },
+    {
+      "name": "Python",
+      "level": "Intermediate",
+      "description": "Создание скриптов автоматизации, анализ данных и разработка веб-приложений с использованием Django и Flask."
+    }
+  ],
+  "otherSkills": [
+    {
+      "name": "Git & GitHub",
+      "level": "Advanced",
+      "description": "Контроль версий, совместная разработка, стратегии ветвления и рабочие процессы CI/CD."
+    },
+    {
+      "name": "RESTful APIs",
+      "level": "Intermediate",
+      "description": "Проектирование и использование API в соответствии с принципами REST, с правильными кодами состояния и обработкой ошибок."
+    },
+    {
+      "name": "Responsive Design",
+      "level": "Advanced",
+      "description": "Создание макетов, адаптирующихся к различным размерам экрана, с использованием медиа-запросов и подхода mobile-first."
+    },
+    {
+      "name": "Problem Solving",
+      "level": "Advanced",
+      "description": "Аналитическое мышление, отладка сложных проблем и реализация эффективных решений."
+    },
+    {
+      "name": "Docker",
+      "level": "Intermediate",
+      "description": "Контейнеризация приложений, создание и управление Docker-образами и контейнерами."
+    },
+    {
+      "name": "CI/CD",
+      "level": "Intermediate",
+      "description": "Настройка и поддержка конвейеров непрерывной интеграции и доставки с использованием GitHub Actions, Jenkins и других инструментов."
+    }
+  ],
+  "techStack": [
+    "JavaScript",
+    "TypeScript",
+    "Angular",
+    "React",
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "SQL",
+    "Python",
+    "Django",
+    "Java",
+    "Spring Boot",
+    "C#",
+    "Git",
+    "Docker",
+    "CI/CD"
+  ]
+}

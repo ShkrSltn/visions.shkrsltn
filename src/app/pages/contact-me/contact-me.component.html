@@ -1,12 +1,9 @@
-<div class="contact-container">
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="animate-in">GET IN TOUCH</h1>
-      <p class="subtitle animate-in">
-        Let's discuss your project or opportunity
-      </p>
-    </div>
-  </section>
+<div class="contact-container container">
+  <app-hero
+    title="GET IN TOUCH"
+    subtitle="Let's discuss your project or opportunity"
+  >
+  </app-hero>
 
   <section class="contact-info animate-on-scroll">
     <div class="section-title">Contact Information</div>
@@ -41,6 +38,48 @@
         </div>
         <h3>Location</h3>
         <p>{{ contactInfo.location }}</p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <div class="icon-placeholder">
+            <span class="material-icons">code</span>
+          </div>
+        </div>
+        <h3>GitHub</h3>
+        <p>
+          <a href="{{ socialLinks[0].url }}" target="_blank">{{
+            socialLinks[0].name
+          }}</a>
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <div class="icon-placeholder">
+            <span class="material-icons">business</span>
+          </div>
+        </div>
+        <h3>LinkedIn</h3>
+        <p>
+          <a href="{{ socialLinks[1].url }}" target="_blank">{{
+            socialLinks[1].name
+          }}</a>
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <div class="icon-placeholder">
+            <span class="material-icons">alternate_email</span>
+          </div>
+        </div>
+        <h3>Twitter</h3>
+        <p>
+          <a href="{{ socialLinks[2].url }}" target="_blank">{{
+            socialLinks[2].name
+          }}</a>
+        </p>
       </div>
     </div>
   </section>
@@ -146,63 +185,6 @@
           </div>
         </div>
       </form>
-    </div>
-  </section>
-
-  <section class="social-connect animate-on-scroll">
-    <div class="section-title">Connect With Me</div>
-    <div class="social-links">
-      <a
-        *ngFor="let link of socialLinks"
-        [href]="link.url"
-        target="_blank"
-        class="social-link"
-      >
-        <span class="social-name">{{ link.name }}</span>
-      </a>
-    </div>
-  </section>
-
-  <section class="faq animate-on-scroll">
-    <div class="section-title">Frequently Asked Questions</div>
-    <div class="faq-grid">
-      <div class="faq-item">
-        <h3>What services do you offer?</h3>
-        <p>
-          I specialize in full-stack web development, responsive design, and
-          modern JavaScript frameworks like Angular, React, and Vue. I can help
-          with everything from simple websites to complex web applications.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>What is your typical project timeline?</h3>
-        <p>
-          Project timelines vary based on complexity and scope. A simple website
-          might take 2-4 weeks, while a complex web application could take 2-3
-          months. I'll provide a detailed timeline during our initial
-          consultation.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>Do you offer maintenance after project completion?</h3>
-        <p>
-          Yes, I offer ongoing maintenance and support packages to ensure your
-          website or application continues to run smoothly after launch. We can
-          discuss these options based on your specific needs.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>How do we get started on a project?</h3>
-        <p>
-          The first step is to reach out through the contact form above. We'll
-          schedule an initial consultation to discuss your project requirements,
-          goals, and timeline. From there, I'll provide a proposal and we can
-          move forward.
-        </p>
-      </div>
     </div>
   </section>
 </div>

@@ -22,19 +22,7 @@
           experiences that solve real-world problems.
         </p>
         <div class="tech-stack">
-          <div class="tech-item">JavaScript</div>
-          <div class="tech-item">TypeScript</div>
-          <div class="tech-item">Angular</div>
-          <div class="tech-item">React</div>
-          <div class="tech-item">Python</div>
-          <div class="tech-item">Django</div>
-          <div class="tech-item">PostgreSQL</div>
-          <div class="tech-item">Java</div>
-          <div class="tech-item">Spring Boot</div>
-          <div class="tech-item">C#</div>
-          <div class="tech-item">SQL</div>
-          <div class="tech-item">Git</div>
-          <div class="tech-item">Docker</div>
+          <div class="tech-item" *ngFor="let tech of techStack">{{ tech }}</div>
         </div>
       </div>
       <div class="about-image">
@@ -74,52 +62,12 @@
     </div>
   </section>
 
-  <section class="projects animate-on-scroll">
-    <div class="section-title">Featured Projects</div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-image"></div>
-        <h3>E-Commerce Platform</h3>
-        <p>
-          Full-stack application with secure payment processing, user
-          authentication, and responsive design.
-        </p>
-        <div class="project-tech">
-          <span>Angular</span>
-          <span>Node.js</span>
-          <span>MongoDB</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-image"></div>
-        <h3>Task Management System</h3>
-        <p>
-          Collaborative project management tool with real-time updates and team
-          collaboration features.
-        </p>
-        <div class="project-tech">
-          <span>React</span>
-          <span>Express</span>
-          <span>Socket.io</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-image"></div>
-        <h3>Analytics Dashboard</h3>
-        <p>
-          Data visualization platform with interactive charts and customizable
-          reporting features.
-        </p>
-        <div class="project-tech">
-          <span>TypeScript</span>
-          <span>D3.js</span>
-          <span>PostgreSQL</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-projects-section
+    [title]="'Featured Projects'"
+    [projects]="featuredProjects"
+    [displayMode]="'full'"
+    [maxTechnologies]="3"
+  ></app-projects-section>
 
   <section class="contact animate-on-scroll">
     <div class="section-title">Get In Touch</div>

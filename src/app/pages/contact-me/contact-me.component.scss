@@ -31,45 +31,9 @@
   }
 }
 
-// Hero section
-.hero {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  padding: 0;
-  margin-top: 0;
-
-  &-content {
-    text-align: center;
-    width: 100%;
-
-    h1 {
-      font-size: clamp(3.5rem, 10vw, 12rem);
-      font-weight: 800;
-      line-height: 0.9;
-      margin: 0;
-      letter-spacing: -0.5vw;
-      color: #ffffff;
-      mix-blend-mode: difference;
-    }
-
-    .subtitle {
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      margin-top: 2rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      color: #aeaeae;
-    }
-  }
-}
-
 // Contact Info Section
 .contact-info {
-  padding: 10vh 10vw;
+  padding: 10vh 0;
   opacity: 0;
   transform: translateY(50px);
   transition:
@@ -84,8 +48,8 @@
 
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 4rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
   margin-top: 2rem;
 }
 
@@ -200,8 +164,7 @@
 
 // Contact Form Section
 .contact-form-section {
-  padding: 10vh 10vw;
-  background-color: rgba(255, 255, 255, 0.02);
+  padding: 10vh 0;
   opacity: 0;
   transform: translateY(50px);
   transition:
@@ -306,110 +269,18 @@
   }
 }
 
-// Social Connect Section
-.social-connect {
-  padding: 10vh 10vw;
-  opacity: 0;
-  transform: translateY(50px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
-
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
-}
-
-.social-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  transition: transform 0.3s ease;
-
-  .social-name {
-    color: #ffffff;
-    font-size: 1.2rem;
-    position: relative;
-
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: #ffffff;
-      transition: width 0.3s ease;
-    }
-  }
-
-  &:hover .social-name:after {
-    width: 100%;
-  }
-}
-
-// FAQ Section
-.faq {
-  padding: 10vh 10vw;
-  background-color: rgba(255, 255, 255, 0.02);
-  opacity: 0;
-  transform: translateY(50px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
-
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 3rem;
-}
-
-.faq-item {
-  h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-  }
-
-  p {
-    color: #aeaeae;
-    line-height: 1.6;
-  }
-}
-
-// Animations
-.animate-in {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.8s forwards;
-  animation-delay: calc(var(--animation-order, 0) * 0.2s);
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 // Media queries
+@media (max-width: 992px) {
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
   .contact-form {
     grid-template-columns: 1fr;
 
@@ -418,29 +289,6 @@
     .submit-button,
     .form-status {
       grid-column: span 1;
-    }
-  }
-
-  .social-links {
-    gap: 2rem;
-  }
-
-  .faq-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero {
-    height: 100vh;
-
-    &-content {
-      h1 {
-        font-size: clamp(3rem, 15vw, 8rem);
-        letter-spacing: -0.3vw;
-      }
-
-      .subtitle {
-        font-size: clamp(1.2rem, 2.5vw, 2rem);
-      }
     }
   }
 }
