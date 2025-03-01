@@ -3,91 +3,91 @@
     {
       "name": "HTML5 & CSS3",
       "level": "Advanced",
-      "description": "Создание адаптивных, доступных и семантически структурированных веб-страниц с использованием современных CSS-техник, включая Grid и Flexbox."
+      "description": "Creating responsive, accessible, and semantically structured web pages using modern CSS techniques, including Grid and Flexbox."
     },
     {
       "name": "JavaScript",
       "level": "Advanced",
-      "description": "Разработка интерактивных веб-приложений с использованием возможностей ES6+, асинхронного программирования и манипуляций с DOM."
+      "description": "Developing interactive web applications using ES6+ features, asynchronous programming, and DOM manipulation."
     },
     {
       "name": "TypeScript",
       "level": "Intermediate",
-      "description": "Разработка типобезопасных приложений с использованием интерфейсов, дженериков и продвинутых возможностей типизации."
+      "description": "Developing type-safe applications using interfaces, generics, and advanced typing capabilities."
     },
     {
       "name": "Angular",
       "level": "Intermediate",
-      "description": "Создание компонентно-ориентированных приложений с использованием сервисов, маршрутизации и управления состоянием."
+      "description": "Creating component-oriented applications using services, routing, and state management."
     },
     {
       "name": "React",
       "level": "Beginner",
-      "description": "Создание UI-компонентов с использованием хуков, Context API и функциональных паттернов программирования."
+      "description": "Building UI components using hooks, Context API, and functional programming patterns."
     }
   ],
   "backendSkills": [
     {
       "name": "Node.js",
       "level": "Intermediate",
-      "description": "Разработка серверных приложений с использованием событийно-ориентированной архитектуры и неблокирующих операций ввода-вывода."
+      "description": "Developing server applications using event-driven architecture and non-blocking I/O operations."
     },
     {
       "name": "Express",
       "level": "Intermediate",
-      "description": "Создание RESTful API с использованием middleware, маршрутизации и обработки ошибок."
+      "description": "Creating RESTful APIs using middleware, routing, and error handling."
     },
     {
       "name": "MongoDB",
       "level": "Beginner",
-      "description": "Проектирование схем NoSQL баз данных и выполнение CRUD-операций с использованием Mongoose ODM."
+      "description": "Designing NoSQL database schemas and performing CRUD operations using Mongoose ODM."
     },
     {
       "name": "SQL",
       "level": "Beginner",
-      "description": "Работа с реляционными базами данных, написание запросов и управление отношениями в базе данных."
+      "description": "Working with relational databases, writing queries, and managing database relationships."
     },
     {
       "name": "Java",
       "level": "Intermediate",
-      "description": "Разработка корпоративных приложений с использованием Spring Boot и других фреймворков."
+      "description": "Developing enterprise applications using Spring Boot and other frameworks."
     },
     {
       "name": "Python",
       "level": "Intermediate",
-      "description": "Создание скриптов автоматизации, анализ данных и разработка веб-приложений с использованием Django и Flask."
+      "description": "Creating automation scripts, data analysis, and developing web applications using Django and Flask."
     }
   ],
   "otherSkills": [
     {
       "name": "Git & GitHub",
       "level": "Advanced",
-      "description": "Контроль версий, совместная разработка, стратегии ветвления и рабочие процессы CI/CD."
+      "description": "Version control, collaborative development, branching strategies, and CI/CD workflows."
     },
     {
       "name": "RESTful APIs",
       "level": "Intermediate",
-      "description": "Проектирование и использование API в соответствии с принципами REST, с правильными кодами состояния и обработкой ошибок."
+      "description": "Designing and consuming APIs according to REST principles, with proper status codes and error handling."
     },
     {
       "name": "Responsive Design",
       "level": "Advanced",
-      "description": "Создание макетов, адаптирующихся к различным размерам экрана, с использованием медиа-запросов и подхода mobile-first."
+      "description": "Creating layouts that adapt to different screen sizes using media queries and mobile-first approach."
     },
     {
       "name": "Problem Solving",
       "level": "Advanced",
-      "description": "Аналитическое мышление, отладка сложных проблем и реализация эффективных решений."
+      "description": "Analytical thinking, debugging complex issues, and implementing efficient solutions."
     },
     {
       "name": "Docker",
       "level": "Intermediate",
-      "description": "Контейнеризация приложений, создание и управление Docker-образами и контейнерами."
+      "description": "Containerizing applications, creating and managing Docker images and containers."
     },
     {
       "name": "CI/CD",
       "level": "Intermediate",
-      "description": "Настройка и поддержка конвейеров непрерывной интеграции и доставки с использованием GitHub Actions, Jenkins и других инструментов."
+      "description": "Setting up and maintaining continuous integration and delivery pipelines using GitHub Actions, Jenkins, and other tools."
     }
   ],
   "techStack": [
