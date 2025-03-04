@@ -14,12 +14,14 @@
     <div class="section-title">About Me</div>
     <div class="about-content">
       <div class="about-text">
-        <h2>Developer, just a guy who loves to code</h2>
+        <h2>Hey!</h2>
         <p>
-          I'm a passionate Fullstack Developer with expertise in building modern
-          web applications. With a strong foundation in both frontend and
-          backend technologies, I create seamless, user-centered digital
-          experiences that solve real-world problems.
+          I'm Shakir, I'm 24 years old, I'm from Ukraine but I'm a Meskhetian
+          Turk now living in Switzerland. I could write a cool text here to seem
+          "cool" to you, but I am a person who loves simplicity, and I will just
+          say that I love IT. I love to get on with life and develop, I love to
+          learn, I love to create cool things. I do as much as I can, and I
+          always will.
         </p>
         <div class="tech-stack">
           <div class="tech-item" *ngFor="let tech of techStack">{{ tech }}</div>
@@ -35,29 +37,28 @@
   <section class="sections">
     <div class="section animate-on-scroll">
       <div class="section-number">01</div>
-      <h2>CREATE</h2>
+      <h2>BUILD</h2>
       <p class="section-description">
-        Building innovative web applications with clean, efficient code and
-        intuitive user interfaces that deliver exceptional user experiences.
+        Crafting clean, efficient solutions that solve real problems. I believe
+        simplicity is the ultimate sophistication.
       </p>
     </div>
 
     <div class="section animate-on-scroll">
       <div class="section-number">02</div>
-      <h2>DISCOVER</h2>
+      <h2>LEARN</h2>
       <p class="section-description">
-        Exploring new technologies and methodologies to continuously improve and
-        optimize development processes and solutions.
+        Every project is a learning opportunity. I'm constantly exploring new
+        technologies and refining my skills.
       </p>
     </div>
 
     <div class="section animate-on-scroll">
       <div class="section-number">03</div>
-      <h2>CONNECT</h2>
+      <h2>GROW</h2>
       <p class="section-description">
-        Collaborating with teams and clients to transform ideas into reality,
-        ensuring communication and shared vision throughout the development
-        lifecycle.
+        Embracing challenges and feedback to become better each day. The journey
+        is as important as the destination.
       </p>
     </div>
   </section>
@@ -77,11 +78,14 @@
       opportunities to be part of your vision.
     </p>
     <div class="contact-links">
-      <a href="mailto:contact@shkrsltnv.com" class="contact-button">Email Me</a>
+      <a href="{{ emailLink }}" class="contact-button">Email Me</a>
       <div class="social-links">
-        <a href="#" class="social-link">GitHub</a>
-        <a href="#" class="social-link">LinkedIn</a>
-        <a href="#" class="social-link">Twitter</a>
+        <a target="_blank" href="{{ gitHubLink }}" class="social-link"
+          >GitHub</a
+        >
+        <a target="_blank" href="{{ linkedInLink }}" class="social-link"
+          >LinkedIn</a
+        >
       </div>
     </div>
   </section>

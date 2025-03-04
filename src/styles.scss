@@ -1,4 +1,83 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  // Base colors
+  --background-primary: #0f0f0f;
+  --background-secondary: #1a1a1a;
+  --background-tertiary: rgba(255, 255, 255, 0.05);
+  --background-hover: rgba(255, 255, 255, 0.1);
+
+  // Text colors
+  --text-primary: #ffffff;
+  --text-secondary: #aeaeae;
+  --text-muted: #666;
+
+  // Accent colors
+  --accent-color: #83bc8d;
+  --accent-color-transparent: rgba(131, 188, 141, 0.3);
+
+  // Border colors
+  --border-color: rgba(255, 255, 255, 0.1);
+  --separator-color: #363636;
+
+  // Shadow colors
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --accent-shadow: rgba(131, 188, 141, 0.5);
+
+  // Skill level colors
+  --skill-beginner: #a1887f;
+  --skill-intermediate: #795548;
+  --skill-advanced: #6c7a89;
+  --skill-expert: #34495e;
+
+  // Button colors
+  --button-background: #ffffff;
+  --button-text: #0f0f0f;
+  --button-hover: #aeaeae;
+
+  // Form colors
+  --form-background: rgba(255, 255, 255, 0.05);
+  --form-border: rgba(255, 255, 255, 0.1);
+  --form-focus-border: rgba(255, 255, 255, 0.3);
+  --form-error: #ff4d4d;
+  --form-success: #4caf50;
+}
+
+// Light theme variables
+.light-theme {
+  --background-primary: #ffffff;
+  --background-secondary: #f5f5f5;
+  --background-tertiary: rgba(0, 0, 0, 0.05);
+  --background-hover: rgba(0, 0, 0, 0.1);
+
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+
+  --accent-color: #4a8c57;
+  --accent-color-transparent: rgba(74, 140, 87, 0.3);
+
+  --border-color: rgba(0, 0, 0, 0.1);
+  --separator-color: #dddddd;
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --accent-shadow: rgba(74, 140, 87, 0.3);
+
+  --skill-beginner: #d7ccc8;
+  --skill-intermediate: #bcaaa4;
+  --skill-advanced: #a1887f;
+  --skill-expert: #8d6e63;
+
+  --button-background: #4a8c57;
+  --button-text: #ffffff;
+  --button-hover: #3a7045;
+
+  --form-background: rgba(0, 0, 0, 0.03);
+  --form-border: rgba(0, 0, 0, 0.1);
+  --form-focus-border: rgba(0, 0, 0, 0.3);
+  --form-error: #e53935;
+  --form-success: #43a047;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,7 +87,11 @@
 body {
   font-family: "Montserrat", Arial, sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: var(--text-primary);
+  background-color: var(--background-primary);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 h1,
@@ -19,6 +102,7 @@ h5,
 h6 {
   font-weight: 500;
   line-height: 1.2;
+  color: var(--text-primary);
 }
 
 h1 {

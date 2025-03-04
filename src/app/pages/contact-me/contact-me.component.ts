@@ -11,21 +11,25 @@ import { HeroComponent } from '../../shared/components/hero/hero.component';
   styleUrl: './contact-me.component.scss'
 })
 export class ContactMeComponent implements AfterViewInit {
+  gitHubLink = 'https://github.com/ShkrSltn';
+  linkedInLink = 'https://www.linkedin.com/in/shkrsltn/';
+  emailLink = 'mailto:sultanovshakir12@gmail.com';
+
   contactForm: FormGroup;
   formSubmitted = false;
   formSuccess = false;
   formError = false;
 
   contactInfo = {
-    email: 'contact@shkrsltnv.com',
-    phone: '+076 454 74 13',
+    email: 'sultanovshakir12@gmail.com',
+    phone: '+41 76 454 74 13',
     location: 'Switzerland, Zurich'
   };
 
   socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/username', icon: 'github' },
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/username', icon: 'linkedin' },
-    { name: 'Twitter', url: 'https://twitter.com/username', icon: 'twitter' }
+    { name: 'GitHub', url: this.gitHubLink, icon: 'github' },
+    { name: 'LinkedIn', url: this.linkedInLink, icon: 'linkedin' },
+    { name: 'Email', url: this.emailLink, icon: 'email' }
   ];
 
   constructor(private fb: FormBuilder) {

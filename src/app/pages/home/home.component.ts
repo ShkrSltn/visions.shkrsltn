@@ -13,6 +13,9 @@ import { ProjectsSectionComponent } from '../../shared/components/projects-secti
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements AfterViewInit, OnInit {
+  gitHubLink = 'https://github.com/ShkrSltn';
+  linkedInLink = 'https://www.linkedin.com/in/shkrsltn/';
+  emailLink = 'mailto:sultanovshakir12@gmail.com';
   featuredProjects: Project[] = [];
   techStack: string[] = [];
 
@@ -26,7 +29,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       this.featuredProjects = data.featuredProjects;
     });
 
-    this.http.get<any>('./assets/data/skills.json').subscribe(data => {
+    this.http.get<any>('../../assets/data/skills.json').subscribe(data => {
       this.techStack = data.techStack;
     });
   }
