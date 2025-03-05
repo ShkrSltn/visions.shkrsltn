@@ -5,7 +5,10 @@
     <div class="section-title">My Journey</div>
     <div class="bio-content">
       <div class="bio-image">
-        <div class="image-placeholder"></div>
+        <img src="../../../assets/images/Shakir-2.jpg" alt="Shakir's photo" />
+        <div class="image-caption">
+          Its me, and I am not dead, its just black and white style :)
+        </div>
       </div>
       <div class="bio-text">
         <h2>Hello, I'm Shakir</h2>
@@ -134,7 +137,7 @@
           >
             <div class="skill-header">
               <div class="skill-name">{{ skill.name }}</div>
-              <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
+              <div class="skill-level" [ngClass]="skill.level">
                 {{ skill.level }}
               </div>
             </div>

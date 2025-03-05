@@ -20,8 +20,8 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(data => {
-      this.featuredProjects = data.featuredProjects;
-      this.otherProjects = data.otherProjects;
+      this.featuredProjects = data.featuredProjects.filter(project => project.featured);
+      this.otherProjects = data.featuredProjects.filter(project => !project.featured);
     });
   }
 

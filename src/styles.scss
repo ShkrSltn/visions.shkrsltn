@@ -185,3 +185,22 @@ a {
     font-size: 1.5rem;
   }
 }
+
+@keyframes ripple-animation {
+  from {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animation 0.8s ease-out forwards;
+  pointer-events: none;
+}

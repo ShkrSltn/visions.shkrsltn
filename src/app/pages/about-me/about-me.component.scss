@@ -66,10 +66,38 @@
   gap: 3rem;
 
   .bio-image {
-    flex: 1; // Элемент занимает 1 часть доступного пространства flex-контейнера
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 2rem;
+
+    img {
+      width: 100%;
+      height: calc(100% - 200px);
+      border-radius: 8px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      filter: grayscale(100%);
+    }
+
+    .image-caption {
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aeaeae;
+      font-style: italic;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover .image-caption {
+      opacity: 1;
+    }
 
     .image-placeholder {
-      height: 100%;
       width: 100%;
       aspect-ratio: 3/4;
       background-color: #1a1a1a;
@@ -78,7 +106,7 @@
   }
 
   .bio-text {
-    flex: 1.8;
+    flex: 1.2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -215,6 +243,8 @@
   }
 
   .skill-level {
+    display: flex;
+    align-items: center;
     font-size: 0.9rem;
     font-weight: 400;
     color: #aeaeae;
@@ -235,19 +265,7 @@
       border-radius: 50%;
     }
 
-    &.beginner:before {
-      background-color: #a1887f;
-    }
-
-    &.intermediate:before {
-      background-color: #795548;
-    }
-
-    &.advanced:before {
-      background-color: #6c7a89;
-    }
-
-    &.expert:before {
+    &:before {
       background-color: #34495e;
     }
   }

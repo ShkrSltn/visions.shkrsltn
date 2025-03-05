@@ -2,92 +2,112 @@
   "frontendSkills": [
     {
       "name": "HTML5 & CSS3",
-      "level": "Advanced",
+      "level": "Good enough",
       "description": "Creating responsive, accessible, and semantically structured web pages using modern CSS techniques, including Grid and Flexbox."
     },
     {
       "name": "JavaScript",
-      "level": "Advanced",
+      "level": "Good enough",
       "description": "Developing interactive web applications using ES6+ features, asynchronous programming, and DOM manipulation."
     },
     {
       "name": "TypeScript",
-      "level": "Intermediate",
+      "level": "Not bad",
       "description": "Developing type-safe applications using interfaces, generics, and advanced typing capabilities."
     },
     {
       "name": "Angular",
-      "level": "Intermediate",
+      "level": "I think not bad",
       "description": "Creating component-oriented applications using services, routing, and state management."
     },
     {
-      "name": "React",
-      "level": "Beginner",
-      "description": "Building UI components using hooks, Context API, and functional programming patterns."
+      "name":"Vue.js",
+      "level":"A lot",
+      "description":"Have experience with Vue.js, we are using Vue in almost every our projects."
+    },
+    {
+      "name":"React",
+      "level":"Basic knowledge",
+      "description":"Understanding of component-based architecture, hooks, and state management with Redux."
+    },
+    {
+      "name":"SASS/SCSS",
+      "level":"Comfortable",
+      "description":"Using preprocessors for more maintainable and organized CSS with variables, mixins, and nesting."
     }
   ],
   "backendSkills": [
     {
-      "name": "Node.js",
-      "level": "Intermediate",
+      "name": "Spring Boot",
+      "level": "Worked some",
       "description": "Developing server applications using event-driven architecture and non-blocking I/O operations."
     },
     {
-      "name": "Express",
-      "level": "Intermediate",
+      "name": "FastAPI",
+      "level": "More than enough",
       "description": "Creating RESTful APIs using middleware, routing, and error handling."
     },
     {
-      "name": "MongoDB",
-      "level": "Beginner",
-      "description": "Designing NoSQL database schemas and performing CRUD operations using Mongoose ODM."
+      "name": "PostgreSQL",
+      "level": "I am good at this",
+      "description": "Working with advanced relational database features including indexing, transactions, and stored procedures."
     },
     {
       "name": "SQL",
-      "level": "Beginner",
+      "level": "Good enough",
       "description": "Working with relational databases, writing queries, and managing database relationships."
     },
     {
       "name": "Java",
-      "level": "Intermediate",
+      "level": "More than basics",
       "description": "Developing enterprise applications using Spring Boot and other frameworks."
     },
     {
       "name": "Python",
-      "level": "Intermediate",
+      "level": "Current active",
       "description": "Creating automation scripts, data analysis, and developing web applications using Django and Flask."
+    },
+    {
+      "name":"C#",
+      "level":"Basics",
+      "description":"Knowledge in syntax and understanding object-oriented principles."
     }
   ],
   "otherSkills": [
     {
       "name": "Git & GitHub",
-      "level": "Advanced",
+      "level": "Using every day",
       "description": "Version control, collaborative development, branching strategies, and CI/CD workflows."
     },
     {
       "name": "RESTful APIs",
-      "level": "Intermediate",
+      "level": "Standart way",
       "description": "Designing and consuming APIs according to REST principles, with proper status codes and error handling."
     },
     {
       "name": "Responsive Design",
-      "level": "Advanced",
+      "level": "Should know",
       "description": "Creating layouts that adapt to different screen sizes using media queries and mobile-first approach."
     },
     {
-      "name": "Problem Solving",
-      "level": "Advanced",
-      "description": "Analytical thinking, debugging complex issues, and implementing efficient solutions."
-    },
-    {
       "name": "Docker",
-      "level": "Intermediate",
+      "level": "Did lots of times",
       "description": "Containerizing applications, creating and managing Docker images and containers."
     },
     {
       "name": "CI/CD",
-      "level": "Intermediate",
-      "description": "Setting up and maintaining continuous integration and delivery pipelines using GitHub Actions, Jenkins, and other tools."
+      "level": "Few times",
+      "description": "Setting up and maintaining continuous integration and delivery pipelines using GitHub Actions, GitLab CI/CD, and other tools."
+    },
+    {
+      "name":"Google Cloud",
+      "level":"Have some experience",
+      "description":"Deployed all our projects in BFH to the Googe Cloud, using Docker Cloud Run, Cloud SQL and Artifact registry"
+    },
+    {
+      "name":"Agile Methodologies",
+      "level":"Knowledge",
+      "description":"Cons working for University, had chance to attend at the one week workshops related to the SCRUM and AGILE project management. Which I used in the further working process."
     }
   ],
   "techStack": [
