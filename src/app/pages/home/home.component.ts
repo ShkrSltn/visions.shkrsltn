@@ -16,7 +16,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   gitHubLink = 'https://github.com/ShkrSltn';
   linkedInLink = 'https://www.linkedin.com/in/shkrsltn/';
   emailLink = 'mailto:sultanovshakir12@gmail.com';
-  allProjects: Project[] = [];
+  featuredProjects: Project[] = [];
   techStack: string[] = [];
 
   constructor(
@@ -25,11 +25,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    this.projectService.getAllProjects().subscribe(projects => {
-      this.allProjects = projects;
+    this.projectService.getProjects().subscribe(data => {
+      this.featuredProjects = data.featuredProjects;
     });
 
-    this.http.get<any>('./assets/data/skills.json').subscribe(data => {
+    this.http.get<any>('../../assets/data/skills.json').subscribe(data => {
       this.techStack = data.techStack;
     });
   }
