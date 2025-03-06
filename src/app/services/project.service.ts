@@ -24,6 +24,6 @@ export class ProjectService {
   constructor(private http: HttpClient) {}
 
   getProjects(): Observable<ProjectsData> {
-    return this.http.get<ProjectsData>('./assets/data/projects.json');
+    return this.http.get<ProjectsData>('/assets/data/projects.json');
   }
 }
