@@ -26,7 +26,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(data => {
-      this.featuredProjects = data.featuredProjects;
+      this.featuredProjects = data.featuredProjects.filter(project => project.featured);
     });
 
     this.http.get<any>('./assets/data/skills.json').subscribe(data => {

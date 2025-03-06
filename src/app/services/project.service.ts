@@ -26,4 +26,5 @@ export class ProjectService {
   getProjects(): Observable<ProjectsData> {
     return this.http.get<ProjectsData>('./assets/data/projects.json');
   }
+
 }
