@@ -25,17 +25,7 @@ export class ProjectService {
   constructor(private http: HttpClient) {}
 
   getProjects(): Observable<ProjectsData> {
-    return this.http.get<Project[]>('./assets/data/projects.json').pipe(
-      map(projects => {
-        const featuredProjects = projects.filter(project => project.featured);
-        const otherProjects = projects.filter(project => !project.featured);
-        return {
-          featuredProjects,
-          otherProjects,
-          allProjects: projects
-        };
-      })
-    );
+    return this.http.get<ProjectsData>('./assets/data/projects.json');
   }
 
   getFeaturedProjects(): Observable<Project[]> {
