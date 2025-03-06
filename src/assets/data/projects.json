@@ -1,5 +1,5 @@
 {
-  "featuredProjects": [
+  "projects": [
     {
       "title": "visions.shkrsltn",
       "description": "Modern, responsive portfolio website built with Angular and TailwindCSS, featuring animations and interactive elements",
