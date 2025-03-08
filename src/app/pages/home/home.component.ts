@@ -29,7 +29,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       this.featuredProjects = data.featuredProjects.filter(project => project.featured);
     });
 
-    this.http.get<any>('./assets/data/skills.json').subscribe(data => {
+    this.http.get<any>('/assets/data/skills.json').subscribe(data => {
       this.techStack = data.techStack;
     });
   }

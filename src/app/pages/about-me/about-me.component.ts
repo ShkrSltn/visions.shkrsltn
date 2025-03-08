@@ -36,7 +36,7 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
       backendSkills: Skill[],
       otherSkills: Skill[],
       techStack: string[]
-    }>('./assets/data/skills.json').subscribe(data => {
+    }>('/assets/data/skills.json').subscribe(data => {
       this.frontendSkills = data.frontendSkills;
       this.backendSkills = data.backendSkills;
       this.otherSkills = data.otherSkills;

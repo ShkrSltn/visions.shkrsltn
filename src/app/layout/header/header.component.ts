@@ -13,6 +13,7 @@ export class HeaderComponent {
   logoText: string = 'shkrsltnv';
   fullLogoText:string ='shakirsultanov'
   isScrolled: boolean = false;
+  isMobileMenuOpen: boolean = false;
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -24,6 +25,18 @@ export class HeaderComponent {
       } else {
         headerElement.classList.remove('scrolled');
       }
+    }
+  }
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    document.body.classList.toggle('no-scroll', this.isMobileMenuOpen);
+  }
+
+  closeMobileMenu() {
+    if (this.isMobileMenuOpen) {
+      this.isMobileMenuOpen = false;
+      document.body.classList.remove('no-scroll');
     }
   }
 }

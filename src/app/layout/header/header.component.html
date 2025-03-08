@@ -1,14 +1,46 @@
-<header>
+<header [class.scrolled]="isScrolled">
   <nav>
     <a class="logo" routerLink="/">
       <h1>shkrsltnv</h1>
     </a>
 
-    <ul>
-      <li><a routerLink="/" class="nav-link">Home</a></li>
-      <li><a routerLink="/about-me" class="nav-link">About</a></li>
-      <li><a routerLink="/projects" class="nav-link">Projects</a></li>
-      <li><a routerLink="/contact" class="nav-link">Contact</a></li>
+    <button
+      class="mobile-menu-toggle"
+      (click)="toggleMobileMenu()"
+      [class.active]="isMobileMenuOpen"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul [class.mobile-menu-open]="isMobileMenuOpen">
+      <li>
+        <a routerLink="/" class="nav-link" (click)="closeMobileMenu()">Home</a>
+      </li>
+      <li>
+        <a routerLink="/about-me" class="nav-link" (click)="closeMobileMenu()"
+          >About</a
+        >
+      </li>
+      <li>
+        <a routerLink="/projects" class="nav-link" (click)="closeMobileMenu()"
+          >Projects</a
+        >
+      </li>
+      <li>
+        <a routerLink="/contact" class="nav-link" (click)="closeMobileMenu()"
+          >Contact</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/ai-assistant"
+          class="nav-link"
+          (click)="closeMobileMenu()"
+          >SHKR AI</a
+        >
+      </li>
     </ul>
   </nav>
 </header>

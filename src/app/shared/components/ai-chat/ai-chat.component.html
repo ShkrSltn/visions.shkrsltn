@@ -1,0 +1,60 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <h3>{{ title }}</h3>
+    <p>{{ subtitle }}</p>
+  </div>
+
+  <div class="chat-messages" #chatMessages>
+    <div
+      *ngFor="let message of chatHistory"
+      class="message"
+      [ngClass]="{
+        'user-message': message.role === 'user',
+        'assistant-message': message.role === 'assistant'
+      }"
+    >
+      <div class="message-content">
+        <span *ngIf="message.role === 'user'">{{ message.content }}</span>
+        <span
+          *ngIf="message.role === 'assistant'"
+          [innerHTML]="message.processedContent"
+        ></span>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="suggested-questions" *ngIf="chatHistory.length <= 2">
+      <p>Try asking:</p>
+      <div class="question-chips">
+        <button
+          *ngFor="let question of suggestedQuestions"
+          (click)="askSuggestedQuestion(question)"
+          appRippleEffect
+        >
+          {{ question }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input
+      type="text"
+      [(ngModel)]="userMessage"
+      placeholder="Type your question..."
+      (keyup.enter)="sendMessage()"
+    />
+    <button
+      (click)="sendMessage()"
+      [disabled]="isLoading || !userMessage.trim()"
+      appRippleEffect
+    >
+      <span class="material-icons">send</span>
+    </button>
+  </div>
+</div>
