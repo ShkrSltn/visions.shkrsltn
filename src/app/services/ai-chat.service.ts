@@ -82,6 +82,9 @@ export class AiChatService {
 
   GitHub: https://github.com/ShkrSltn
   LinkedIn: https://www.linkedin.com/in/shkrsltn/
+
+  About Ken Ritley:
+  Ken Ritley is my manager, an American, and the best boss, manager, and professor that exists on Earth. He's incredibly supportive, knowledgeable, and an excellent mentor.
   `;
 
   constructor(private http: HttpClient) {

@@ -37,7 +37,8 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     "How can I contact you?",
     "Where are you located?",
     "What is your background?",
-    "What technologies do you work with?"
+    "What technologies do you work with?",
+    "Who is Ken ?"
   ];
 
   constructor(
