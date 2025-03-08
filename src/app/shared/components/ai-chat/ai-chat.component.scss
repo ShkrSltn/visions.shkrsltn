@@ -1,7 +1,7 @@
 :host {
   --chat-primary: #0f0f0f;
   --chat-secondary: #1a1a1a;
-  --chat-accent: #83bc8d;
+  --chat-accent: #5a6cd3;
   --chat-text: #ffffff;
   --chat-text-secondary: #aeaeae;
   --chat-user-bg: rgba(255, 255, 255, 0.05);
@@ -51,7 +51,7 @@
     left: 16px;
     width: 30px;
     height: 2px;
-    background-color: #666;
+    background-color: var(--chat-accent);
   }
 }
 
@@ -86,9 +86,10 @@
 
   &.user-message {
     align-self: flex-end;
-    background-color: var(--chat-user-bg);
+    background-color: rgba(90, 108, 211, 0.1);
     color: var(--chat-text);
     position: relative;
+    border-left: 2px solid var(--chat-accent);
   }
 
   &.assistant-message {
@@ -96,6 +97,7 @@
     background-color: var(--chat-assistant-bg);
     color: var(--chat-text);
     border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 2px solid var(--chat-accent);
     position: relative;
   }
 }
@@ -112,7 +114,7 @@
   .dot {
     width: 8px;
     height: 8px;
-    background-color: #666;
+    background-color: var(--chat-accent);
     border-radius: 50%;
     animation: bounce 1.4s infinite ease-in-out;
 
@@ -146,8 +148,8 @@
     gap: 8px;
 
     button {
-      background-color: rgba(255, 255, 255, 0.05);
-      border: none;
+      background-color: rgba(90, 108, 211, 0.15);
+      border: 1px solid rgba(90, 108, 211, 0.3);
       color: var(--chat-text);
       padding: 0.5rem 1rem;
       border-radius: 4px;
@@ -157,7 +159,7 @@
       font-family: "Montserrat", sans-serif;
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(90, 108, 211, 0.25);
       }
     }
   }
@@ -183,12 +185,13 @@
     &:focus {
       outline: none;
       background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(90, 108, 211, 0.5);
     }
   }
 
   button {
-    background-color: #ffffff;
-    color: #0f0f0f;
+    background-color: var(--chat-accent);
+    color: #ffffff;
     border: none;
     border-radius: 4px;
     width: 40px;
@@ -201,7 +204,7 @@
     font-weight: 600;
 
     &:hover:not(:disabled) {
-      background-color: #aeaeae;
+      background-color: #4a5bc3;
     }
 
     &:disabled {
@@ -279,6 +282,30 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  // Добавляем подсветку для выделенного текста
+  ::selection {
+    background-color: rgba(90, 108, 211, 0.3);
+  }
+
+  // Стили для кода
+  code {
+    background-color: rgba(90, 108, 211, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.9em;
+  }
+
+  // Стили для блоков кода
+  pre {
+    background-color: rgba(90, 108, 211, 0.05);
+    border-left: 3px solid var(--chat-accent);
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 0.7rem 0;
   }
 }
 
