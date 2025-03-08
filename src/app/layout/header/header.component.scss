@@ -204,6 +204,10 @@ header.scrolled {
   .nav-link {
     font-size: 1.2rem;
   }
+
+  .nav-link-ai {
+    color: #5a6cd3;
+  }
 }
 
 @media (max-width: 480px) {
@@ -213,6 +217,9 @@ header.scrolled {
 
   .logo h1 {
     font-size: 1.2rem;
+  }
+  .nav-link-ai {
+    color: #5a6cd3;
   }
 }
 
