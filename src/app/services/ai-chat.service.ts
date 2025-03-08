@@ -90,13 +90,25 @@ export class AiChatService {
   }
 
   private loadData(): void {
+    // Cache the observables to avoid multiple HTTP requests
+    const projectsRequest = this.http.get<{ featuredProjects: Project[] }>('assets/data/projects.json').pipe(
+      map(data => {
+        this.projectsData = data;
+        return data;
+      })
+    );
+
+    const skillsRequest = this.http.get<SkillsData>('assets/data/skills.json').pipe(
+      map(data => {
+        this.skillsData = data;
+        return data;
+      })
+    );
+
     forkJoin({
-      projects: this.http.get<{ featuredProjects: Project[] }>('assets/data/projects.json'),
-      skills: this.http.get<SkillsData>('assets/data/skills.json')
-    }).subscribe(data => {
-      this.projectsData = data.projects;
-      this.skillsData = data.skills;
-    });
+      projects: projectsRequest,
+      skills: skillsRequest
+    }).subscribe();
   }
 
   private getProjectsInfo(): string {
@@ -144,19 +156,33 @@ export class AiChatService {
   chat(userMessage: string): Observable<ChatResponse> {
     // Если данные еще не загружены, загрузим их перед отправкой запроса
     if (!this.projectsData || !this.skillsData) {
-      return forkJoin({
-        projects: this.http.get<{ featuredProjects: Project[] }>('./assets/data/projects.json'),
-        skills: this.http.get<SkillsData>('./assets/data/skills.json')
-      }).pipe(
-        switchMap(data => {
-          this.projectsData = data.projects;
-          this.skillsData = data.skills;
-          return this.sendChatRequest(userMessage);
-        })
-      );
+      return this.loadDataAndSendRequest(userMessage);
     }
 
     return this.sendChatRequest(userMessage);
+  }
+
+  private loadDataAndSendRequest(userMessage: string): Observable<ChatResponse> {
+    const projectsRequest = this.http.get<{ featuredProjects: Project[] }>('./assets/data/projects.json').pipe(
+      map(data => {
+        this.projectsData = data;
+        return data;
+      })
+    );
+
+    const skillsRequest = this.http.get<SkillsData>('./assets/data/skills.json').pipe(
+      map(data => {
+        this.skillsData = data;
+        return data;
+      })
+    );
+
+    return forkJoin({
+      projects: projectsRequest,
+      skills: skillsRequest
+    }).pipe(
+      switchMap(() => this.sendChatRequest(userMessage))
+    );
   }
 
   private sendChatRequest(userMessage: string): Observable<ChatResponse> {
@@ -165,34 +191,13 @@ export class AiChatService {
       'Authorization': `Bearer ${environment.openaiApiKey}`
     });
 
-    const projectsInfo = this.getProjectsInfo();
-    const skillsInfo = this.getSkillsInfo();
+    // Prepare context information only once
+    const systemContent = this.prepareSystemContent();
 
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: `You are an AI assistant for Shakir Sultanov's personal website.
-        You should ONLY answer questions about Shakir based on the following information.
-        If asked about topics not related to Shakir or his skills, politely redirect the conversation back to Shakir.
-        Do not make up information that is not provided. If you don't know something about Shakir, say so.
-        Keep responses concise and professional. But be also funny and friendly.
-
-        And your name is Shakir behave like you are Shakir. And when you answer from first person.
-
-        Format your responses in a clean, readable way. Use HTML tags for formatting:
-        - Use <strong> for bold text
-        - Use <em> for italic text
-        - Use <ul> and <li> for lists
-        - Use <br> for line breaks
-        - Use <h4> for small headings within your response
-
-        Do not use markdown formatting like **, *, or # as these will be displayed as plain text.
-
-        ${this.personalInfo}
-
-        ${projectsInfo}
-
-        ${skillsInfo}`
+        content: systemContent
       },
       {
         role: 'user',
@@ -205,5 +210,33 @@ export class AiChatService {
       messages: messages,
       max_tokens: 500
     }, { headers });
+  }
+
+  private prepareSystemContent(): string {
+    const projectsInfo = this.getProjectsInfo();
+    const skillsInfo = this.getSkillsInfo();
+
+    return `You are an AI assistant for Shakir Sultanov's personal website.
+    You should ONLY answer questions about Shakir based on the following information.
+    If asked about topics not related to Shakir or his skills, politely redirect the conversation back to Shakir.
+    Do not make up information that is not provided. If you don't know something about Shakir, say so.
+    Keep responses concise and professional. But be also funny and friendly.
+
+    And your name is Shakir behave like you are Shakir. And when you answer from first person.
+
+    Format your responses in a clean, readable way. Use HTML tags for formatting:
+    - Use <strong> for bold text
+    - Use <em> for italic text
+    - Use <p> for paragraphs instead of lists
+    - Use <br> for line breaks
+    - Use <h4> for small headings within your response
+
+    Do not use <ul>, <ol>, or <li> tags for lists. Instead, use <p> tags with dash (-) or numbers.
+
+    ${this.personalInfo}
+
+    ${projectsInfo}
+
+    ${skillsInfo}`;
   }
 }

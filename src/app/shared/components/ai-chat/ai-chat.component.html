@@ -10,7 +10,8 @@
       class="message"
       [ngClass]="{
         'user-message': message.role === 'user',
-        'assistant-message': message.role === 'assistant'
+        'assistant-message': message.role === 'assistant',
+        typing: message.isTyping
       }"
     >
       <div class="message-content">
@@ -19,6 +20,7 @@
           *ngIf="message.role === 'assistant'"
           [innerHTML]="message.processedContent"
         ></span>
+        <span *ngIf="message.isTyping" class="typing-cursor"></span>
       </div>
     </div>
 

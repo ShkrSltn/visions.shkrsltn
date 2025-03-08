@@ -8,6 +8,9 @@ import { RippleEffectDirective } from '../../directives/ripple-effect.directive'
 // Расширяем интерфейс для хранения обработанного контента
 interface DisplayChatMessage extends ChatMessage {
   processedContent?: SafeHtml;
+  isTyping?: boolean;
+  visibleContent?: string;
+  fullContent?: string;
 }
 
 @Component({
@@ -26,6 +29,7 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   chatHistory: DisplayChatMessage[] = [];
   isLoading: boolean = false;
   shouldScrollToBottom: boolean = false; // Флаг для отслеживания необходимости прокрутки
+  typingSpeed: number = 10; // Символов в миллисекунду (можно настроить)
 
   // Предустановленные вопросы для быстрого выбора
   suggestedQuestions: string[] = [
@@ -70,27 +74,97 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  // Метод для обработки HTML в сообщениях
-  processMessageContent(message: DisplayChatMessage): void {
-    if (message.role === 'assistant') {
-      // Санитизируем HTML, чтобы предотвратить XSS-атаки
-      const sanitizedHtml = this.sanitizer.sanitize(SecurityContext.HTML, message.content);
-      if (sanitizedHtml) {
-        message.processedContent = this.sanitizer.bypassSecurityTrustHtml(sanitizedHtml);
-      } else {
-        message.processedContent = message.content;
+  // Метод для эффекта печатания
+  startTypingEffect(message: DisplayChatMessage): void {
+    if (!message.fullContent) return;
+
+    let currentIndex = 0;
+    const fullContent = message.fullContent;
+    const totalLength = fullContent.length;
+
+    // Используем более надежный интервал
+    const typingInterval = setInterval(() => {
+      try {
+        if (currentIndex < totalLength) {
+          // Добавляем следующий символ
+          message.visibleContent = fullContent.substring(0, currentIndex + 1);
+          // Обновляем отображаемый контент
+          message.processedContent = this.sanitizer.bypassSecurityTrustHtml(message.visibleContent);
+          currentIndex++;
+
+          // Проверяем, что HTML-теги корректно закрыты
+          if (this.hasUnclosedTags(message.visibleContent)) {
+            // Если есть незакрытые теги, ускоряем печатание до закрытия тега
+            currentIndex = this.findNextTagClose(fullContent, currentIndex);
+          }
+
+          this.shouldScrollToBottom = true;
+        } else {
+          // Завершаем эффект печатания
+          clearInterval(typingInterval);
+          message.isTyping = false;
+          message.processedContent = this.sanitizer.bypassSecurityTrustHtml(fullContent);
+        }
+      } catch (error) {
+        console.error('Error during typing effect:', error);
+        // В случае ошибки завершаем эффект и показываем полный текст
+        clearInterval(typingInterval);
+        message.isTyping = false;
+        message.processedContent = this.sanitizer.bypassSecurityTrustHtml(fullContent);
       }
-    } else {
-      message.processedContent = message.content;
-    }
+    }, this.typingSpeed);
+  }
+
+  // Проверка на наличие незакрытых HTML-тегов
+  private hasUnclosedTags(html: string): boolean {
+    const openTagsCount = (html.match(/<[^\/][^>]*>/g) || []).length;
+    const closeTagsCount = (html.match(/<\/[^>]*>/g) || []).length;
+    return openTagsCount > closeTagsCount;
+  }
+
+  // Поиск позиции закрытия следующего тега
+  private findNextTagClose(content: string, startIndex: number): number {
+    const nextCloseTag = content.indexOf('>', startIndex);
+    return nextCloseTag !== -1 ? nextCloseTag + 1 : startIndex;
   }
 
   // Добавление сообщения в историю с обработкой контента
   addMessageToHistory(message: ChatMessage): void {
     const displayMessage: DisplayChatMessage = { ...message };
-    this.processMessageContent(displayMessage);
-    this.chatHistory.push(displayMessage);
-    this.shouldScrollToBottom = true; // Устанавливаем флаг для прокрутки
+    this.chatHistory.push(displayMessage); // Сначала добавляем в историю
+    this.shouldScrollToBottom = true;
+
+    // Затем обрабатываем контент (асинхронно)
+    setTimeout(() => {
+      this.processMessageContent(displayMessage);
+    }, 0);
+  }
+
+  // Метод для обработки HTML в сообщениях
+  processMessageContent(message: DisplayChatMessage): void {
+    if (message.role === 'assistant') {
+      try {
+        // Санитизируем HTML, чтобы предотвратить XSS-атаки
+        const sanitizedHtml = this.sanitizer.sanitize(SecurityContext.HTML, message.content) || '';
+
+        // Проверяем, что контент не пустой
+        if (sanitizedHtml.trim()) {
+          message.fullContent = sanitizedHtml;
+          message.visibleContent = '';
+          message.isTyping = true;
+
+          // Начинаем эффект печатания
+          this.startTypingEffect(message);
+        } else {
+          message.processedContent = this.sanitizer.bypassSecurityTrustHtml(message.content);
+        }
+      } catch (error) {
+        console.error('Error processing message content:', error);
+        message.processedContent = this.sanitizer.bypassSecurityTrustHtml(message.content);
+      }
+    } else {
+      message.processedContent = message.content;
+    }
   }
 
   sendMessage(): void {

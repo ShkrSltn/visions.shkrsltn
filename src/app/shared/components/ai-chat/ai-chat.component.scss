@@ -102,6 +102,18 @@
     border-left: 2px solid var(--chat-accent);
     position: relative;
   }
+
+  &.typing {
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 16px;
+      background-color: var(--chat-text);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 1s infinite;
+    }
+  }
 }
 
 .loading-indicator {
@@ -233,6 +245,16 @@
   }
 }
 
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 // Стили для форматированного контента в сообщениях
 .message-content {
   // Стили для списков
@@ -240,10 +262,33 @@
   ol {
     margin: 0.5rem 0;
     padding-left: 1.5rem;
+    list-style: none;
 
     li {
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 0.5rem;
+      list-style: none;
+    }
+  }
+
+  ul li {
+    list-style: none;
+    &:before {
+      content: none;
+    }
+  }
+
+  ol {
+    counter-reset: item;
+
+    li {
       list-style-type: none;
+      counter-increment: item;
+
+      &:before {
+        content: none;
+      }
     }
   }
 
