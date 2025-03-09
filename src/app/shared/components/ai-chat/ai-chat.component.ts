@@ -29,7 +29,7 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   chatHistory: DisplayChatMessage[] = [];
   isLoading: boolean = false;
   shouldScrollToBottom: boolean = false; // Флаг для отслеживания необходимости прокрутки
-  typingSpeed: number = 10; // Символов в миллисекунду (можно настроить)
+  typingSpeed: number = 3; // Символов в миллисекунду (можно настроить)
 
   // Предустановленные вопросы для быстрого выбора
   suggestedQuestions: string[] = [
