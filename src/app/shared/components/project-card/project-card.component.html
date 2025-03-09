@@ -1,6 +1,6 @@
 <div class="project-card">
   <div class="project-image">
-    <div class="image-placeholder"></div>
+    <img [src]="project.image" alt="Project Image" />
   </div>
   <h3>{{ project.title }}</h3>
   <p>{{ project.description }}</p>
@@ -17,14 +17,14 @@
       [href]="project.demoLink"
       target="_blank"
       class="card-link"
-      *ngIf="project.demoLink"
+      *ngIf="project.demoLink && project.showDemo !== false"
       >Demo</a
     >
     <a
       [href]="project.codeLink"
       target="_blank"
       class="card-link"
-      *ngIf="project.codeLink"
+      *ngIf="project.codeLink && project.showCode !== false"
       >Code</a
     >
   </div>

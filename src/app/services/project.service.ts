@@ -10,6 +10,8 @@ export interface Project {
   demoLink?: string;
   codeLink?: string;
   featured: boolean;
+  showDemo?: boolean;
+  showCode?: boolean;
 }
 
 export interface ProjectsData {

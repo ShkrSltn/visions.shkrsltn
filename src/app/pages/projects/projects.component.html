@@ -10,7 +10,7 @@
         *ngFor="let project of featuredProjects; let last = last"
       >
         <div class="project-image">
-          <div class="image-placeholder"></div>
+          <img [src]="project.image" alt="Project Image" class="project-img" />
         </div>
         <div class="project-details">
           <h2>{{ project.title }}</h2>
@@ -23,14 +23,14 @@
               [href]="project.demoLink"
               target="_blank"
               class="project-link demo"
-              *ngIf="project.demoLink"
+              *ngIf="project.demoLink && project.showDemo !== false"
               >Live Demo</a
             >
             <a
               [href]="project.codeLink"
               target="_blank"
               class="project-link code"
-              *ngIf="project.codeLink"
+              *ngIf="project.codeLink && project.showCode !== false"
               >View Code</a
             >
           </div>

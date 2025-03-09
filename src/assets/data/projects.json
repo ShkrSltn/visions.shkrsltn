@@ -2,48 +2,69 @@
   "featuredProjects": [
     {
       "title": "visions.shkrsltn",
-      "description": "Modern, responsive portfolio website built with Angular and TailwindCSS, featuring animations and interactive elements",
-      "image": "assets/images/projects/portfolio-placeholder.jpg",
-      "technologies": ["Angular", "TypeScript", "TailwindCSS", "SCSS"],
-      "demoLink": "https://shkrsltn.dev",
-      "codeLink": "https://github.com/username/portfolio",
-      "featured": false
+      "description": "Me newest responsive portfolio what you are seeing now, built with Angular, OpenAI API, and SASS/SCSS, featuring animations and interactive elements",
+      "image": "./assets/images/project-images/visions-shkrsltnv.png",
+      "technologies": ["Angular", "TypeScript", "OpenAI API", "SASS/SCSS"],
+      "demoLink": "https://shkrsltn.github.io/visions.shkrsltn/",
+      "codeLink": "https://github.com/ShkrSltn/visions.shkrsltn.git",
+      "featured": true,
+      "showDemo": false,
+      "showCode": true
     },
     {
       "title": "SAFI",
       "description": "SAFI visualizes social relationships, well-being and the climate in school classes and thus supports teachers in promoting social processes.",
-      "image": "assets/images/projects/analytics-placeholder.jpg",
+      "image": "./assets/images/project-images/safi-survey.png",
       "technologies": ["Vue.js", "JavaScript/TypeScript", "HTML/CSS", "D3.js", "FastAPI/Python", "PostgreSQL", "Docker", "GitLab/Git", "Google Cloud Platform"],
       "demoLink": "https://safi-demo.example.com",
       "codeLink": "https://github.com/ShkrSltn/dashboard",
-      "featured": false
-    },
-    {
-      "title": "FaciMath",
-      "description": "Hobby project about generating math problems and solving them.",
-      "image": "assets/images/projects/taskmanager-placeholder.jpg",
-      "technologies": ["Angular", "TypeScript", "HTML/CSS", "Spring Boot/Java", "PostgreSQL"],
-      "demoLink": "https://facimath-demo.example.com",
-      "codeLink": "https://github.com/ShkrSltn/faci-math2.0/tree/main",
-      "featured": true
+      "featured": true,
+      "showDemo": false,
+      "showCode": false
     },
     {
       "title": "Green Kidney App",
       "description": "Interactive quiz application focused on eco-friendly kidney health, developed for a medical conference in Bangalore, India",
-      "image": "assets/images/projects/ecommerce-placeholder.jpg",
+      "image": "./assets/images/project-images/green-admin.png",
       "technologies": ["Vue.js/JavaScript", "TypeScript", "FastAPI/Python", "Docker"],
       "demoLink": "https://green-kidney.example.com",
       "codeLink": "private-repository",
-      "featured": true
+      "featured": true,
+      "showDemo": false,
+      "showCode": false
     },
     {
-      "title": "Carpool App",
-      "description": "A ride-sharing solution developed for the Schwyz Canton Administration during the Mountain Hackathon 2024 in Schwyz, Switzerland",
-      "image": "assets/images/projects/weather-placeholder.jpg",
-      "technologies": ["React", "TypeScript", "Node.js", "Docker"],
-      "demoLink": "https://carpool-demo.example.com",
+      "title": "FaciMath",
+      "description": "Hobby project about generating math problems and solving them.",
+      "image": "./assets/images/project-images/facimath1-main.png",
+      "technologies": ["Angular", "TypeScript", "HTML/CSS", "Spring Boot/Java", "PostgreSQL"],
+      "demoLink": "https://shkrsltn.github.io/Recede-the-math/",
+      "codeLink": "https://github.com/ShkrSltn/Recede-the-math",
+      "featured": false,
+      "showDemo": true,
+      "showCode": true
+    },
+    {
+      "title": "FaciMathPro",
+      "description": "Updated version of FaciMath, with a more user-friendly interface and improved functionality.",
+      "image": "./assets/images/project-images/facimath2.png",
+      "technologies": ["Angular", "TypeScript", "HTML/CSS", "Spring Boot/Java", "PostgreSQL"],
+      "demoLink": "https://shkrsltn.github.io/Recede-the-math/",
+      "codeLink": "https://github.com/ShkrSltn/faci-math2.0.git",
+      "featured": false,
+      "showDemo": false,
+      "showCode": true
+    },
+    {
+      "title": "Legacy portfolio",
+      "description": "My old portfolio, built with vanilla JavaScript, HTML, and SCSS. There also my old projects for learning purposes and some other stuff.",
+      "image": "./assets/images/project-images/legacy-portfolio.png",
+      "technologies": ["JavaScript", "HTML", "SCSS"],
+      "demoLink": "https://tourmaline-gingersnap-95959a.netlify.app/projects/",
       "codeLink": "https://github.com/ShkrSltn/carpool-app-vue",
-      "featured": true
+      "featured": false,
+      "showDemo": true,
+      "showCode": false
     }
   ]
 }
