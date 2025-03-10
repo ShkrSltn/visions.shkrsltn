@@ -9,26 +9,32 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    title: 'Shkrsltnv | Home'
   },
   {
     path: 'about-me',
-    component: AboutMeComponent
+    component: AboutMeComponent,
+    title: 'Shkrsltnv | About Me'
   },
   {
     path: 'projects',
-    component: ProjectsComponent
+    component: ProjectsComponent,
+    title: 'Shkrsltnv | Projects'
   },
   {
     path: 'contact',
-    component: ContactMeComponent
+    component: ContactMeComponent,
+    title: 'Shkrsltnv | Contact'
   },
   {
     path: 'ai-assistant',
-    component: AiAssistantComponent
+    component: AiAssistantComponent,
+    title: 'Shkrsltnv | AI Assistant'
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: '',
+    title: 'Shkrsltnv | Home'
   }
 ];
