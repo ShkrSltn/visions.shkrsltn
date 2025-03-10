@@ -258,6 +258,12 @@
     flex-direction: column !important;
     gap: 3rem;
 
+    .project-image {
+      .project-img {
+        height: 100%;
+      }
+    }
+
     .project-image,
     .project-details {
       width: 100%;
