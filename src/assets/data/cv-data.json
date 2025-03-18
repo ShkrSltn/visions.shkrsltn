@@ -1,0 +1,144 @@
+{
+  "profile": "I am a hard working and ambitious person with a positive mindset and a never ending desire to continuously learn and grow professionally. Along my academic and self-educational journey, I have had the opportunity to explore various areas of IT working on a variety of projects. I am passionate about further expanding my experience and skills to become a highly skilled and successful developer.",
+
+  "skills": {
+    "advanced": ["JavaScript/TypeScript", "HTML", "CSS"],
+    "intermediate": ["Vue.js", "Angular", "Python", "FastAPI", "PostgreSQL", "Git", "Docker"],
+    "beginner": ["Spring Boot"],
+    "basic": ["Java", "C#", "Android Studio", "Figma", "Gitlab", "CI/CD"]
+  },
+
+  "workExperience": [
+    {
+      "period": "08.2024 - Present",
+      "title": "Fullstack Developer (Praktikant), BFH",
+      "location": "Biel/Bienne, Switzerland",
+      "responsibilities": [
+        "Full-stack development based on project needs using Vue.js and FastAPI",
+        "Implement RESTful APIs and database integrations with PostgreSQL",
+        "Deploy and manage applications using Docker and containerized environments",
+        "Collaborate with cross-functional teams to implement business logic and ensure functionality",
+        "Manage GitLab repositories and optimize CI/CD pipelines for efficient development",
+        "Work with AI-powered solutions, including LangChain for LLM-based applications",
+        "Active collaboration with stakeholders and product teams in agile environments"
+      ]
+    },
+    {
+      "period": "11.2022 - 03.2024",
+      "title": "Frontend Developer, Part-time Freelance",
+      "location": "Odesa, Ukraine",
+      "responsibilities": [
+        "Designed and developed responsive user interfaces using HTML, CSS, and JavaScript",
+        "Created custom website layouts based on client requirements",
+        "Implemented mobile-friendly designs to ensure cross-platform compatibility",
+        "Collaborated directly with clients to gather requirements and deliver solutions that met their needs"
+      ]
+    },
+    {
+      "period": "02.2018 - 01.2021",
+      "title": "Warehouse Associate, LLC \"Manufactured goods market\"",
+      "location": "Odesa, Ukraine",
+      "responsibilities": [
+        "Managed inventory logistics and warehouse operations",
+        "Organized warehouse inventory to maximize efficiency and accessibility",
+        "Processed and fulfilled customer orders with attention to detail and accuracy",
+        "Maintained accurate records of stock levels and product locations"
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "period": "09.2018 - 07.2022",
+      "degree": "Bachelor of Computer Engineering",
+      "institution": "Odesa Mechnikov National University",
+      "location": "Odesa, Ukraine",
+      "details": [
+        "Programming fundamentals",
+        "Computer Engineering fundamentals",
+        "Data structures and algorithms",
+        "Computer networks",
+        "Operating systems",
+        "Web and mobile development"
+      ]
+    },
+    {
+      "period": "04.2024 - 07.2024",
+      "degree": "Powercoders Bootcamp - ICT Work Integration Program",
+      "location": "Bern, Switzerland",
+      "details": [
+        "Foundations in HTML, CSS, JavaScript",
+        "Weekly business & social skills training (teamwork, communication, etc.)"
+      ]
+    }
+  ],
+
+  "certifications": [
+    {
+      "degree": "The Complete 2024 Web Development Bootcamp (Online), Udemy",
+      "period": "January 2024 - April 2024",
+      "location": "Zürich, Switzerland",
+      "details": [
+        "Comprehensive training in modern web development technologies including HTML5, CSS3, JavaScript ES6+",
+        "Hands-on experience with React, Node.js, Express, and MongoDB",
+        "Version control with Git and GitHub",
+        "Responsive design principles and best practices"
+      ]
+    }
+  ],
+
+  "languages": [
+    {
+      "name": "Russian",
+      "level": "Native"
+    },
+    {
+      "name": "Ukrainian",
+      "level": "Native"
+    },
+    {
+      "name": "Turkish",
+      "level": "Mother Tongue"
+    },
+    {
+      "name": "English",
+      "level": "B2"
+    },
+    {
+      "name": "German",
+      "level": "A1"
+    }
+  ],
+
+  "references": [
+    {
+      "name": "Kenneth Ritley",
+      "position": "Prof. Dr. Kenneth Ritley, Dozent, BFH",
+      "contact": "kenneth.ritley@bfh.ch",
+      "website": "https://ritley.com/",
+      "phone": "+41 79 509 57 22"
+    }
+  ],
+
+  "hobbies": [
+    {
+      "name": "Reading",
+      "description": "I enjoy exploring psychological literature and books that deepen my understanding of human behavior, personal development, and the world around us."
+    },
+    {
+      "name": "Music",
+      "description": "I find inspiration in classical music, particularly violin compositions, which helps me maintain focus and creativity while working on complex programming tasks."
+    }
+  ],
+
+  "contact": {
+    "nationality": "Ukrainian, S Permit",
+    "birthdate": "31.03.2000",
+    "email": "sultanovshakir12@gmail.com",
+    "phone": "+41 76 454 7413",
+    "address": "Tösstalstrasse 74, 8636 Wald ZH",
+    "linkedin": "https://www.linkedin.com/in/shkrsltn/",
+    "portfolio": "https://shkrsltn.github.io/visions.shkrsltn/",
+    "github": "https://github.com/ShkrSltn"
+  }
+}

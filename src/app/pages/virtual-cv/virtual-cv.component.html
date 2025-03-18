@@ -1,0 +1,251 @@
+<div class="cv-container container">
+  <div *ngIf="!dataLoaded" class="loading-indicator-container">
+    <div class="loading-indicator"></div>
+    <p>Loading CV data...</p>
+  </div>
+
+  <div class="cv-content animate-on-scroll" #cvContent *ngIf="dataLoaded">
+    <div class="cv-header">
+      <div class="cv-name">
+        <h1>Shakir SULTANOV</h1>
+        <h2>Fullstack Developer</h2>
+      </div>
+      <div class="cv-photo">
+        <img src="/assets/images/Shakir-2.jpg" alt="Shakir Sultanov" />
+      </div>
+    </div>
+
+    <div class="cv-main">
+      <!-- Left Column -->
+      <div class="cv-left-column">
+        <section class="cv-section">
+          <h3 class="section-title">PROFILE</h3>
+          <p class="profile-text">{{ cvData.profile }}</p>
+        </section>
+
+        <section class="cv-section">
+          <h3 class="section-title">CONTACT</h3>
+          <ul class="contact-list">
+            <li>
+              <span class="contact-icon"
+                ><span class="material-icons">flag</span></span
+              >
+              <span>{{ cvData?.contact?.nationality }}</span>
+            </li>
+            <li>
+              <span class="contact-icon"
+                ><span class="material-icons">calendar_today</span></span
+              >
+              <span>{{ cvData.contact.birthdate }}</span>
+            </li>
+            <li>
+              <span class="contact-icon"
+                ><span class="material-icons">email</span></span
+              >
+              <a href="mailto:{{ cvData.contact.email }}">{{
+                cvData.contact.email
+              }}</a>
+            </li>
+            <li>
+              <span class="contact-icon"
+                ><span class="material-icons">phone</span></span
+              >
+              <a href="tel:{{ cvData.contact.phone }}">{{
+                cvData.contact.phone
+              }}</a>
+            </li>
+            <li>
+              <span class="contact-icon"
+                ><span class="material-icons">location_on</span></span
+              >
+              <span>{{ cvData.contact.address }}</span>
+            </li>
+            <li>
+              <span class="contact-icon"
+                ><span class="material-icons">link</span></span
+              >
+              <a href="{{ cvData.contact.linkedin }}" target="_blank"
+                >LinkedIn</a
+              >
+            </li>
+            <li>
+              <span class="contact-icon"
+                ><span class="material-icons">web</span></span
+              >
+              <a href="{{ cvData.contact.portfolio }}" target="_blank"
+                >Portfolio</a
+              >
+            </li>
+            <li>
+              <span class="contact-icon"
+                ><span class="material-icons">code</span></span
+              >
+              <a href="{{ cvData.contact.github }}" target="_blank">GitHub</a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="cv-section">
+          <h3 class="section-title">EDUCATION</h3>
+          <div class="timeline">
+            <div class="timeline-item" *ngFor="let edu of cvData.education">
+              <div class="timeline-content">
+                <div class="timeline-period">{{ edu.period }}</div>
+                <h4>{{ edu.degree }}</h4>
+                <div class="timeline-location" *ngIf="edu.institution">
+                  {{ edu.institution }}, {{ edu.location }}
+                </div>
+                <div class="timeline-location" *ngIf="!edu.institution">
+                  {{ edu.location }}
+                </div>
+                <ul
+                  class="education-details"
+                  *ngIf="edu.details && edu.details.length > 0"
+                >
+                  <li *ngFor="let detail of edu.details">{{ detail }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cv-section">
+          <h3 class="section-title">LANGUAGES</h3>
+          <ul class="languages-list">
+            <li *ngFor="let language of cvData.languages">
+              <span class="language-name">{{ language.name }}</span>
+              <span class="language-level">{{ language.level }}</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="cv-section">
+          <h3 class="section-title">REFERENCES</h3>
+          <div class="references-list">
+            <div
+              class="reference-item"
+              *ngFor="let reference of cvData.references"
+            >
+              <h4>{{ reference.name }}</h4>
+              <p>{{ reference.position }}</p>
+              <a href="mailto:{{ reference.contact }}">{{
+                reference.contact
+              }}</a>
+              <a href="tel:{{ reference.phone }}">{{ reference.phone }}</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="cv-section">
+          <h3 class="section-title">HOBBIES</h3>
+          <div class="hobbies-list">
+            <div class="hobby-item" *ngFor="let hobby of cvData.hobbies">
+              <h4>{{ hobby.name }}</h4>
+              <p>{{ hobby.description }}</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="cv-right-column">
+        <section class="cv-section">
+          <h3 class="section-title">IT SKILLS</h3>
+          <div class="skills-container">
+            <div class="skill-category">
+              <h4>Advanced</h4>
+              <div class="skill-tags">
+                <span
+                  class="skill-tag"
+                  *ngFor="let skill of cvData.skills.advanced"
+                  >{{ skill }}</span
+                >
+              </div>
+            </div>
+
+            <div class="skill-category">
+              <h4>Intermediate</h4>
+              <div class="skill-tags">
+                <span
+                  class="skill-tag"
+                  *ngFor="let skill of cvData.skills.intermediate"
+                  >{{ skill }}</span
+                >
+              </div>
+            </div>
+            <div class="skill-category">
+              <h4>Beginner</h4>
+              <div class="skill-tags">
+                <span
+                  class="skill-tag"
+                  *ngFor="let skill of cvData.skills.beginner"
+                  >{{ skill }}</span
+                >
+              </div>
+            </div>
+            <div class="skill-category">
+              <h4>Basic</h4>
+              <div class="skill-tags">
+                <span
+                  class="skill-tag"
+                  *ngFor="let skill of cvData.skills.basic"
+                  >{{ skill }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cv-section">
+          <h3 class="section-title">WORK EXPERIENCE</h3>
+          <div class="timeline">
+            <div
+              class="timeline-item"
+              *ngFor="let job of cvData.workExperience"
+            >
+              <div class="timeline-content">
+                <div class="timeline-period">{{ job.period }}</div>
+                <h4>{{ job.title }}</h4>
+                <div class="timeline-location">{{ job.location }}</div>
+                <ul class="responsibilities-list">
+                  <li *ngFor="let responsibility of job.responsibilities">
+                    {{ responsibility }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cv-section">
+          <h3 class="section-title">CERTIFICATIONS</h3>
+          <div class="timeline">
+            <div
+              class="timeline-item"
+              *ngFor="let cert of cvData.certifications"
+            >
+              <div class="timeline-content">
+                <h4>{{ cert.degree }}</h4>
+                <div class="timeline-location">
+                  {{ cert.location }}
+                </div>
+                <ul
+                  class="education-details"
+                  *ngIf="cert.details && cert.details.length > 0"
+                >
+                  <li *ngFor="let detail of cert.details">{{ detail }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="cv-actions">
+      <button class="download-button" (click)="downloadPdfCV()">
+        Download CV
+      </button>
+    </div>
+  </div>
+</div>

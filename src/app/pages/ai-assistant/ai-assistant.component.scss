@@ -53,6 +53,27 @@
   }
 }
 
+.ai-chat-wrapper {
+  transition-delay: 0.2s;
+}
+
+.ai-assistant-note {
+  transition-delay: 0.4s;
+}
+
+.ai-assistant-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 1600px) {
   .ai-assistant-section {
     padding: 2vh 0 4vh;
