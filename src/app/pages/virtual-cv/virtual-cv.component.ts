@@ -36,7 +36,7 @@ export class VirtualCvComponent implements AfterViewInit, OnInit {
   }
 
   loadCvData() {
-    this.http.get<any>('/assets/data/cv-data.json').subscribe(data => {
+    this.http.get<any>('./assets/data/cv-data.json').subscribe(data => {
       this.cvData = data;
       this.dataLoaded = true;
       // Проверяем видимость элементов после загрузки данных
