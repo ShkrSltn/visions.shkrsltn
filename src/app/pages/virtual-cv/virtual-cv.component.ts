@@ -2,11 +2,12 @@ import { Component, AfterViewInit, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { CVService } from '../../services/cv.service';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-virtual-cv',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './virtual-cv.component.html',
   styleUrl: './virtual-cv.component.scss'
 })
@@ -29,14 +30,18 @@ export class VirtualCvComponent implements AfterViewInit, OnInit {
   currentDate = new Date();
   dataLoaded = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private cvService: CVService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.loadCvData();
   }
 
   loadCvData() {
-    this.http.get<any>('./assets/data/cv-data.json').subscribe(data => {
+    this.cvService.getCVData().subscribe(data => {
       this.cvData = data;
       this.dataLoaded = true;
       // Проверяем видимость элементов после загрузки данных

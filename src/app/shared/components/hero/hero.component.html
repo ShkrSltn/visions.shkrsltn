@@ -1,8 +1,10 @@
 <section class="hero">
   <div class="hero-content">
-    <h1 class="animate-in">{{ title }}</h1>
+    <h1 class="hero-title animate-in">
+      {{ translateKeys ? (title | translate) : title }}
+    </h1>
     <p class="subtitle animate-in">
-      {{ subtitle }}
+      {{ translateKeys ? (subtitle | translate) : subtitle }}
     </p>
   </div>
 </section>

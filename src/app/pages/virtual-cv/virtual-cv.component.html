@@ -7,8 +7,8 @@
   <div class="cv-content animate-on-scroll" #cvContent *ngIf="dataLoaded">
     <div class="cv-header">
       <div class="cv-name">
-        <h1>Shakir SULTANOV</h1>
-        <h2>Fullstack Developer</h2>
+        <h1>{{ "VIRTUAL_CV.FULLNAME" | translate }}</h1>
+        <h2>{{ "VIRTUAL_CV.TITLE" | translate }}</h2>
       </div>
       <div class="cv-photo">
         <img src="./assets/images/Shakir-2.jpg" alt="Shakir Sultanov" />
@@ -19,12 +19,12 @@
       <!-- Left Column -->
       <div class="cv-left-column">
         <section class="cv-section">
-          <h3 class="section-title">PROFILE</h3>
+          <h3 class="section-title">{{ "VIRTUAL_CV.PROFILE" | translate }}</h3>
           <p class="profile-text">{{ cvData.profile }}</p>
         </section>
 
         <section class="cv-section">
-          <h3 class="section-title">CONTACT</h3>
+          <h3 class="section-title">{{ "VIRTUAL_CV.CONTACT" | translate }}</h3>
           <ul class="contact-list">
             <li>
               <span class="contact-icon"
@@ -86,7 +86,9 @@
         </section>
 
         <section class="cv-section">
-          <h3 class="section-title">EDUCATION</h3>
+          <h3 class="section-title">
+            {{ "VIRTUAL_CV.EDUCATION" | translate }}
+          </h3>
           <div class="timeline">
             <div class="timeline-item" *ngFor="let edu of cvData.education">
               <div class="timeline-content">
@@ -110,7 +112,9 @@
         </section>
 
         <section class="cv-section">
-          <h3 class="section-title">LANGUAGES</h3>
+          <h3 class="section-title">
+            {{ "VIRTUAL_CV.LANGUAGES" | translate }}
+          </h3>
           <ul class="languages-list">
             <li *ngFor="let language of cvData.languages">
               <span class="language-name">{{ language.name }}</span>
@@ -120,7 +124,9 @@
         </section>
 
         <section class="cv-section">
-          <h3 class="section-title">REFERENCES</h3>
+          <h3 class="section-title">
+            {{ "VIRTUAL_CV.REFERENCES" | translate }}
+          </h3>
           <div class="references-list">
             <div
               class="reference-item"
@@ -137,7 +143,7 @@
         </section>
 
         <section class="cv-section">
-          <h3 class="section-title">HOBBIES</h3>
+          <h3 class="section-title">{{ "VIRTUAL_CV.HOBBIES" | translate }}</h3>
           <div class="hobbies-list">
             <div class="hobby-item" *ngFor="let hobby of cvData.hobbies">
               <h4>{{ hobby.name }}</h4>
@@ -150,10 +156,12 @@
       <!-- Right Column -->
       <div class="cv-right-column">
         <section class="cv-section">
-          <h3 class="section-title">IT SKILLS</h3>
+          <h3 class="section-title">
+            {{ "VIRTUAL_CV.IT_SKILLS" | translate }}
+          </h3>
           <div class="skills-container">
             <div class="skill-category">
-              <h4>Advanced</h4>
+              <h4>{{ "VIRTUAL_CV.ADVANCED" | translate }}</h4>
               <div class="skill-tags">
                 <span
                   class="skill-tag"
@@ -164,7 +172,7 @@
             </div>
 
             <div class="skill-category">
-              <h4>Intermediate</h4>
+              <h4>{{ "VIRTUAL_CV.INTERMEDIATE" | translate }}</h4>
               <div class="skill-tags">
                 <span
                   class="skill-tag"
@@ -174,7 +182,7 @@
               </div>
             </div>
             <div class="skill-category">
-              <h4>Beginner</h4>
+              <h4>{{ "VIRTUAL_CV.BEGINNER" | translate }}</h4>
               <div class="skill-tags">
                 <span
                   class="skill-tag"
@@ -184,7 +192,7 @@
               </div>
             </div>
             <div class="skill-category">
-              <h4>Basic</h4>
+              <h4>{{ "VIRTUAL_CV.BASIC" | translate }}</h4>
               <div class="skill-tags">
                 <span
                   class="skill-tag"
@@ -197,7 +205,9 @@
         </section>
 
         <section class="cv-section">
-          <h3 class="section-title">WORK EXPERIENCE</h3>
+          <h3 class="section-title">
+            {{ "VIRTUAL_CV.WORK_EXPERIENCE" | translate }}
+          </h3>
           <div class="timeline">
             <div
               class="timeline-item"
@@ -218,7 +228,9 @@
         </section>
 
         <section class="cv-section">
-          <h3 class="section-title">CERTIFICATIONS</h3>
+          <h3 class="section-title">
+            {{ "VIRTUAL_CV.CERTIFICATIONS" | translate }}
+          </h3>
           <div class="timeline">
             <div
               class="timeline-item"
@@ -244,7 +256,7 @@
 
     <div class="cv-actions">
       <button class="download-button" (click)="downloadPdfCV()">
-        Download CV
+        {{ "VIRTUAL_CV.DOWNLOAD_CV" | translate }}
       </button>
     </div>
   </div>

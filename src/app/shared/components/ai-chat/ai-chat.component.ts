@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AiChatService, ChatMessage } from '../../../services/ai-chat.service';
-import { RippleEffectDirective } from '../../directives/ripple-effect.directive';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+
 
 // Расширяем интерфейс для хранения обработанного контента
 interface DisplayChatMessage extends ChatMessage {
@@ -16,7 +18,7 @@ interface DisplayChatMessage extends ChatMessage {
 @Component({
   selector: 'app-ai-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule, RippleEffectDirective],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './ai-chat.component.html',
   styleUrl: './ai-chat.component.scss'
 })
@@ -24,6 +26,7 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   @Input() title: string = "Shakir's AI clone";
   @Input() subtitle: string = "Ask me anything";
   @ViewChild('chatMessages') chatMessagesRef!: ElementRef; // Ссылка на контейнер сообщений
+
 
   userMessage: string = '';
   chatHistory: DisplayChatMessage[] = [];
@@ -33,27 +36,41 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
 
   // Предустановленные вопросы для быстрого выбора
   suggestedQuestions: string[] = [
-    "What are your skills?",
-    "How can I contact you?",
-    "Where are you located?",
-    "What is your background?",
-    "What technologies do you work with?",
-    "Who is Ken ?"
+    "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_1",
+    "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_2",
+    "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_3",
+    "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_4",
+    "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_5",
+    "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_6"
   ];
 
   constructor(
     private aiChatService: AiChatService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
+    // Подписываемся на изменения языка
+    this.translate.onLangChange.subscribe(() => {
+      this.initializeChat();
+    });
+
+    this.initializeChat();
+  }
+
+  private initializeChat(): void {
+    // Очищаем историю сообщений перед добавлением нового приветствия
+    this.chatHistory = [];
+
+    const firstMessage = this.translate.instant("AI_ASSISTANT.AI_CHAT.FIRST_MESSAGE");
     // Добавляем приветственное сообщение
     this.addMessageToHistory({
       role: 'assistant',
-      content: "Hi there! I'm Shakir's AI clone. Feel free to ask me anything about my skills, experience, or how to get in touch with me."
+      content: firstMessage
     });
 
-    this.shouldScrollToBottom = true; // Установка флага для начальной прокрутки
+    this.shouldScrollToBottom = true;
   }
 
   ngAfterViewChecked() {
@@ -71,7 +88,7 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
         this.chatMessagesRef.nativeElement.scrollTop = this.chatMessagesRef.nativeElement.scrollHeight;
       }
     } catch (err) {
-      console.error('Ошибка при прокрутке чата:', err);
+      console.error('Error during scrolling:', err);
     }
   }
 
@@ -206,7 +223,9 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   }
 
   askSuggestedQuestion(question: string): void {
-    this.userMessage = question;
+    // Переводим ключ вопроса перед отправкой
+    const translatedQuestion = this.translate.instant(question);
+    this.userMessage = translatedQuestion;
     this.sendMessage();
   }
 }

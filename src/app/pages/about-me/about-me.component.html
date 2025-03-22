@@ -1,85 +1,40 @@
 <div class="about-me-container container">
-  <app-hero title="ABOUT ME" subtitle="Fullstack Developer"> </app-hero>
+  <app-hero
+    [title]="'HERO_TITLES.ABOUT_ME' | translate"
+    [subtitle]="'HERO_TITLES.ABOUT_ME_SUBTITLE' | translate"
+  >
+  </app-hero>
 
   <section class="bio animate-on-scroll">
-    <div class="section-title">My Journey</div>
+    <div class="section-title">{{ "ABOUT.JOURNEY" | translate }}</div>
     <div class="bio-content">
       <div class="bio-image">
         <img src="./assets/images/Shakir-2.jpg" alt="Shakir's photo" />
-        <div class="image-caption">Its me :)</div>
+        <div class="image-caption">{{ "ABOUT.IMAGE_CAPTION" | translate }}</div>
       </div>
       <div class="bio-text">
-        <h2>Hello, I'm Shakir</h2>
-        <p>
-          I'm not going to try to sound cool or better than I am. I'm
-          <span class="highlight">24 years old</span>, born and raised in a
-          small village in <span class="highlight">Ukraine</span>, I'm a
-          <span class="highlight">Meskhetian Turk</span> by descent. I've always
-          been interested in <span class="highlight">computers</span> –
-          especially how technology all fits together – and my passion has been
-          to use that power to create wonderful things. In 2018 I entered the
-          <span class="highlight">National Mechnikov University</span> in
-          Odessa, after successful graduation in 2023 I came to
-          <span class="highlight">Switzerland</span>, where I live now.
-        </p>
-        <p>
-          I have a pretty good basic knowledge of almost everything in
-          <span class="highlight">IT</span>, which is what I was taught at
-          university. After arriving in Switzerland I had a chance to get to
-          <span class="highlight">power.coders</span>, where I got a lot of
-          information about Switzerland, about work culture, about
-          opportunities, learnt new development skills, and one of the most
-          important things I met a lot of very cool people.
-        </p>
-        <p>
-          I've always loved to learn, loved to develop, yes, there were times
-          when I 'fell out', didn't understand how to do it, who to turn to,
-          etc. But one of my favourite skills is that I don't like to give up, I
-          hate that feeling and I always want to win than lose.
-        </p>
-        <p>
-          And now I work as an intern at
-          <span class="highlight">BFH Fachhohschule</span> as a
-          <span class="highlight">Full Stack developer</span>, where I got a
-          chance to work on quite interesting projects, to get experience,
-          develop and get new skills both social and hard. Since the first day
-          of university I had a desire to work on projects that can be
-          <span class="highlight">useful to people</span>, not only bring money
-          to someone, but maybe also help someone, this thought always gave me
-          some warmth inside, I always wanted to feel it. The thought that what
-          you have created where on earth people use it and it helps them - what
-          could be better?
-        </p>
-        <p>
-          In a world where both completely
-          <span class="highlight">dark</span> people and completely
-          <span class="highlight">bright</span> people have a chance to live, I
-          have always wanted and will always want to be on the side of the
-          light.
-        </p>
+        <h2>{{ "ABOUT.HELLO" | translate }}</h2>
+        <p>{{ "ABOUT.BIO_PART1" | translate }}</p>
+        <p>{{ "ABOUT.BIO_PART2" | translate }}</p>
+        <p>{{ "ABOUT.BIO_PART3" | translate }}</p>
+        <p>{{ "ABOUT.BIO_PART4" | translate }}</p>
+        <p>{{ "ABOUT.BIO_PART5" | translate }}</p>
       </div>
     </div>
   </section>
 
   <section class="education animate-on-scroll">
-    <div class="section-title">Education</div>
+    <div class="section-title">{{ "ABOUT.EDUCATION" | translate }}</div>
 
     <!-- Вертикальная временная шкала -->
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
-          <h3>Bachelor's in Computer Engineering</h3>
+          <h3>{{ "ABOUT.UNIVERSITY" | translate }}</h3>
           <p class="timeline-date">2018 - 2022</p>
-          <p class="timeline-institution">
-            Odessa I.I.Mechnikov National University
-          </p>
           <p class="timeline-description">
-            One of the best universities in Ukraine. Studied computer
-            architecture, algorithms, data structures, and software engineering
-            principles. Developed strong problem-solving skills and a deep
-            understanding of computing systems. We were taught almost every
-            sphere of IT, from hardware to software.
+            {{ "ABOUT.UNIVERSITY_DESCRIPTION" | translate }}
           </p>
         </div>
       </div>
@@ -90,11 +45,7 @@
           <h3>Powercoders</h3>
           <p class="timeline-date">2024.04 - 2024.08</p>
           <p class="timeline-description">
-            An intensive coding academy in Switzerland that helps refugees and
-            migrants integrate into the IT job market. The program includes
-            technical training in web development, soft skills workshops, and a
-            job placement component with internship opportunities at partner
-            companies.
+            {{ "ABOUT.POWERCODERS_DESCRIPTION" | translate }}
           </p>
         </div>
       </div>
@@ -102,7 +53,7 @@
   </section>
 
   <section class="skills animate-on-scroll">
-    <div class="section-title">Skills & Expertise</div>
+    <div class="section-title">{{ "ABOUT.SKILLS.TITLE" | translate }}</div>
     <div class="skills-content">
       <div class="skill-category">
         <div class="category-number">01</div>
@@ -146,7 +97,7 @@
 
       <div class="skill-category">
         <div class="category-number">03</div>
-        <h3>Other Skills</h3>
+        <h3>{{ "ABOUT.SKILLS.OTHER_SKILLS" | translate }}</h3>
         <div class="skills-layers">
           <div
             class="skill-layer"
@@ -169,7 +120,7 @@
   <section class="education animate-on-scroll">
     <!-- Горизонтальная временная шкала карьеры -->
     <div class="career-path animate-on-scroll">
-      <div class="section-title">Career Journey</div>
+      <div class="section-title">{{ "ABOUT.CAREER_JOURNEY" | translate }}</div>
       <div class="horizontal-timeline">
         <div class="timeline-track">
           <div class="timeline-progress"></div>
@@ -181,8 +132,8 @@
           </div>
           <div class="event-content">
             <div class="event-number">01</div>
-            <h4>Education</h4>
-            <p>Computer Engineering</p>
+            <h4>{{ "ABOUT.EVENT_1" | translate }}</h4>
+            <p>{{ "ABOUT.EVENT_1_DESCRIPTION" | translate }}</p>
             <span class="event-date">2018 - 2022</span>
           </div>
         </div>
@@ -193,8 +144,8 @@
           </div>
           <div class="event-content">
             <div class="event-number">02</div>
-            <h4>Moving to Switzerland</h4>
-            <p>Adaptation</p>
+            <h4>{{ "ABOUT.EVENT_2" | translate }}</h4>
+            <p>{{ "ABOUT.EVENT_2_DESCRIPTION" | translate }}</p>
             <span class="event-date">2023</span>
           </div>
         </div>
@@ -205,8 +156,8 @@
           </div>
           <div class="event-content">
             <div class="event-number">03</div>
-            <h4>Powercoders</h4>
-            <p>Swiss bridge to IT</p>
+            <h4>{{ "ABOUT.EVENT_3" | translate }}</h4>
+            <p>{{ "ABOUT.EVENT_3_DESCRIPTION" | translate }}</p>
             <span class="event-date">2024</span>
           </div>
         </div>
@@ -217,9 +168,11 @@
           </div>
           <div class="event-content">
             <div class="event-number">04</div>
-            <h4>Internship</h4>
+            <h4>{{ "ABOUT.EVENT_4" | translate }}</h4>
             <p>BFH Biel/Bienne</p>
-            <span class="event-date">Present</span>
+            <span class="event-date">{{
+              "ABOUT.EVENT_4_DATE" | translate
+            }}</span>
           </div>
         </div>
 
@@ -229,9 +182,9 @@
           </div>
           <div class="event-content">
             <div class="event-number">05</div>
-            <h4>Future Goals</h4>
-            <p>Be better than yesterday</p>
-            <span class="event-date">2025</span>
+            <h4>{{ "ABOUT.EVENT_5" | translate }}</h4>
+            <p>{{ "ABOUT.EVENT_5_DESCRIPTION" | translate }}</p>
+            <span class="event-date"> </span>
           </div>
         </div>
       </div>
@@ -239,33 +192,21 @@
   </section>
 
   <section class="interests animate-on-scroll">
-    <div class="section-title">Interests & Hobbies</div>
+    <div class="section-title">{{ "ABOUT.INTERESTS" | translate }}</div>
     <div class="interests-content">
       <div class="interest-item">
-        <h3>Movies and Series</h3>
-        <p>
-          I love to watch good films and TV series. It might seem trivial, but
-          watching them also requires a certain skill — you need to be able to
-          appreciate them, learn something new through them, and, most
-          importantly, truly enjoy the experience.
-        </p>
+        <h3>{{ "ABOUT.MOVIES_AND_SERIES" | translate }}</h3>
+        <p>{{ "ABOUT.MOVIES_AND_SERIES_DESCRIPTION" | translate }}</p>
       </div>
 
       <div class="interest-item">
-        <h3>Psychology</h3>
-        <p>
-          I have kind of interest in psychology, especially today it's hard to
-          understand people, so I try to learn more about it. More you
-          understand, easier to behave in different situations.
-        </p>
+        <h3>{{ "ABOUT.PSYCHOLOGY" | translate }}</h3>
+        <p>{{ "ABOUT.PSYCHOLOGY_DESCRIPTION" | translate }}</p>
       </div>
 
       <div class="interest-item">
-        <h3>Traveling</h3>
-        <p>
-          New interest after I came Switzerland. It is super interesting to see
-          different places, different cultures, different lifes.
-        </p>
+        <h3>{{ "ABOUT.TRAVELING" | translate }}</h3>
+        <p>{{ "ABOUT.TRAVELING_DESCRIPTION" | translate }}</p>
       </div>
     </div>
   </section>

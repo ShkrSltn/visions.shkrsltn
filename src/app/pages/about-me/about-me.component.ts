@@ -3,18 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from '../../shared/components/hero/hero.component';
 import { HttpClient } from '@angular/common/http';
-
-
-interface Skill {
-  name: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
-  description: string;
-}
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../services/language.service';
+import { SkillsService, Skill } from '../../services/skills.service';
 
 @Component({
   selector: 'app-about-me',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeroComponent],
+  imports: [CommonModule, RouterModule, HeroComponent, TranslateModule],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss'
 })
@@ -23,20 +19,29 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
   backendSkills: Skill[] = [];
   otherSkills: Skill[] = [];
   techStack: string[] = [];
-
-  constructor(private http: HttpClient) {}
+  currentLang: string;
+  constructor(
+    private http: HttpClient,
+    private languageService: LanguageService,
+    private skillsService: SkillsService
+  ) {
+    this.currentLang = this.languageService.getCurrentLang();
+    this.languageService.currentLang$.subscribe(lang => {
+      this.currentLang = lang;
+    });
+  }
 
   ngOnInit() {
     this.loadSkills();
+
+    // Подписываемся на изменения языка для обновления данных
+    this.languageService.currentLang$.subscribe(() => {
+      this.loadSkills();
+    });
   }
 
   loadSkills() {
-    this.http.get<{
-      frontendSkills: Skill[],
-      backendSkills: Skill[],
-      otherSkills: Skill[],
-      techStack: string[]
-    }>('./assets/data/skills.json').subscribe(data => {
+    this.skillsService.getSkills().subscribe(data => {
       this.frontendSkills = data.frontendSkills;
       this.backendSkills = data.backendSkills;
       this.otherSkills = data.otherSkills;

@@ -1,9 +1,14 @@
 <div class="projects-container container">
-  <app-hero title="PROJECTS" subtitle="Let's take a look at my projects">
+  <app-hero
+    [title]="'HERO_TITLES.PROJECTS' | translate"
+    [subtitle]="'HERO_TITLES.PROJECTS_SUBTITLE' | translate"
+  >
   </app-hero>
 
   <section class="featured-projects animate-on-scroll">
-    <div class="section-title">Featured Projects</div>
+    <div class="section-title">
+      {{ "PROJECTS.FEATURED_PROJECTS" | translate }}
+    </div>
     <div class="featured-grid">
       <div
         class="featured-project"
@@ -24,14 +29,14 @@
               target="_blank"
               class="project-link demo"
               *ngIf="project.demoLink && project.showDemo !== false"
-              >Live Demo</a
+              >{{ "BUTTONS.LIVE_DEMO" | translate }}</a
             >
             <a
               [href]="project.codeLink"
               target="_blank"
               class="project-link code"
               *ngIf="project.codeLink && project.showCode !== false"
-              >View Code</a
+              >{{ "BUTTONS.VIEW_CODE" | translate }}</a
             >
           </div>
         </div>
@@ -41,7 +46,7 @@
   </section>
 
   <app-projects-section
-    [title]="'More Projects'"
+    [title]="'PROJECTS.MORE_PROJECTS' | translate"
     [projects]="otherProjects"
     [displayMode]="'full'"
     [maxTechnologies]="3"

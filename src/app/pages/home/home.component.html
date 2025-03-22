@@ -1,27 +1,30 @@
 <div class="container">
   <section class="hero">
     <div class="hero-text">
-      <h1 class="animate-in">WELCOME</h1>
+      <h1 class="animate-in">
+        {{ "HERO_TITLES.HOME_1" | translate }}
+      </h1>
       <div class="separator"></div>
-      <h1 class="animate-in">TO THE</h1>
+      <h1 class="animate-in">
+        {{ "HERO_TITLES.HOME_2" | translate }}
+      </h1>
       <div class="separator"></div>
-      <h1 class="animate-in green">SHKRSLTNV</h1>
-      <p class="subtitle animate-in">Fullstack Developer</p>
+      <h1 class="animate-in green">
+        {{ "HERO_TITLES.HOME_3" | translate }}
+      </h1>
+      <p class="subtitle animate-in">
+        {{ "HERO_TITLES.HOME_SUBTITLE" | translate }}
+      </p>
     </div>
   </section>
 
   <section class="about animate-on-scroll">
-    <div class="section-title">About Me</div>
+    <div class="section-title">{{ "HOME.ABOUT_ME" | translate }}</div>
     <div class="about-content">
       <div class="about-text">
-        <h2>Hey!</h2>
+        <h2>{{ "HOME.HI" | translate }}</h2>
         <p>
-          I'm Shakir, I'm 24 years old, I'm from Ukraine but I'm a Meskhetian
-          Turk now living in Switzerland. I could write a cool text here to seem
-          "cool" to you, but I am a person who loves simplicity, and I will just
-          say that I love IT. I love to get on with life and develop, I love to
-          learn, I love to create cool things. I do as much as I can, and I
-          always will.
+          {{ "HOME.ME_DESCRIPTION" | translate }}
         </p>
         <div class="tech-stack">
           <div class="tech-item" *ngFor="let tech of techStack">{{ tech }}</div>
@@ -39,48 +42,46 @@
   <section class="sections">
     <div class="section animate-on-scroll">
       <div class="section-number">01</div>
-      <h2>BUILD</h2>
+      <h2>{{ "HOME.BUILD" | translate }}</h2>
       <p class="section-description">
-        Crafting clean, efficient solutions that solve real problems. I believe
-        simplicity is the ultimate sophistication.
+        {{ "HOME.BUILD_DESCRIPTION" | translate }}
       </p>
     </div>
 
     <div class="section animate-on-scroll">
       <div class="section-number">02</div>
-      <h2>LEARN</h2>
+      <h2>{{ "HOME.LEARN" | translate }}</h2>
       <p class="section-description">
-        Every project is a learning opportunity. I'm constantly exploring new
-        technologies and refining my skills.
+        {{ "HOME.LEARN_DESCRIPTION" | translate }}
       </p>
     </div>
 
     <div class="section animate-on-scroll">
       <div class="section-number">03</div>
-      <h2>GROW</h2>
+      <h2>{{ "HOME.GROW" | translate }}</h2>
       <p class="section-description">
-        Embracing challenges and feedback to become better each day. The journey
-        is as important as the destination.
+        {{ "HOME.GROW_DESCRIPTION" | translate }}
       </p>
     </div>
   </section>
 
   <app-projects-section
-    [title]="'Featured Projects'"
+    [title]="'HOME.FEATURED_PROJECTS' | translate"
     [projects]="featuredProjects"
     [displayMode]="'full'"
     [maxTechnologies]="3"
   ></app-projects-section>
 
   <section class="contact animate-on-scroll">
-    <div class="section-title">Get In Touch</div>
-    <h2>Let's work together</h2>
+    <div class="section-title">{{ "HOME.IN_TOUCH" | translate }}</div>
+    <h2>{{ "HOME.LET'S_WORK_TOGETHER" | translate }}</h2>
     <p>
-      I'm always open to discussing new projects, creative ideas or
-      opportunities to be part of your vision.
+      {{ "HOME.IN_TOUCH_DESCRIPTION" | translate }}
     </p>
     <div class="contact-links">
-      <a href="{{ emailLink }}" class="contact-button">Email Me</a>
+      <a href="{{ emailLink }}" class="contact-button">{{
+        "HOME.EMAIL_ME" | translate
+      }}</a>
       <div class="social-links">
         <a target="_blank" href="{{ gitHubLink }}" class="social-link"
           >GitHub</a

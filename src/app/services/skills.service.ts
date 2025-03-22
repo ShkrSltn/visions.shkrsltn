@@ -4,36 +4,32 @@ import { Observable } from 'rxjs';
 import { LanguageService } from './language.service';
 import { switchMap } from 'rxjs/operators';
 
-export interface Project {
-  title: string;
+export interface Skill {
+  name: string;
+  level: string;
   description: string;
-  image: string;
-  technologies: string[];
-  demoLink?: string;
-  codeLink?: string;
-  featured: boolean;
-  showDemo?: boolean;
-  showCode?: boolean;
 }
 
-export interface ProjectsData {
-  featuredProjects: Project[];
-  otherProjects: Project[];
+export interface SkillsData {
+  frontendSkills: Skill[];
+  backendSkills: Skill[];
+  otherSkills: Skill[];
+  techStack: string[];
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectService {
+export class SkillsService {
   constructor(
     private http: HttpClient,
     private languageService: LanguageService
   ) {}
 
-  getProjects(): Observable<ProjectsData> {
+  getSkills(): Observable<SkillsData> {
     return this.languageService.currentLang$.pipe(
       switchMap(lang => {
-        return this.http.get<ProjectsData>(`./assets/data/${lang}/projects.json`);
+        return this.http.get<SkillsData>(`./assets/data/${lang}/skills.json`);
       })
     );
   }

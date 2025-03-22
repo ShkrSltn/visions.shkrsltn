@@ -7,12 +7,20 @@
 
       <div class="footer-links">
         <div class="footer-links-column">
-          <h3>Navigation</h3>
+          <h3>{{ "HEADER.NAVIGATION" | translate }}</h3>
           <ul>
-            <li><a routerLink="/">Home</a></li>
-            <li><a routerLink="/about-me">About</a></li>
-            <li><a routerLink="/projects">Projects</a></li>
-            <li><a routerLink="/contact">Contact</a></li>
+            <li>
+              <a routerLink="/">{{ "HEADER.HOME" | translate }}</a>
+            </li>
+            <li>
+              <a routerLink="/about-me">{{ "HEADER.ABOUT" | translate }}</a>
+            </li>
+            <li>
+              <a routerLink="/projects">{{ "HEADER.PROJECTS" | translate }}</a>
+            </li>
+            <li>
+              <a routerLink="/contact">{{ "HEADER.CONTACT" | translate }}</a>
+            </li>
           </ul>
         </div>
 

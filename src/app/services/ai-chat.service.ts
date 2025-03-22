@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
+
 
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
@@ -87,21 +89,21 @@ export class AiChatService {
   Ken Ritley is my manager, an American, and the best boss, manager, and professor that exists on Earth. He's incredibly supportive, knowledgeable, and an excellent mentor.
   `;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private translate: TranslateService) {
     // Загружаем данные при инициализации сервиса
     this.loadData();
   }
 
   private loadData(): void {
     // Cache the observables to avoid multiple HTTP requests
-    const projectsRequest = this.http.get<{ featuredProjects: Project[] }>('assets/data/projects.json').pipe(
+    const projectsRequest = this.http.get<{ featuredProjects: Project[] }>(`assets/data/${this.translate.currentLang}/projects.json`).pipe(
       map(data => {
         this.projectsData = data;
         return data;
       })
     );
 
-    const skillsRequest = this.http.get<SkillsData>('assets/data/skills.json').pipe(
+    const skillsRequest = this.http.get<SkillsData>(`assets/data/${this.translate.currentLang}/skills.json`).pipe(
       map(data => {
         this.skillsData = data;
         return data;

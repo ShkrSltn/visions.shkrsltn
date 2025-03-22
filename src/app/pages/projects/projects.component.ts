@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { ProjectService, Project } from '../../services/project.service';
 import { ProjectsSectionComponent } from '../../shared/components/projects-section/projects-section.component';
 import { HeroComponent } from '../../shared/components/hero/hero.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, RouterModule, ProjectsSectionComponent, HeroComponent],
+  imports: [CommonModule, RouterModule, ProjectsSectionComponent, HeroComponent, TranslateModule],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })
@@ -16,7 +17,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
   featuredProjects: Project[] = [];
   otherProjects: Project[] = [];
 
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService, private translate: TranslateService) {}
 
   ngOnInit() {
     this.projectService.getProjects().subscribe(data => {

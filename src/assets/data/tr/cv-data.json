@@ -1,0 +1,144 @@
+{
+  "profile": "Ben, pozitif bir düşünce yapısına sahip, sürekli öğrenme ve profesyonel olarak gelişme arzusu olan çalışkan ve hırslı bir kişiyim. Akademik ve kendi kendime eğitim yolculuğum boyunca, çeşitli projelerde çalışarak BT'nin farklı alanlarını keşfetme fırsatım oldu. Yüksek becerili ve başarılı bir geliştirici olmak için deneyimimi ve becerilerimi daha da genişletme konusunda tutkuluyum.",
+
+  "skills": {
+    "advanced": ["JavaScript/TypeScript", "HTML", "CSS"],
+    "intermediate": ["Vue.js", "Angular", "Python", "FastAPI", "PostgreSQL", "Git", "Docker"],
+    "beginner": ["Spring Boot"],
+    "basic": ["Java", "C#", "Android Studio", "Figma", "Gitlab", "CI/CD"]
+  },
+
+  "workExperience": [
+    {
+      "period": "08.2024 - Şu anda",
+      "title": "Fullstack Developer (Praktikant), BFH",
+      "location": "Biel/Bienne, İsviçre",
+      "responsibilities": [
+        "Vue.js ve FastAPI kullanarak proje ihtiyaçlarına göre full-stack geliştirme",
+        "RESTful API'ler ve PostgreSQL ile veritabanı entegrasyonları uygulama",
+        "Docker ve konteynerleştirilmiş ortamlar kullanarak uygulamaları dağıtma ve yönetme",
+        "İş mantığını uygulamak ve işlevselliği sağlamak için çapraz fonksiyonel ekiplerle işbirliği yapma",
+        "GitLab depolarını yönetme ve verimli geliştirme için CI/CD boru hatlarını optimize etme",
+        "LangChain dahil olmak üzere LLM tabanlı uygulamalar için AI destekli çözümlerle çalışma",
+        "Çevik ortamlarda paydaşlar ve ürün ekipleriyle aktif işbirliği"
+      ]
+    },
+    {
+      "period": "11.2022 - 03.2024",
+      "title": "Frontend Developer, Yarı zamanlı Serbest Çalışan",
+      "location": "Odesa, Ukrayna",
+      "responsibilities": [
+        "HTML, CSS ve JavaScript kullanarak duyarlı kullanıcı arayüzleri tasarlama ve geliştirme",
+        "Müşteri gereksinimlerine göre özel web sitesi düzenleri oluşturma",
+        "Çapraz platform uyumluluğunu sağlamak için mobil dostu tasarımlar uygulama",
+        "Gereksinimleri toplamak ve ihtiyaçlarını karşılayan çözümler sunmak için müşterilerle doğrudan işbirliği yapma"
+      ]
+    },
+    {
+      "period": "02.2018 - 01.2021",
+      "title": "Satış Danışmanı, Elektronik Mağazası",
+      "location": "Odesa, Ukrayna",
+      "responsibilities": [
+        "Müşterilere elektronik ürünler hakkında teknik bilgi ve tavsiye sağlama",
+        "Satış hedeflerini tutarlı bir şekilde aşma",
+        "Müşteri memnuniyetini sağlamak için satış sonrası destek sağlama",
+        "Envanter yönetimi ve mağaza görüntüsünün korunmasına yardımcı olma"
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "period": "09.2017 - 06.2021",
+      "degree": "Bilgisayar Mühendisliği Lisans Derecesi",
+      "institution": "Odesa Mechnikov Ulusal Üniversitesi",
+      "location": "Odesa, Ukrayna",
+      "details": [
+        "Programlama temelleri",
+        "Bilgisayar Mühendisliği temelleri",
+        "Veri yapıları ve algoritmalar",
+        "Bilgisayar ağları",
+        "İşletim sistemleri",
+        "Web ve mobil geliştirme"
+      ]
+    },
+    {
+      "period": "04.2024 - 07.2024",
+      "degree": "Powercoders Bootcamp - ICT İş Entegrasyon Programı",
+      "location": "Bern, İsviçre",
+      "details": [
+        "HTML, CSS, JavaScript temelleri",
+        "Haftalık iş ve sosyal beceriler eğitimi (takım çalışması, iletişim vb.)"
+      ]
+    }
+  ],
+
+  "certifications": [
+    {
+      "degree": "Tam 2024 Web Geliştirme Bootcamp'i (Çevrimiçi), Udemy",
+      "period": "Ocak 2024 - Nisan 2024",
+      "location": "Zürih, İsviçre",
+      "details": [
+        "HTML5, CSS3, JavaScript ES6+ dahil modern web geliştirme teknolojilerinde kapsamlı eğitim",
+        "React, Node.js, Express ve MongoDB ile pratik deneyim",
+        "Git ve GitHub ile sürüm kontrolü",
+        "Duyarlı tasarım ilkeleri ve en iyi uygulamalar"
+      ]
+    }
+  ],
+
+  "languages": [
+    {
+      "name": "Rusça",
+      "level": "Ana Dil"
+    },
+    {
+      "name": "Ukraynaca",
+      "level": "Ana Dil"
+    },
+    {
+      "name": "Türkçe",
+      "level": "Ana Dil"
+    },
+    {
+      "name": "İngilizce",
+      "level": "B2"
+    },
+    {
+      "name": "Almanca",
+      "level": "A1"
+    }
+  ],
+
+  "references": [
+    {
+      "name": "Kenneth Ritley",
+      "position": "Prof. Dr. Kenneth Ritley, Dozent, BFH",
+      "contact": "kenneth.ritley@bfh.ch",
+      "website": "https://ritley.com/",
+      "phone": "+41 79 509 57 22"
+    }
+  ],
+
+  "hobbies": [
+    {
+      "name": "Okuma",
+      "description": "İnsan davranışı, kişisel gelişim ve çevremizdeki dünya hakkındaki anlayışımı derinleştiren psikolojik literatürü ve kitapları keşfetmekten keyif alıyorum."
+    },
+    {
+      "name": "Müzik",
+      "description": "Özellikle keman kompozisyonları olmak üzere klasik müzikte ilham buluyorum, bu da karmaşık programlama görevleri üzerinde çalışırken odaklanmamı ve yaratıcılığımı korumama yardımcı oluyor."
+    }
+  ],
+
+  "contact": {
+    "nationality": "Türk, S Permit",
+    "birthdate": "31.03.2000",
+    "email": "sultanovshakir12@gmail.com",
+    "phone": "+41 76 454 7413",
+    "address": "Tösstalstrasse 74, 8636 Wald ZH",
+    "linkedin": "https://www.linkedin.com/in/shkrsltn/",
+    "portfolio": "https://shkrsltn.github.io/visions.shkrsltn/",
+    "github": "https://github.com/ShkrSltn"
+  }
+}

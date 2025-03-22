@@ -18,14 +18,14 @@
       target="_blank"
       class="card-link"
       *ngIf="project.demoLink && project.showDemo !== false"
-      >Demo</a
+      >{{ "BUTTONS.DEMO" | translate }}</a
     >
     <a
       [href]="project.codeLink"
       target="_blank"
       class="card-link"
       *ngIf="project.codeLink && project.showCode !== false"
-      >Code</a
+      >{{ "BUTTONS.CODE" | translate }}</a
     >
   </div>
 </div>

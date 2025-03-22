@@ -1,7 +1,9 @@
-<app-header></app-header>
+<div appRippleEffect [rippleSize]="100" class="ripple-container">
+  <app-header></app-header>
 
-<main appRippleEffect>
-  <router-outlet></router-outlet>
-</main>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 
-<app-footer appRippleEffect></app-footer>
+  <app-footer></app-footer>
+</div>

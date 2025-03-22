@@ -1,8 +1,14 @@
 <div class="contact-container container">
-  <app-hero title="GET IN TOUCH" subtitle="Want to contact me ?"> </app-hero>
+  <app-hero
+    [title]="'HERO_TITLES.CONTACT' | translate"
+    [subtitle]="'HERO_TITLES.CONTACT_SUBTITLE' | translate"
+  >
+  </app-hero>
 
   <section class="contact-info animate-on-scroll">
-    <div class="section-title">Contact Information</div>
+    <div class="section-title">
+      {{ "CONTACT.CONTACT_INFORMATION" | translate }}
+    </div>
     <div class="info-grid">
       <div class="info-card">
         <div class="info-icon">
@@ -10,7 +16,7 @@
             <span class="material-icons">email</span>
           </div>
         </div>
-        <h3>Email</h3>
+        <h3>{{ "CONTACT.EMAIL" | translate }}</h3>
         <p>
           <a href="mailto:{{ contactInfo.email }}">{{ contactInfo.email }}</a>
         </p>
@@ -22,7 +28,7 @@
             <span class="material-icons">phone</span>
           </div>
         </div>
-        <h3>Phone</h3>
+        <h3>{{ "CONTACT.PHONE" | translate }}</h3>
         <p>{{ contactInfo.phone }}</p>
       </div>
 
@@ -32,7 +38,7 @@
             <span class="material-icons">location_on</span>
           </div>
         </div>
-        <h3>Location</h3>
+        <h3>{{ "CONTACT.LOCATION" | translate }}</h3>
         <p>{{ contactInfo.location }}</p>
       </div>
 
@@ -67,7 +73,9 @@
   </section>
 
   <section class="contact-form-section animate-on-scroll">
-    <div class="section-title">Send Me a Message</div>
+    <div class="section-title">
+      {{ "CONTACT.SEND_MESSAGE_TITLE" | translate }}
+    </div>
     <div class="form-container">
       <form
         [formGroup]="contactForm"
@@ -75,7 +83,7 @@
         class="contact-form"
       >
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">{{ "CONTACT.MESSAGE.NAME" | translate }}</label>
           <input
             type="text"
             id="name"
@@ -86,17 +94,17 @@
             class="error-message"
             *ngIf="formSubmitted && nameControl?.invalid"
           >
-            <span *ngIf="nameControl?.errors?.['required']"
-              >Name is required</span
-            >
-            <span *ngIf="nameControl?.errors?.['minlength']"
-              >Name must be at least 2 characters</span
-            >
+            <span *ngIf="nameControl?.errors?.['required']">{{
+              "CONTACT.MESSAGE.NAME_REQUIRED" | translate
+            }}</span>
+            <span *ngIf="nameControl?.errors?.['minlength']">{{
+              "CONTACT.MESSAGE.NAME_MINLENGTH" | translate
+            }}</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email">{{ "CONTACT.MESSAGE.EMAIL" | translate }}</label>
           <input
             type="email"
             id="email"
@@ -107,17 +115,19 @@
             class="error-message"
             *ngIf="formSubmitted && emailControl?.invalid"
           >
-            <span *ngIf="emailControl?.errors?.['required']"
-              >Email is required</span
-            >
-            <span *ngIf="emailControl?.errors?.['email']"
-              >Please enter a valid email</span
-            >
+            <span *ngIf="emailControl?.errors?.['required']">{{
+              "CONTACT.MESSAGE.EMAIL_REQUIRED" | translate
+            }}</span>
+            <span *ngIf="emailControl?.errors?.['email']">{{
+              "CONTACT.MESSAGE.EMAIL_INVALID" | translate
+            }}</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="subject">Subject</label>
+          <label for="subject">{{
+            "CONTACT.MESSAGE.SUBJECT" | translate
+          }}</label>
           <input
             type="text"
             id="subject"
@@ -128,14 +138,16 @@
             class="error-message"
             *ngIf="formSubmitted && subjectControl?.invalid"
           >
-            <span *ngIf="subjectControl?.errors?.['required']"
-              >Subject is required</span
-            >
+            <span *ngIf="subjectControl?.errors?.['required']">{{
+              "CONTACT.MESSAGE.SUBJECT_REQUIRED" | translate
+            }}</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="message">Message</label>
+          <label for="message">{{
+            "CONTACT.MESSAGE.MESSAGE" | translate
+          }}</label>
           <textarea
             id="message"
             formControlName="message"
@@ -146,24 +158,25 @@
             class="error-message"
             *ngIf="formSubmitted && messageControl?.invalid"
           >
-            <span *ngIf="messageControl?.errors?.['required']"
-              >Message is required</span
-            >
-            <span *ngIf="messageControl?.errors?.['minlength']"
-              >Message must be at least 10 characters</span
-            >
+            <span *ngIf="messageControl?.errors?.['required']">{{
+              "CONTACT.MESSAGE.MESSAGE_REQUIRED" | translate
+            }}</span>
+            <span *ngIf="messageControl?.errors?.['minlength']">{{
+              "CONTACT.MESSAGE.MESSAGE_MINLENGTH" | translate
+            }}</span>
           </div>
         </div>
 
-        <button type="submit" class="submit-button">Send Message</button>
+        <button type="submit" class="submit-button">
+          {{ "CONTACT.MESSAGE.SEND" | translate }}
+        </button>
 
         <div class="form-status">
           <div class="success-message" *ngIf="formSuccess">
-            Your message has been sent successfully! I'll get back to you soon.
+            {{ "CONTACT.MESSAGE.SUCCESS_DESCRIPTION" | translate }}
           </div>
           <div class="error-message form-error" *ngIf="formError">
-            There was an error sending your message. Please check the form and
-            try again.
+            {{ "CONTACT.MESSAGE.ERROR_DESCRIPTION" | translate }}
           </div>
         </div>
       </form>

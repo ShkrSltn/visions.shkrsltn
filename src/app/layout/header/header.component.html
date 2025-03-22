@@ -8,6 +8,7 @@
       class="mobile-menu-toggle"
       (click)="toggleMobileMenu()"
       [class.active]="isMobileMenuOpen"
+      aria-label="Toggle navigation menu"
     >
       <span></span>
       <span></span>
@@ -16,29 +17,37 @@
 
     <ul [class.mobile-menu-open]="isMobileMenuOpen">
       <li>
-        <a routerLink="/" class="nav-link" (click)="closeMobileMenu()">Home</a>
+        <a routerLink="/" class="nav-link" (click)="closeMobileMenu()">{{
+          "HEADER.HOME" | translate
+        }}</a>
       </li>
       <li>
-        <a routerLink="/about-me" class="nav-link" (click)="closeMobileMenu()"
-          >About</a
+        <a
+          routerLink="/about-me"
+          class="nav-link"
+          (click)="closeMobileMenu()"
+          >{{ "HEADER.ABOUT" | translate }}</a
         >
       </li>
       <li>
-        <a routerLink="/projects" class="nav-link" (click)="closeMobileMenu()"
-          >Projects</a
+        <a
+          routerLink="/projects"
+          class="nav-link"
+          (click)="closeMobileMenu()"
+          >{{ "HEADER.PROJECTS" | translate }}</a
         >
       </li>
       <li>
-        <a routerLink="/contact" class="nav-link" (click)="closeMobileMenu()"
-          >Contact</a
-        >
+        <a routerLink="/contact" class="nav-link" (click)="closeMobileMenu()">{{
+          "HEADER.CONTACT" | translate
+        }}</a>
       </li>
       <li>
         <a
           routerLink="/ai-assistant"
           class="nav-link nav-link-ai"
           (click)="closeMobileMenu()"
-          >SHKR AI</a
+          >{{ "HEADER.AI_ASSISTANT" | translate }}</a
         >
       </li>
       <li>
@@ -46,8 +55,27 @@
           routerLink="/cv"
           class="nav-link nav-link-cv"
           (click)="closeMobileMenu()"
-          >CV</a
+          >{{ "HEADER.CV" | translate }}</a
         >
+      </li>
+      <li class="language-selector" [class.active]="isLanguageMenuOpen">
+        <button
+          class="language-toggle"
+          (click)="toggleLanguage(); $event.stopPropagation()"
+          aria-haspopup="true"
+        >
+          {{ getLanguageDisplay(currentLang) }}
+          <span class="language-icon">🌐</span>
+        </button>
+        <div class="language-dropdown">
+          <button
+            *ngFor="let lang of availableLanguages"
+            (click)="selectLanguage(lang); $event.stopPropagation()"
+            [class.active]="currentLang === lang"
+          >
+            {{ getLanguageDisplay(lang) }}
+          </button>
+        </div>
       </li>
     </ul>
   </nav>

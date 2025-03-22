@@ -1,0 +1,128 @@
+{
+  "frontendSkills": [
+    {
+      "name": "HTML5 & CSS3",
+      "level": "Yeterince iyi",
+      "description": "Grid ve Flexbox dahil modern CSS teknikleri kullanarak duyarlı, erişilebilir ve anlamsal olarak yapılandırılmış web sayfaları oluşturma."
+    },
+    {
+      "name": "JavaScript",
+      "level": "Yeterince iyi",
+      "description": "ES6+ özellikleri, asenkron programlama ve DOM manipülasyonu ile etkileşimli web uygulamaları geliştirme."
+    },
+    {
+      "name": "TypeScript",
+      "level": "Fena değil",
+      "description": "Arayüzler, jenerikler ve gelişmiş tipleme özellikleri ile tip güvenli uygulamalar geliştirme."
+    },
+    {
+      "name": "Angular",
+      "level": "Sanırım fena değil",
+      "description": "Servisler, yönlendirme ve durum yönetimi ile bileşen odaklı uygulamalar oluşturma."
+    },
+    {
+      "name":"Vue.js",
+      "level":"Çok",
+      "description":"Vue.js ile deneyimim var, neredeyse tüm projelerimizde Vue kullanıyoruz."
+    },
+    {
+      "name":"React",
+      "level":"Temel bilgiler",
+      "description":"Bileşen tabanlı mimari, kancalar ve Redux ile durum yönetimi anlayışı."
+    },
+    {
+      "name":"SASS/SCSS",
+      "level":"Rahat",
+      "description":"Değişkenler, mixin'ler ve iç içe geçme ile daha sürdürülebilir ve organize CSS için ön işlemcilerin kullanımı."
+    }
+  ],
+  "backendSkills": [
+    {
+      "name": "Spring Boot",
+      "level": "Biraz çalıştım",
+      "description": "Olay odaklı mimari ve engellenmeyen G/Ç işlemleri ile sunucu uygulamaları geliştirme."
+    },
+    {
+      "name": "FastAPI",
+      "level": "Fazlasıyla yeterli",
+      "description": "Ara yazılım, yönlendirme ve hata işleme ile RESTful API'ler oluşturma."
+    },
+    {
+      "name": "PostgreSQL",
+      "level": "İyi biliyorum",
+      "description": "İndeksleme, işlemler ve saklı prosedürler dahil gelişmiş ilişkisel veritabanı özellikleriyle çalışma."
+    },
+    {
+      "name": "SQL",
+      "level": "Yeterince iyi",
+      "description": "İlişkisel veritabanlarıyla çalışma, sorgular yazma ve veritabanı ilişkilerini yönetme."
+    },
+    {
+      "name": "Java",
+      "level": "Temellerden fazlası",
+      "description": "Spring Boot ve diğer çerçevelerle kurumsal uygulamalar geliştirme."
+    },
+    {
+      "name": "Python",
+      "level": "Şu anda aktif",
+      "description": "Otomasyon komut dosyaları oluşturma, veri analizi ve Django ve Flask ile web uygulamaları geliştirme."
+    },
+    {
+      "name":"C#",
+      "level":"Temeller",
+      "description":"Sözdizimi bilgisi ve nesne yönelimli programlama ilkelerini anlama."
+    }
+  ],
+  "otherSkills": [
+    {
+      "name": "Git & GitHub",
+      "level": "Her gün kullanıyorum",
+      "description": "Sürüm kontrolü, işbirlikçi geliştirme, dallanma stratejileri ve CI/CD iş akışları."
+    },
+    {
+      "name": "RESTful APIs",
+      "level": "Standart yaklaşım",
+      "description": "Doğru durum kodları ve hata işleme ile REST ilkelerine göre API'lerin tasarımı ve kullanımı."
+    },
+    {
+      "name": "Responsive Design",
+      "level": "Bilmek gerekir",
+      "description": "Medya sorguları ve mobil öncelikli yaklaşım kullanarak farklı ekran boyutlarına uyum sağlayan düzenler oluşturma."
+    },
+    {
+      "name": "Docker",
+      "level": "Çok kez yaptım",
+      "description": "Uygulamaların konteynerleştirilmesi, Docker imajları ve konteynerlerinin oluşturulması ve yönetilmesi."
+    },
+    {
+      "name": "CI/CD",
+      "level": "Birkaç kez",
+      "description": "GitHub Actions, GitLab CI/CD ve diğer araçlarla sürekli entegrasyon ve teslimat boru hatlarının kurulumu ve bakımı."
+    },
+    {
+      "name":"Google Cloud",
+      "level":"Biraz deneyimim var",
+      "description":"BFH'deki tüm projelerimizi Docker Cloud Run, Cloud SQL ve Artifact Registry kullanarak Google Cloud'da dağıttık."
+    },
+    {
+      "name":"Agile Metodolojileri",
+      "level":"Bilgi",
+      "description":"Üniversitede çalışmanın avantajı - SCRUM ve AGILE proje yönetimiyle ilgili bir haftalık çalıştaylara katılma fırsatım oldu. Bunları daha sonraki iş sürecimde kullandım."
+    }
+  ],
+  "techStack": [
+    "JavaScript",
+    "TypeScript",
+    "Angular",
+    "Vue.js",
+    "Vanilla JS",
+    "Python",
+    "FastAPI",
+    "Java",
+    "Spring Boot",
+    "C#",
+    "Git - GitHub/GitLab",
+    "Docker",
+    "CI/CD"
+  ]
+}

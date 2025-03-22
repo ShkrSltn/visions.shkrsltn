@@ -2,11 +2,12 @@ import { Component, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeroComponent } from '../../shared/components/hero/hero.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact-me',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HeroComponent],
+  imports: [CommonModule, ReactiveFormsModule, HeroComponent, TranslateModule],
   templateUrl: './contact-me.component.html',
   styleUrl: './contact-me.component.scss'
 })
@@ -32,7 +33,7 @@ export class ContactMeComponent implements AfterViewInit {
     { name: 'Email', url: this.emailLink, icon: 'email' }
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private translate: TranslateService) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],

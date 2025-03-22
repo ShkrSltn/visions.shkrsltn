@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ProjectService, Project } from '../../services/project.service';
 import { ProjectsSectionComponent } from '../../shared/components/projects-section/projects-section.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SkillsService } from '../../services/skills.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, ProjectsSectionComponent],
+  imports: [CommonModule, RouterModule, ProjectsSectionComponent, TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -21,15 +23,29 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private http: HttpClient
+    private skillsService: SkillsService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
+    this.loadProjects();
+    this.loadTechStack();
+
+    // Обновляем данные при смене языка
+    this.translateService.onLangChange.subscribe(() => {
+      this.loadProjects();
+      this.loadTechStack();
+    });
+  }
+
+  loadProjects() {
     this.projectService.getProjects().subscribe(data => {
       this.featuredProjects = data.featuredProjects.filter(project => project.featured);
     });
+  }
 
-    this.http.get<any>('./assets/data/skills.json').subscribe(data => {
+  loadTechStack() {
+    this.skillsService.getSkills().subscribe(data => {
       this.techStack = data.techStack;
     });
   }

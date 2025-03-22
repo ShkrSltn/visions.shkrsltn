@@ -2,16 +2,16 @@ import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AiChatComponent } from '../../shared/components/ai-chat/ai-chat.component';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-ai-assistant',
   standalone: true,
-  imports: [CommonModule, RouterModule, AiChatComponent],
+  imports: [CommonModule, RouterModule, AiChatComponent, TranslateModule],
   templateUrl: './ai-assistant.component.html',
   styleUrl: './ai-assistant.component.scss'
 })
 export class AiAssistantComponent implements OnInit, AfterViewInit {
-  constructor() {}
+  constructor(private translate: TranslateService) {}
 
   ngOnInit(): void {
     // Прокрутка страницы вверх при загрузке

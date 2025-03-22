@@ -1,7 +1,7 @@
 <div class="chat-container">
   <div class="chat-header">
-    <h3>{{ title }}</h3>
-    <p>{{ subtitle }}</p>
+    <h3>{{ "AI_ASSISTANT.AI_CHAT.CHAT_TITLE" | translate }}</h3>
+    <p>{{ "AI_ASSISTANT.AI_CHAT.CHAT_SUBTITLE" | translate }}</p>
   </div>
 
   <div class="chat-messages" #chatMessages>
@@ -31,14 +31,13 @@
     </div>
 
     <div class="suggested-questions" *ngIf="chatHistory.length <= 2">
-      <p>Try asking:</p>
+      <p>{{ "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_TITLE" | translate }}</p>
       <div class="question-chips">
         <button
           *ngFor="let question of suggestedQuestions"
           (click)="askSuggestedQuestion(question)"
-          appRippleEffect
         >
-          {{ question }}
+          {{ question | translate }}
         </button>
       </div>
     </div>
@@ -48,13 +47,14 @@
     <input
       type="text"
       [(ngModel)]="userMessage"
-      placeholder="Type your question..."
+      placeholder="{{
+        'AI_ASSISTANT.AI_CHAT.CHAT_INPUT_PLACEHOLDER' | translate
+      }}"
       (keyup.enter)="sendMessage()"
     />
     <button
       (click)="sendMessage()"
       [disabled]="isLoading || !userMessage.trim()"
-      appRippleEffect
     >
       <span class="material-icons">send</span>
     </button>

@@ -1,0 +1,128 @@
+{
+  "frontendSkills": [
+    {
+      "name": "HTML5 & CSS3",
+      "level": "Gut genug",
+      "description": "Erstellung von responsiven, zugänglichen und semantisch strukturierten Webseiten mit modernen CSS-Techniken, einschließlich Grid und Flexbox."
+    },
+    {
+      "name": "JavaScript",
+      "level": "Gut genug",
+      "description": "Entwicklung interaktiver Webanwendungen mit ES6+ Funktionen, asynchroner Programmierung und DOM-Manipulation."
+    },
+    {
+      "name": "TypeScript",
+      "level": "Nicht schlecht",
+      "description": "Entwicklung typsicherer Anwendungen mit Interfaces, Generics und fortgeschrittenen Typisierungsfunktionen."
+    },
+    {
+      "name": "Angular",
+      "level": "Ich denke nicht schlecht",
+      "description": "Erstellung komponentenorientierter Anwendungen mit Services, Routing und Zustandsmanagement."
+    },
+    {
+      "name":"Vue.js",
+      "level":"Viel",
+      "description":"Habe Erfahrung mit Vue.js, wir verwenden Vue in fast allen unseren Projekten."
+    },
+    {
+      "name":"React",
+      "level":"Grundkenntnisse",
+      "description":"Verständnis der komponentenbasierten Architektur, Hooks und Zustandsmanagement mit Redux."
+    },
+    {
+      "name":"SASS/SCSS",
+      "level":"Komfortabel",
+      "description":"Verwendung von Präprozessoren für besser wartbares und organisiertes CSS mit Variablen, Mixins und Verschachtelung."
+    }
+  ],
+  "backendSkills": [
+    {
+      "name": "Spring Boot",
+      "level": "Etwas gearbeitet",
+      "description": "Entwicklung von Serveranwendungen mit ereignisgesteuerter Architektur und nicht-blockierenden I/O-Operationen."
+    },
+    {
+      "name": "FastAPI",
+      "level": "Mehr als genug",
+      "description": "Erstellung von RESTful APIs mit Middleware, Routing und Fehlerbehandlung."
+    },
+    {
+      "name": "PostgreSQL",
+      "level": "Ich bin gut darin",
+      "description": "Arbeit mit fortgeschrittenen relationalen Datenbankfunktionen einschließlich Indizierung, Transaktionen und gespeicherten Prozeduren."
+    },
+    {
+      "name": "SQL",
+      "level": "Gut genug",
+      "description": "Arbeit mit relationalen Datenbanken, Schreiben von Abfragen und Verwaltung von Datenbankbeziehungen."
+    },
+    {
+      "name": "Java",
+      "level": "Mehr als Grundlagen",
+      "description": "Entwicklung von Unternehmensanwendungen mit Spring Boot und anderen Frameworks."
+    },
+    {
+      "name": "Python",
+      "level": "Aktuell aktiv",
+      "description": "Erstellung von Automatisierungsskripten, Datenanalyse und Entwicklung von Webanwendungen mit Django und Flask."
+    },
+    {
+      "name":"C#",
+      "level":"Grundlagen",
+      "description":"Kenntnisse in Syntax und Verständnis objektorientierter Prinzipien."
+    }
+  ],
+  "otherSkills": [
+    {
+      "name": "Git & GitHub",
+      "level": "Täglich im Einsatz",
+      "description": "Versionskontrolle, kollaborative Entwicklung, Branching-Strategien und CI/CD-Workflows."
+    },
+    {
+      "name": "RESTful APIs",
+      "level": "Standardweg",
+      "description": "Design und Nutzung von APIs gemäß REST-Prinzipien, mit korrekten Statuscodes und Fehlerbehandlung."
+    },
+    {
+      "name": "Responsive Design",
+      "level": "Sollte man kennen",
+      "description": "Erstellung von Layouts, die sich an verschiedene Bildschirmgrößen anpassen, mit Media Queries und Mobile-First-Ansatz."
+    },
+    {
+      "name": "Docker",
+      "level": "Viele Male gemacht",
+      "description": "Containerisierung von Anwendungen, Erstellung und Verwaltung von Docker-Images und Containern."
+    },
+    {
+      "name": "CI/CD",
+      "level": "Einige Male",
+      "description": "Einrichtung und Wartung von Continuous Integration und Delivery Pipelines mit GitHub Actions, GitLab CI/CD und anderen Tools."
+    },
+    {
+      "name":"Google Cloud",
+      "level":"Habe einige Erfahrung",
+      "description":"Alle unsere Projekte in BFH in der Google Cloud bereitgestellt, mit Docker Cloud Run, Cloud SQL und Artifact Registry."
+    },
+    {
+      "name":"Agile Methodologien",
+      "level":"Kenntnisse",
+      "description":"Vorteil der Arbeit an der Universität - hatte die Möglichkeit, an einwöchigen Workshops zu SCRUM und AGILE Projektmanagement teilzunehmen. Diese habe ich im weiteren Arbeitsprozess eingesetzt."
+    }
+  ],
+  "techStack": [
+    "JavaScript",
+    "TypeScript",
+    "Angular",
+    "Vue.js",
+    "Vanilla JS",
+    "Python",
+    "FastAPI",
+    "Java",
+    "Spring Boot",
+    "C#",
+    "Git - GitHub/GitLab",
+    "Docker",
+    "CI/CD"
+  ]
+}
