@@ -66,13 +66,11 @@ export class HeaderComponent implements OnInit {
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
-    document.body.classList.toggle('no-scroll', this.isMobileMenuOpen);
   }
 
   closeMobileMenu() {
     if (this.isMobileMenuOpen) {
       this.isMobileMenuOpen = false;
-      document.body.classList.remove('no-scroll');
     }
   }
 
