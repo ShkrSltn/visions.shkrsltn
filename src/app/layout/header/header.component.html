@@ -58,7 +58,7 @@
           >{{ "HEADER.CV" | translate }}</a
         >
       </li>
-      <li class="language-selector" [class.active]="isLanguageMenuOpen">
+      <div class="language-selector">
         <button
           class="language-toggle"
           (click)="toggleLanguage(); $event.stopPropagation()"
@@ -76,7 +76,7 @@
             {{ getLanguageDisplay(lang) }}
           </button>
         </div>
-      </li>
+      </div>
     </ul>
   </nav>
 </header>

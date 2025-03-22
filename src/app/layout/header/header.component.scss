@@ -7,6 +7,7 @@ header {
   transition:
     padding 0.3s ease,
     background-color 0.3s ease;
+  position: sticky;
 }
 
 nav {
@@ -214,21 +215,40 @@ header.scrolled {
   }
 
   .language-selector {
-    margin-top: 1.5rem;
-  }
-
-  .language-toggle {
-    font-size: 1rem;
-    padding: 8px 16px;
-  }
-
-  .language-dropdown {
-    position: relative;
-    top: 8px;
-    left: 0;
-    right: 0;
     width: 100%;
-    display: none;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+
+    .language-toggle {
+      display: none;
+    }
+
+    .language-dropdown {
+      display: flex !important;
+      position: static;
+      flex-direction: row !important;
+      justify-content: center;
+      background: transparent;
+      box-shadow: none;
+      width: 100%;
+      gap: 10px;
+
+      button {
+        padding: 8px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        min-width: 45px;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        &.active {
+          background: rgba(255, 255, 255, 0.2);
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
 
@@ -258,34 +278,6 @@ header.scrolled {
 
   .nav-link {
     font-size: 1.1rem;
-  }
-}
-
-// Обновление для правильного отображения выпадающего списка на мобильных
-@media (max-width: 768px) {
-  .language-selector {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .language-toggle {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .language-dropdown {
-      width: 100%;
-      top: 100%;
-      position: relative;
-      margin-top: 8px;
-    }
-
-    &:hover .language-dropdown,
-    &:focus-within .language-dropdown,
-    &.active .language-dropdown {
-      display: flex;
-    }
   }
 }
 
