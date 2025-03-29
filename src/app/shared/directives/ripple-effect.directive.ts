@@ -5,78 +5,116 @@ import { Directive, ElementRef, HostListener, Renderer2, Input } from '@angular/
   standalone: true
 })
 export class RippleEffectDirective {
-  @Input() rippleDuration: number = 800; // Уменьшенная длительность анимации в мс
-  @Input() rippleColor: string = ''; // Если задан, будет использоваться этот цвет вместо случайного
-  @Input() rippleOpacity: number = 0.6; // Начальная прозрачность эффекта
-  @Input() rippleSize: number = 150; // Размер эффекта в пикселях (по умолчанию 100px)
+  @Input() rippleDuration: number = 800;
+  @Input() rippleRadius: number = 100;
+  @Input() starsCount: number = 5;
+
+  private allStars: HTMLElement[] = [];
+  private maxStars: number = 25;
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
-    // Устанавливаем position: relative для родительского элемента, если не установлено
     const position = getComputedStyle(this.el.nativeElement).position;
     if (position === 'static') {
       this.renderer.setStyle(this.el.nativeElement, 'position', 'relative');
     }
-
-    // Добавляем overflow: hidden для контейнера
     this.renderer.setStyle(this.el.nativeElement, 'overflow', 'hidden');
   }
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
-    // Создаем элемент для эффекта волны
     const ripple = this.renderer.createElement('span');
+    const color = this.getRandomColor();
 
-    // Определяем цвет (случайный или заданный)
-    const color = this.rippleColor || this.getRandomColor();
-
-    // Устанавливаем стили для элемента волны
-    this.renderer.addClass(ripple, 'ripple-effect');
+    this.renderer.addClass(ripple, 'ripple-wave');
     this.renderer.setStyle(ripple, 'position', 'absolute');
     this.renderer.setStyle(ripple, 'border-radius', '50%');
-    this.renderer.setStyle(ripple, 'background-color', color);
-    this.renderer.setStyle(ripple, 'opacity', this.rippleOpacity.toString());
-    this.renderer.setStyle(ripple, 'transform', 'scale(0)');
-    this.renderer.setStyle(ripple, 'animation', `ripple-animation ${this.rippleDuration / 1000}s ease-out`);
     this.renderer.setStyle(ripple, 'pointer-events', 'none');
+    this.renderer.setStyle(ripple, 'transform', 'scale(0)');
+    this.renderer.setStyle(ripple, 'border', `2px solid ${color}`);
+    this.renderer.setStyle(ripple, 'animation', `ripple-animation ${this.rippleDuration / 1000}s ease-out`);
 
-    // Рассчитываем позицию
     const rect = this.el.nativeElement.getBoundingClientRect();
-    const size = this.rippleSize;
+    const x = event.clientX - rect.left - this.rippleRadius;
+    const y = event.clientY - rect.top - this.rippleRadius;
 
-    // Позиционируем относительно точки клика
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-
-    this.renderer.setStyle(ripple, 'width', `${size}px`);
-    this.renderer.setStyle(ripple, 'height', `${size}px`);
+    this.renderer.setStyle(ripple, 'width', `${this.rippleRadius * 2}px`);
+    this.renderer.setStyle(ripple, 'height', `${this.rippleRadius * 2}px`);
     this.renderer.setStyle(ripple, 'top', `${y}px`);
     this.renderer.setStyle(ripple, 'left', `${x}px`);
 
-    // Добавляем элемент в DOM
     this.renderer.appendChild(this.el.nativeElement, ripple);
 
-    // Удаляем элемент после завершения анимации
+    this.createStars(x + this.rippleRadius, y + this.rippleRadius, this.rippleRadius);
+
     setTimeout(() => {
-      if (this.el.nativeElement.contains(ripple)) {
-        this.renderer.removeChild(this.el.nativeElement, ripple);
-      }
+      this.renderer.removeChild(this.el.nativeElement, ripple);
     }, this.rippleDuration);
   }
 
-  // Функция для генерации случайного цвета
-  private getRandomColor(): string {
-    // Создаем массив пастельных цветов
-    const colors = [
-      'rgba(255, 179, 186, 0.7)', // Розовый
-      'rgba(255, 223, 186, 0.7)', // Персиковый
-      'rgba(255, 255, 186, 0.7)', // Светло-желтый
-      'rgba(186, 255, 201, 0.7)', // Светло-зеленый
-      'rgba(186, 225, 255, 0.7)', // Светло-голубой
-      'rgba(186, 186, 255, 0.7)', // Лавандовый
-      'rgba(255, 186, 255, 0.7)'  // Светло-фиолетовый
-    ];
+  private createStars(centerX: number, centerY: number, radius: number): void {
+    for (let i = 0; i < this.starsCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * radius;
 
-    // Выбираем случайный цвет из массива
+      const starX = centerX + Math.cos(angle) * distance;
+      const starY = centerY + Math.sin(angle) * distance;
+
+      const star = this.renderer.createElement('div');
+      const color = this.getRandomColor();
+      const size = Math.random() * 3 + 1;
+
+      this.renderer.addClass(star, 'star');
+      this.renderer.setStyle(star, 'position', 'absolute');
+      this.renderer.setStyle(star, 'width', `${size}px`);
+      this.renderer.setStyle(star, 'height', `${size}px`);
+      this.renderer.setStyle(star, 'background-color', color);
+      this.renderer.setStyle(star, 'left', `${starX}px`);
+      this.renderer.setStyle(star, 'top', `${starY}px`);
+
+      this.renderer.appendChild(this.el.nativeElement, star);
+      this.allStars.push(star);
+
+      if (this.allStars.length > this.maxStars) {
+        const oldStar = this.allStars.shift();
+        if (oldStar) {
+          this.renderer.addClass(oldStar, 'star-fade-out');
+          setTimeout(() => {
+            if (this.el.nativeElement.contains(oldStar)) {
+              this.renderer.removeChild(this.el.nativeElement, oldStar);
+            }
+          }, 500);
+        }
+      }
+    }
+  }
+
+  private getRandomColor(): string {
+    const colors = [
+      '#FFD700', // Gold
+      '#F0F8FF', // AliceBlue
+      '#FFFAFA', // Snow
+      '#87CEEB', // SkyBlue
+      '#E6E6FA', // Lavender
+      '#FFF5EE', // SeaShell
+      '#DDA0DD', // Plum
+      '#98FB98', // PaleGreen
+      '#FFA07A', // LightSalmon
+      '#F0E68C', // Khaki
+      '#B0E0E6', // PowderBlue
+      '#FFB6C1', // LightPink
+      '#FFDAB9', // PeachPuff
+      '#E0FFFF', // LightCyan
+      '#D8BFD8', // Thistle
+      '#87CEFA',  // LightSkyBlue
+      '#FF0000',
+      '#00FF00',
+      '#0000FF',
+      '#FFFF00',
+      '#FF00FF',
+      '#00FFFF',
+      '#FFFFFF',
+      '#000000'
+    ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
 }
