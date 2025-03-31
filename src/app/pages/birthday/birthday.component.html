@@ -58,12 +58,26 @@
       </div>
     </div>
 
-    <!-- Видео под блок countdown -->
+    <!-- Видео под блок countdown с кнопкой воспроизведения -->
     <div class="video-container">
-      <video autoplay loop muted playsinline class="alish-video">
+      <video
+        #countdownVideo
+        loop
+        muted
+        playsinline
+        class="alish-video"
+        (click)="toggleVideo(countdownVideo)"
+      >
         <source src="assets/alish/video1_r.mp4" type="video/mp4" />
         Ваш браузер не поддерживает видео.
       </video>
+      <button
+        *ngIf="!isVideoPlaying(countdownVideo)"
+        class="video-play-button"
+        (click)="playVideo(countdownVideo)"
+      >
+        <span class="play-icon">▶</span>
+      </button>
     </div>
   </div>
 
@@ -79,12 +93,26 @@
       <p>Акп-йи брахип тохри йоли буласин</p>
     </div>
 
-    <!-- Видео в блоке поздравления -->
+    <!-- Видео в блоке поздравления с кнопкой воспроизведения -->
     <div class="video-container">
-      <video autoplay loop muted playsinline class="alish-video">
+      <video
+        #celebrationVideo
+        loop
+        muted
+        playsinline
+        class="alish-video"
+        (click)="toggleVideo(celebrationVideo)"
+      >
         <source src="assets/alish/video1_r.mp4" type="video/mp4" />
         Ваш браузер не поддерживает видео.
       </video>
+      <button
+        *ngIf="!isVideoPlaying(celebrationVideo)"
+        class="video-play-button"
+        (click)="playVideo(celebrationVideo)"
+      >
+        <span class="play-icon">▶</span>
+      </button>
     </div>
   </div>
 
