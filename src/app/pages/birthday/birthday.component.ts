@@ -56,7 +56,10 @@ export class BirthdayComponent implements OnInit, OnDestroy, AfterViewInit {
     // Пытаемся автоматически запустить видео после загрузки компонента
     setTimeout(() => {
       this.videoElements.forEach(videoRef => {
-        this.attemptAutoplay(videoRef.nativeElement);
+        const video = videoRef.nativeElement;
+        // Убедимся, что звук отключен
+        video.muted = true;
+        this.attemptAutoplay(video);
       });
     }, 1000);
   }
@@ -109,6 +112,8 @@ export class BirthdayComponent implements OnInit, OnDestroy, AfterViewInit {
 
   playVideo(video: HTMLVideoElement): void {
     if (!this.isVideoPlaying(video)) {
+      // Убедимся, что звук отключен перед воспроизведением
+      video.muted = true;
       video.play()
         .catch(error => {
           console.error('Автоматическое воспроизведение не удалось:', error);
