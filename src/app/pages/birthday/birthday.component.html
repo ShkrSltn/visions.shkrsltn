@@ -1,30 +1,4 @@
 <div class="birthday-container">
-  <!-- Слайд-шоу с фотографиями Алиша -->
-  <div class="slideshow-container">
-    <div class="slideshow-photos">
-      <div
-        class="photo-container"
-        *ngFor="let photo of photos; let i = index"
-        [class.active]="i === currentPhotoIndex"
-      >
-        <img [src]="photo" alt="Фото Алиша" class="slideshow-photo" />
-      </div>
-    </div>
-
-    <div class="slideshow-controls">
-      <button class="control-button prev" (click)="changePhoto(-1)">❮</button>
-      <button class="control-button next" (click)="changePhoto(1)">❯</button>
-    </div>
-
-    <div class="slideshow-indicators">
-      <span
-        *ngFor="let photo of photos; let i = index"
-        [class.active]="i === currentPhotoIndex"
-        (click)="currentPhotoIndex = i"
-      ></span>
-    </div>
-  </div>
-
   <!-- Заменяем одну большую GIF на несколько маленьких в строку -->
   <div class="small-gifs-container">
     <div class="small-gif" *ngFor="let i of [1, 2, 3, 4]">

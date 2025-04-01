@@ -14,25 +14,8 @@ export class BirthdayComponent implements OnInit, OnDestroy {
   minutes: number = 0;
   seconds: number = 0;
   countdownEnded: boolean = false;
+  isBirthdayToday: boolean = false;
 
-  // Массив с путями к фотографиям Алиша
-  photos: string[] = [
-    'assets/alish/photo1.jpg',
-    'assets/alish/photo2.jpg',
-    'assets/alish/photo3.jpg',
-    'assets/alish/photo4.jpg',
-    'assets/alish/photo5.jpg',
-    'assets/alish/photo6.jpg',
-    'assets/alish/photo7.jpg',
-    'assets/alish/photo8.jpg',
-    'assets/alish/photo9.jpg',
-    'assets/alish/photo10.jpg',
-    'assets/alish/photo11.jpg',
-    'assets/alish/photo12.jpg',
-    'assets/alish/photo13.jpg',
-    'assets/alish/photo14.jpg',
-    // Добавьте больше фотографий по необходимости
-  ];
 
   currentPhotoIndex: number = 0;
   private targetDate: Date = new Date('2025-04-02T00:00:00');
@@ -45,8 +28,16 @@ export class BirthdayComponent implements OnInit, OnDestroy {
       this.updateCountdown();
     }, 1000);
 
-    // Запускаем слайд-шоу
-    this.startSlideShow();
+
+    // Проверяем, наступил ли день рождения
+    const today = new Date();
+    const birthdayDate = new Date(2024, 5, 15); // 15 июня 2024 (месяцы начинаются с 0)
+
+    // Сравниваем только день и месяц
+    this.isBirthdayToday =
+      today.getDate() >= birthdayDate.getDate() &&
+      today.getMonth() >= birthdayDate.getMonth() &&
+      today.getFullYear() >= birthdayDate.getFullYear();
   }
 
   ngOnDestroy(): void {
@@ -78,15 +69,5 @@ export class BirthdayComponent implements OnInit, OnDestroy {
     }
   }
 
-  private startSlideShow(): void {
-    // Меняем фотографию каждые 5 секунд
-    this.slideShowInterval = setInterval(() => {
-      this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
-    }, 5000);
-  }
 
-  // Метод для ручного переключения фотографий
-  changePhoto(direction: number): void {
-    this.currentPhotoIndex = (this.currentPhotoIndex + direction + this.photos.length) % this.photos.length;
-  }
 }
