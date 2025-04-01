@@ -25,6 +25,18 @@
     </div>
   </div>
 
+  <!-- Заменяем одну большую GIF на несколько маленьких в строку -->
+  <div class="small-gifs-container">
+    <div class="small-gif" *ngFor="let i of [1, 2, 3, 4]">
+      <img
+        src="assets/alish/videogif1.gif"
+        alt="Alish GIF"
+        class="alish-small-gif"
+        onerror="this.onerror=null; console.error('Failed to load GIF');"
+      />
+    </div>
+  </div>
+
   <div class="birthday-content" *ngIf="!countdownEnded">
     <h1>Алишин днюхасина:</h1>
 
@@ -57,28 +69,6 @@
         <div class="countdown-label">секунд</div>
       </div>
     </div>
-
-    <!-- Видео под блок countdown с кнопкой воспроизведения -->
-    <div class="video-container">
-      <video
-        #countdownVideo
-        loop
-        muted
-        playsinline
-        class="alish-video"
-        (click)="toggleVideo(countdownVideo)"
-      >
-        <source src="assets/alish/video1_r.mp4" type="video/mp4" />
-        Ваш браузер не поддерживает видео.
-      </video>
-      <button
-        *ngIf="!isVideoPlaying(countdownVideo)"
-        class="video-play-button"
-        (click)="playVideo(countdownVideo)"
-      >
-        <span class="play-icon">▶</span>
-      </button>
-    </div>
   </div>
 
   <!-- Поздравление после окончания отсчета -->
@@ -91,28 +81,6 @@
     <div class="celebration-message">
       <p>Бу йиль киз булуп 3 апрель 2026 де эвленесин</p>
       <p>Акп-йи брахип тохри йоли буласин</p>
-    </div>
-
-    <!-- Видео в блоке поздравления с кнопкой воспроизведения -->
-    <div class="video-container">
-      <video
-        #celebrationVideo
-        loop
-        muted
-        playsinline
-        class="alish-video"
-        (click)="toggleVideo(celebrationVideo)"
-      >
-        <source src="assets/alish/video1_r.mp4" type="video/mp4" />
-        Ваш браузер не поддерживает видео.
-      </video>
-      <button
-        *ngIf="!isVideoPlaying(celebrationVideo)"
-        class="video-play-button"
-        (click)="playVideo(celebrationVideo)"
-      >
-        <span class="play-icon">▶</span>
-      </button>
     </div>
   </div>
 

@@ -207,12 +207,12 @@ h1 {
     margin-bottom: 1.5rem;
   }
 
-  .video-container {
+  .gif-container {
     height: auto;
     margin: 1.5rem auto;
   }
 
-  .alish-video {
+  .alish-gif {
     height: auto;
   }
 
@@ -265,7 +265,7 @@ h1 {
     margin-bottom: 1rem;
   }
 
-  .video-container {
+  .gif-container {
     height: auto;
     margin: 1rem auto;
     max-width: 95%;
@@ -314,7 +314,7 @@ h1 {
     margin-bottom: 0.75rem;
   }
 
-  .video-container {
+  .gif-container {
     height: auto;
     margin: 0.75rem auto;
   }
@@ -426,7 +426,7 @@ h1 {
   position: relative;
   width: 100%;
   max-width: 500px;
-  height: 300px;
+  height: 500px;
   margin-bottom: 2rem;
   border-radius: 10px;
   overflow: hidden;
@@ -546,71 +546,64 @@ h1 {
   }
 }
 
-/* Стили для видео и кнопки воспроизведения */
-.video-container {
+/* Заменяем стили для видео на стили для GIF */
+.gif-container {
   width: 100%;
-  height: 30rem;
   max-width: 500px;
   margin: 2rem auto;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  position: relative;
+  border: 1px solid #ffffff;
 }
 
-.alish-video {
+.alish-gif {
   width: 100%;
   display: block;
-  cursor: pointer;
+  border: 1px solid #ffffff;
 }
 
-.video-play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 50%;
+/* Стили для маленьких GIF в строку */
+.small-gifs-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  z-index: 2;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .play-icon {
-    color: white;
-    font-size: 24px;
-    margin-left: 4px;
-  }
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-/* Адаптивные стили для кнопки воспроизведения */
-@media (max-width: 768px) {
-  .video-play-button {
-    width: 50px;
-    height: 50px;
+.small-gif {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  border: 1px solid #ffffff;
+}
 
-    .play-icon {
-      font-size: 20px;
-    }
+.alish-small-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .small-gif {
+    width: 100px;
+    height: 100px;
   }
 }
 
 @media (max-width: 480px) {
-  .video-play-button {
-    width: 40px;
-    height: 40px;
+  .small-gif {
+    width: 80px;
+    height: 80px;
+  }
 
-    .play-icon {
-      font-size: 16px;
-    }
+  .small-gifs-container {
+    gap: 5px;
   }
 }

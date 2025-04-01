@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,14 +8,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './birthday.component.html',
   styleUrl: './birthday.component.scss'
 })
-export class BirthdayComponent implements OnInit, OnDestroy, AfterViewInit {
+export class BirthdayComponent implements OnInit, OnDestroy {
   days: number = 0;
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
   countdownEnded: boolean = false;
-
-  @ViewChildren('countdownVideo, celebrationVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
 
   // Массив с путями к фотографиям Алиша
   photos: string[] = [
@@ -33,7 +31,6 @@ export class BirthdayComponent implements OnInit, OnDestroy, AfterViewInit {
     'assets/alish/photo12.jpg',
     'assets/alish/photo13.jpg',
     'assets/alish/photo14.jpg',
-
     // Добавьте больше фотографий по необходимости
   ];
 
@@ -50,18 +47,6 @@ export class BirthdayComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Запускаем слайд-шоу
     this.startSlideShow();
-  }
-
-  ngAfterViewInit(): void {
-    // Пытаемся автоматически запустить видео после загрузки компонента
-    setTimeout(() => {
-      this.videoElements.forEach(videoRef => {
-        const video = videoRef.nativeElement;
-        // Убедимся, что звук отключен
-        video.muted = true;
-        this.attemptAutoplay(video);
-      });
-    }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -103,38 +88,5 @@ export class BirthdayComponent implements OnInit, OnDestroy, AfterViewInit {
   // Метод для ручного переключения фотографий
   changePhoto(direction: number): void {
     this.currentPhotoIndex = (this.currentPhotoIndex + direction + this.photos.length) % this.photos.length;
-  }
-
-  // Методы для управления видео
-  isVideoPlaying(video: HTMLVideoElement): boolean {
-    return !!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2);
-  }
-
-  playVideo(video: HTMLVideoElement): void {
-    if (!this.isVideoPlaying(video)) {
-      // Убедимся, что звук отключен перед воспроизведением
-      video.muted = true;
-      video.play()
-        .catch(error => {
-          console.error('Автоматическое воспроизведение не удалось:', error);
-        });
-    }
-  }
-
-  toggleVideo(video: HTMLVideoElement): void {
-    if (this.isVideoPlaying(video)) {
-      // Если видео уже воспроизводится, ничего не делаем
-      return;
-    } else {
-      // Если видео не воспроизводится, запускаем его
-      this.playVideo(video);
-    }
-  }
-
-  private attemptAutoplay(video: HTMLVideoElement): void {
-    video.play()
-      .catch(error => {
-        console.log('Автоматическое воспроизведение не удалось, требуется взаимодействие пользователя');
-      });
   }
 }
