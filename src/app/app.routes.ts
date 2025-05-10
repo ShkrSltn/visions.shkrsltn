@@ -5,7 +5,6 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { ContactMeComponent } from './pages/contact-me/contact-me.component';
 import { AiAssistantComponent } from './pages/ai-assistant/ai-assistant.component';
 import { VirtualCvComponent } from './pages/virtual-cv/virtual-cv.component';
-import { BirthdayComponent } from './pages/birthday/birthday.component';
 export const routes: Routes = [
   {
     path: '',
@@ -37,11 +36,6 @@ export const routes: Routes = [
     path: 'cv',
     component: VirtualCvComponent,
     title: 'Shkrsltnv | CV'
-  },
-  {
-    path: 'birthday',
-    component: BirthdayComponent,
-    title: 'Shkrsltnv | Birthday'
   },
   {
     path: '**',
