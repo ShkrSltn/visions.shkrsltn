@@ -20,6 +20,7 @@ export class ContactMeComponent implements AfterViewInit {
   formSubmitted = false;
   formSuccess = false;
   formError = false;
+  isSubmitting = false;
 
   contactInfo = {
     email: 'sultanovshakir12@gmail.com',
@@ -32,6 +33,8 @@ export class ContactMeComponent implements AfterViewInit {
     { name: 'LinkedIn', url: this.linkedInLink, icon: 'linkedin' },
     { name: 'Email', url: this.emailLink, icon: 'email' }
   ];
+
+  copiedText: string | null = null;
 
   constructor(private fb: FormBuilder, private translate: TranslateService) {
     this.contactForm = this.fb.group({
@@ -69,6 +72,7 @@ export class ContactMeComponent implements AfterViewInit {
 
   onSubmit() {
     this.formSubmitted = true;
+    this.isSubmitting = true;
 
     if (this.contactForm.valid) {
       // В реальном приложении здесь был бы HTTP запрос к API
@@ -79,6 +83,7 @@ export class ContactMeComponent implements AfterViewInit {
         this.formSuccess = true;
         this.contactForm.reset();
         this.formSubmitted = false;
+        this.isSubmitting = false;
 
         // Сбросить сообщение об успехе через 5 секунд
         setTimeout(() => {
@@ -87,6 +92,7 @@ export class ContactMeComponent implements AfterViewInit {
       }, 1500);
     } else {
       this.formError = true;
+      this.isSubmitting = false;
 
       // Сбросить сообщение об ошибке через 5 секунд
       setTimeout(() => {
@@ -100,4 +106,20 @@ export class ContactMeComponent implements AfterViewInit {
   get emailControl() { return this.contactForm.get('email'); }
   get subjectControl() { return this.contactForm.get('subject'); }
   get messageControl() { return this.contactForm.get('message'); }
+
+  async copyToClipboard(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      this.copiedText = text;
+      setTimeout(() => {
+        this.copiedText = null;
+      }, 3000); // 3 секунды
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  }
+
+  openLink(url: string) {
+    window.open(url, '_blank');
+  }
 }

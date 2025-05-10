@@ -5,74 +5,125 @@
   >
   </app-hero>
 
-  <section class="contact-info animate-on-scroll">
+  <section
+    class="contact-info animate-on-scroll"
+    role="region"
+    aria-label="Contact Information"
+  >
     <div class="section-title">
       {{ "CONTACT.CONTACT_INFORMATION" | translate }}
     </div>
     <div class="info-grid">
-      <div class="info-card">
+      <div
+        class="info-card"
+        (click)="copyToClipboard(contactInfo.email)"
+        [class.clickable]="true"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="'Copy email: ' + contactInfo.email"
+      >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons">email</span>
+            <span class="material-icons" aria-hidden="true">email</span>
           </div>
         </div>
         <h3>{{ "CONTACT.EMAIL" | translate }}</h3>
-        <p>
-          <a href="mailto:{{ contactInfo.email }}">{{ contactInfo.email }}</a>
-        </p>
+        <p>{{ contactInfo.email }}</p>
+        <div
+          class="copy-indicator"
+          [class.copied]="copiedText === contactInfo.email"
+        >
+          <span class="material-icons">content_copy</span>
+        </div>
       </div>
 
-      <div class="info-card">
+      <div
+        class="info-card"
+        (click)="copyToClipboard(contactInfo.phone)"
+        [class.clickable]="true"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="'Copy phone: ' + contactInfo.phone"
+      >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons">phone</span>
+            <span class="material-icons" aria-hidden="true">phone</span>
           </div>
         </div>
         <h3>{{ "CONTACT.PHONE" | translate }}</h3>
         <p>{{ contactInfo.phone }}</p>
+        <div
+          class="copy-indicator"
+          [class.copied]="copiedText === contactInfo.phone"
+        >
+          <span class="material-icons">content_copy</span>
+        </div>
       </div>
 
-      <div class="info-card">
+      <div
+        class="info-card"
+        (click)="copyToClipboard(contactInfo.location)"
+        [class.clickable]="true"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="'Copy location: ' + contactInfo.location"
+      >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons">location_on</span>
+            <span class="material-icons" aria-hidden="true">location_on</span>
           </div>
         </div>
         <h3>{{ "CONTACT.LOCATION" | translate }}</h3>
         <p>{{ contactInfo.location }}</p>
+        <div
+          class="copy-indicator"
+          [class.copied]="copiedText === contactInfo.location"
+        >
+          <span class="material-icons">content_copy</span>
+        </div>
       </div>
 
-      <div class="info-card">
+      <div
+        class="info-card"
+        (click)="openLink(socialLinks[0].url)"
+        [class.clickable]="true"
+        role="link"
+        tabindex="0"
+        [attr.aria-label]="'Open ' + socialLinks[0].name"
+      >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons">code</span>
+            <span class="material-icons" aria-hidden="true">code</span>
           </div>
         </div>
         <h3>GitHub</h3>
-        <p>
-          <a href="{{ socialLinks[0].url }}" target="_blank">{{
-            socialLinks[0].name
-          }}</a>
-        </p>
+        <p>{{ socialLinks[0].name }}</p>
       </div>
 
-      <div class="info-card">
+      <div
+        class="info-card"
+        (click)="openLink(socialLinks[1].url)"
+        [class.clickable]="true"
+        role="link"
+        tabindex="0"
+        [attr.aria-label]="'Open ' + socialLinks[1].name"
+      >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons">business</span>
+            <span class="material-icons" aria-hidden="true">business</span>
           </div>
         </div>
         <h3>LinkedIn</h3>
-        <p>
-          <a href="{{ socialLinks[1].url }}" target="_blank">{{
-            socialLinks[1].name
-          }}</a>
-        </p>
+        <p>{{ socialLinks[1].name }}</p>
       </div>
     </div>
   </section>
 
-  <section class="contact-form-section animate-on-scroll">
+  <section
+    class="contact-form-section animate-on-scroll"
+    role="region"
+    aria-label="Contact Form"
+  >
     <div class="section-title">
       {{ "CONTACT.SEND_MESSAGE_TITLE" | translate }}
     </div>
@@ -81,101 +132,140 @@
         [formGroup]="contactForm"
         (ngSubmit)="onSubmit()"
         class="contact-form"
+        #contactFormElement
       >
         <div class="form-group">
-          <label for="name">{{ "CONTACT.MESSAGE.NAME" | translate }}</label>
+          <label for="name" class="form-label">
+            {{ "CONTACT.MESSAGE.NAME" | translate }}
+            <span class="required-indicator" aria-hidden="true">*</span>
+          </label>
           <input
             type="text"
             id="name"
             formControlName="name"
             [ngClass]="{ invalid: formSubmitted && nameControl?.invalid }"
+            [attr.aria-invalid]="formSubmitted && nameControl?.invalid"
+            [attr.aria-describedby]="'name-error'"
+            placeholder="Enter your name"
           />
           <div
             class="error-message"
+            id="name-error"
             *ngIf="formSubmitted && nameControl?.invalid"
+            role="alert"
           >
-            <span *ngIf="nameControl?.errors?.['required']">{{
-              "CONTACT.MESSAGE.NAME_REQUIRED" | translate
-            }}</span>
-            <span *ngIf="nameControl?.errors?.['minlength']">{{
-              "CONTACT.MESSAGE.NAME_MINLENGTH" | translate
-            }}</span>
+            <span *ngIf="nameControl?.errors?.['required']">
+              {{ "CONTACT.MESSAGE.NAME_REQUIRED" | translate }}
+            </span>
+            <span *ngIf="nameControl?.errors?.['minlength']">
+              {{ "CONTACT.MESSAGE.NAME_MINLENGTH" | translate }}
+            </span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="email">{{ "CONTACT.MESSAGE.EMAIL" | translate }}</label>
+          <label for="email" class="form-label">
+            {{ "CONTACT.MESSAGE.EMAIL" | translate }}
+            <span class="required-indicator" aria-hidden="true">*</span>
+          </label>
           <input
             type="email"
             id="email"
             formControlName="email"
             [ngClass]="{ invalid: formSubmitted && emailControl?.invalid }"
+            [attr.aria-invalid]="formSubmitted && emailControl?.invalid"
+            [attr.aria-describedby]="'email-error'"
+            placeholder="Enter your email"
           />
           <div
             class="error-message"
+            id="email-error"
             *ngIf="formSubmitted && emailControl?.invalid"
+            role="alert"
           >
-            <span *ngIf="emailControl?.errors?.['required']">{{
-              "CONTACT.MESSAGE.EMAIL_REQUIRED" | translate
-            }}</span>
-            <span *ngIf="emailControl?.errors?.['email']">{{
-              "CONTACT.MESSAGE.EMAIL_INVALID" | translate
-            }}</span>
+            <span *ngIf="emailControl?.errors?.['required']">
+              {{ "CONTACT.MESSAGE.EMAIL_REQUIRED" | translate }}
+            </span>
+            <span *ngIf="emailControl?.errors?.['email']">
+              {{ "CONTACT.MESSAGE.EMAIL_INVALID" | translate }}
+            </span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="subject">{{
-            "CONTACT.MESSAGE.SUBJECT" | translate
-          }}</label>
+          <label for="subject" class="form-label">
+            {{ "CONTACT.MESSAGE.SUBJECT" | translate }}
+            <span class="required-indicator" aria-hidden="true">*</span>
+          </label>
           <input
             type="text"
             id="subject"
             formControlName="subject"
             [ngClass]="{ invalid: formSubmitted && subjectControl?.invalid }"
+            [attr.aria-invalid]="formSubmitted && subjectControl?.invalid"
+            [attr.aria-describedby]="'subject-error'"
+            placeholder="Enter the subject"
           />
           <div
             class="error-message"
+            id="subject-error"
             *ngIf="formSubmitted && subjectControl?.invalid"
+            role="alert"
           >
-            <span *ngIf="subjectControl?.errors?.['required']">{{
-              "CONTACT.MESSAGE.SUBJECT_REQUIRED" | translate
-            }}</span>
+            <span *ngIf="subjectControl?.errors?.['required']">
+              {{ "CONTACT.MESSAGE.SUBJECT_REQUIRED" | translate }}
+            </span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="message">{{
-            "CONTACT.MESSAGE.MESSAGE" | translate
-          }}</label>
+          <label for="message" class="form-label">
+            {{ "CONTACT.MESSAGE.MESSAGE" | translate }}
+            <span class="required-indicator" aria-hidden="true">*</span>
+          </label>
           <textarea
             id="message"
             formControlName="message"
             rows="6"
             [ngClass]="{ invalid: formSubmitted && messageControl?.invalid }"
+            [attr.aria-invalid]="formSubmitted && messageControl?.invalid"
+            [attr.aria-describedby]="'message-error'"
+            placeholder="Enter your message"
           ></textarea>
           <div
             class="error-message"
+            id="message-error"
             *ngIf="formSubmitted && messageControl?.invalid"
+            role="alert"
           >
-            <span *ngIf="messageControl?.errors?.['required']">{{
-              "CONTACT.MESSAGE.MESSAGE_REQUIRED" | translate
-            }}</span>
-            <span *ngIf="messageControl?.errors?.['minlength']">{{
-              "CONTACT.MESSAGE.MESSAGE_MINLENGTH" | translate
-            }}</span>
+            <span *ngIf="messageControl?.errors?.['required']">
+              {{ "CONTACT.MESSAGE.MESSAGE_REQUIRED" | translate }}
+            </span>
+            <span *ngIf="messageControl?.errors?.['minlength']">
+              {{ "CONTACT.MESSAGE.MESSAGE_MINLENGTH" | translate }}
+            </span>
           </div>
         </div>
 
-        <button type="submit" class="submit-button">
-          {{ "CONTACT.MESSAGE.SEND" | translate }}
+        <button
+          type="submit"
+          class="submit-button"
+          [disabled]="isSubmitting"
+          [attr.aria-busy]="isSubmitting"
+        >
+          <span class="button-content" [class.loading]="isSubmitting">
+            <span class="spinner" *ngIf="isSubmitting"></span>
+            {{ "CONTACT.MESSAGE.SEND" | translate }}
+          </span>
         </button>
 
-        <div class="form-status">
-          <div class="success-message" *ngIf="formSuccess">
+        <div class="form-status" role="status">
+          <div class="success-message" *ngIf="formSuccess" role="alert">
+            <span class="material-icons">check_circle</span>
             {{ "CONTACT.MESSAGE.SUCCESS_DESCRIPTION" | translate }}
           </div>
-          <div class="error-message form-error" *ngIf="formError">
+          <div class="error-message form-error" *ngIf="formError" role="alert">
+            <span class="material-icons">error</span>
             {{ "CONTACT.MESSAGE.ERROR_DESCRIPTION" | translate }}
           </div>
         </div>
