@@ -10,7 +10,13 @@ export class LanguageService {
   currentLang$ = this.currentLangSubject.asObservable();
 
   // Доступные языки
-  availableLanguages = ['en', 'ru', 'de', 'tr', 'ua'];
+  availableLanguages = [
+    'en',
+    // 'ru',
+    'de',
+    // 'tr',
+    // 'ua'
+  ];
 
   constructor(private translate: TranslateService) {
     // Получаем сохраненный язык или используем язык браузера
@@ -24,14 +30,15 @@ export class LanguageService {
   private getBrowserLang(): string {
     const browserLang = navigator.language.toLowerCase();
 
-    if (browserLang.includes('ru')) {
-      return 'ru';
-    } else if (browserLang.includes('de')) {
+    // if (browserLang.includes('ru')) {
+    //   return 'ru';
+    // } else
+    if (browserLang.includes('de')) {
       return 'de';
-    } else if (browserLang.includes('tr')) {
-      return 'tr';
-    } else if (browserLang.includes('ua')) {
-      return 'ua';
+    // } else if (browserLang.includes('tr')) {
+    //   return 'tr';
+    // } else if (browserLang.includes('ua')) {
+    //   return 'ua';
     }
 
     return 'en';
@@ -69,10 +76,10 @@ export class LanguageService {
   getLanguageDisplay(lang: string): string {
     const langMap = {
       'en': 'EN',
-      'ru': 'RU',
+      // 'ru': 'RU',
       'de': 'DE',
-      'tr': 'TR',
-      'ua': 'UA'
+      // 'tr': 'TR',
+      // 'ua': 'UA'
     };
 
     return langMap[lang as keyof typeof langMap] || 'EN';
