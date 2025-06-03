@@ -6,6 +6,7 @@
     "CONTACT": "Contact",
     "CV": "CV",
     "AI_ASSISTANT": "AI Assistant",
+    "CLOCK": "Clock",
     "NAVIGATION": "Navigation"
   },
   "HERO_TITLES": {
@@ -18,7 +19,9 @@
     "PROJECTS": "PROJECTS",
     "PROJECTS_SUBTITLE": "Let's take a look at my projects",
     "CONTACT": "CONTACT",
-    "CONTACT_SUBTITLE": "Get in touch"
+    "CONTACT_SUBTITLE": "Get in touch",
+    "CLOCK": "CLOCK & TIMER",
+    "CLOCK_SUBTITLE": "Track time easily"
   },
   "HOME": {
     "ABOUT_ME": "ABOUT ME",
@@ -145,6 +148,11 @@
     "WORK_EXPERIENCE": "WORK EXPERIENCE",
     "CERTIFICATIONS": "CERTIFICATIONS",
     "DOWNLOAD_CV": "Download CV"
+  },
+  "CLOCK": {
+    "START": "Start",
+    "STOP": "Stop",
+    "RESET": "Reset"
   },
   "BUTTONS": {
     "VIEW_CODE": "View Code",

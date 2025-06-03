@@ -6,6 +6,7 @@
     "CONTACT": "Контакты",
     "CV": "Резюме",
     "AI_ASSISTANT": "ИИ Ассистент",
+    "CLOCK": "Часы",
     "NAVIGATION": "Навигация"
   },
   "HERO_TITLES": {
@@ -18,7 +19,9 @@
     "PROJECTS": "ПРОЕКТЫ",
     "PROJECTS_SUBTITLE": "Давайте взглянем на мои проекты",
     "CONTACT": "КОНТАКТЫ",
-    "CONTACT_SUBTITLE": "Свяжитесь со мной"
+    "CONTACT_SUBTITLE": "Свяжитесь со мной",
+    "CLOCK": "ЧАСЫ И ТАЙМЕР",
+    "CLOCK_SUBTITLE": "Следите за временем"
   },
   "HOME": {
     "ABOUT_ME": "ОБО МНЕ",
@@ -144,6 +147,11 @@
     "WORK_EXPERIENCE": "ПРОФЕССИОНАЛЬНЫЙ ОПЫТ",
     "CERTIFICATIONS": "СЕРТИФИКАТЫ",
     "DOWNLOAD_CV": "Скачать резюме"
+  },
+  "CLOCK": {
+    "START": "Старт",
+    "STOP": "Стоп",
+    "RESET": "Сброс"
   },
   "BUTTONS": {
     "VIEW_CODE": "Посмотреть код",

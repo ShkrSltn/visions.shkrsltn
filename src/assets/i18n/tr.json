@@ -6,6 +6,7 @@
     "CONTACT": "İletişim",
     "CV": "Özgeçmiş",
     "AI_ASSISTANT": "SHAKO AI",
+    "CLOCK": "Saat",
     "NAVIGATION": "Navigasyon"
   },
   "HERO_TITLES": {
@@ -18,7 +19,9 @@
     "PROJECTS": "PROJELER",
     "PROJECTS_SUBTITLE": "Projelerime bir göz atalım",
     "CONTACT": "İLETİŞİM",
-    "CONTACT_SUBTITLE": "Benimle iletişime geçin"
+    "CONTACT_SUBTITLE": "Benimle iletişime geçin",
+    "CLOCK": "SAAT & ZAMANLAYICI",
+    "CLOCK_SUBTITLE": "Zamanı kolayca takip edin"
   },
   "HOME": {
     "ABOUT_ME": "HAKKIMDA",
@@ -145,6 +148,11 @@
     "WORK_EXPERIENCE": "DENEYİM",
     "CERTIFICATIONS": "SERTİFİKALAR",
     "DOWNLOAD_CV": "CV İndir"
+  },
+  "CLOCK": {
+    "START": "Başlat",
+    "STOP": "Durdur",
+    "RESET": "Sıfırla"
   },
   "BUTTONS": {
     "VIEW_CODE": "Kodu Görüntüle",

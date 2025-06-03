@@ -1,0 +1,20 @@
+<div class="clock-container container">
+  <app-hero
+    [title]="'HERO_TITLES.CLOCK' | translate"
+    [subtitle]="'HERO_TITLES.CLOCK_SUBTITLE' | translate"
+  ></app-hero>
+
+  <section class="clock-section animate-on-scroll">
+    <div class="time-display">{{ currentTime }}</div>
+    <div class="timer-display">{{ formatTimer() }}</div>
+    <div class="timer-controls">
+      <button (click)="startTimer()" [disabled]="timerRunning">
+        {{ 'CLOCK.START' | translate }}
+      </button>
+      <button (click)="stopTimer()" [disabled]="!timerRunning">
+        {{ 'CLOCK.STOP' | translate }}
+      </button>
+      <button (click)="resetTimer()">{{ 'CLOCK.RESET' | translate }}</button>
+    </div>
+  </section>
+</div>
