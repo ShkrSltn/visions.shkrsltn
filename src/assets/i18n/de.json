@@ -6,6 +6,7 @@
     "CONTACT": "Kontakt",
     "CV": "Lebenslauf",
     "AI_ASSISTANT": "KI-Assistent",
+    "CLOCK": "Uhr",
     "NAVIGATION": "Navigation"
   },
   "HERO_TITLES": {
@@ -18,7 +19,9 @@
     "PROJECTS": "PROJEKTE",
     "PROJECTS_SUBTITLE": "Schauen wir uns meine Projekte an",
     "CONTACT": "KONTAKT",
-    "CONTACT_SUBTITLE": "Kontaktieren Sie mich"
+    "CONTACT_SUBTITLE": "Kontaktieren Sie mich",
+    "CLOCK": "UHR & TIMER",
+    "CLOCK_SUBTITLE": "Behalte die Zeit im Blick"
   },
   "HOME": {
     "ABOUT_ME": "ÜBER MICH",
@@ -145,6 +148,11 @@
     "WORK_EXPERIENCE": "BERUFLICHER WERDEGANG",
     "CERTIFICATIONS": "ZERTIFIKATE",
     "DOWNLOAD_CV": "CV herunterladen"
+  },
+  "CLOCK": {
+    "START": "Start",
+    "STOP": "Stopp",
+    "RESET": "Zurücksetzen"
   },
   "BUTTONS": {
     "VIEW_CODE": "Code ansehen",

@@ -6,6 +6,7 @@
     "CONTACT": "Контакти",
     "CV": "Резюме",
     "AI_ASSISTANT": "ШІ Асистент",
+    "CLOCK": "Годинник",
     "NAVIGATION": "Навігація"
   },
   "HERO_TITLES": {
@@ -18,7 +19,9 @@
     "PROJECTS": "ПРОЄКТИ",
     "PROJECTS_SUBTITLE": "Давайте поглянемо на мої проєкти",
     "CONTACT": "КОНТАКТИ",
-    "CONTACT_SUBTITLE": "Зв'яжіться зі мною"
+    "CONTACT_SUBTITLE": "Зв'яжіться зі мною",
+    "CLOCK": "ГОДИННИК ТА ТАЙМЕР",
+    "CLOCK_SUBTITLE": "Слідкуйте за часом"
   },
   "HOME": {
     "ABOUT_ME": "ПРО МЕНЕ",
@@ -144,6 +147,11 @@
     "WORK_EXPERIENCE": "ДОСВІД РОБОТИ",
     "CERTIFICATIONS": "СЕРТИФІКАЦІЇ",
     "DOWNLOAD_CV": "Завантажити резюме"
+  },
+  "CLOCK": {
+    "START": "Старт",
+    "STOP": "Зупинити",
+    "RESET": "Скинути"
   },
   "BUTTONS": {
     "VIEW_CODE": "Переглянути код",
