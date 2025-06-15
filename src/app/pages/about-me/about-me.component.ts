@@ -73,4 +73,19 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
       }
     });
   }
+
+  // Новая функция для вычисления возраста
+  myYear(): number {
+    const birthDate = new Date(2000, 2, 31); // Месяц начинается с 0, поэтому март = 2
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Проверяем, прошел ли уже день рождения в этом году
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  }
 }
