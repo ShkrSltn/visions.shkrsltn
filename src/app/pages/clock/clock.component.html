@@ -1,20 +1,52 @@
-<div class="clock-container container">
-  <app-hero
+<div class="clock-container">
+  <!-- Hero section can be removed for minimalist design -->
+  <!-- <app-hero
     [title]="'HERO_TITLES.CLOCK' | translate"
     [subtitle]="'HERO_TITLES.CLOCK_SUBTITLE' | translate"
-  ></app-hero>
+  ></app-hero> -->
 
-  <section class="clock-section animate-on-scroll">
-    <div class="time-display">{{ currentTime }}</div>
-    <div class="timer-display">{{ formatTimer() }}</div>
+  <section class="clock-section">
+    <!-- Main title -->
+    <div class="clock-title">
+      <h1>COUNTDOWN</h1>
+    </div>
+
+    <!-- Main time display -->
+    <div class="main-time-display">
+      <div class="time-digits">
+        <span class="hours">{{ getFormattedHours() }}</span>
+        <span class="separator">:</span>
+        <span class="minutes">{{ getFormattedMinutes() }}</span>
+        <span class="unit">MIN.</span>
+        <span class="seconds">{{ getFormattedSeconds() }}</span>
+      </div>
+    </div>
+
+    <!-- Current time display (smaller) -->
+    <div class="current-time">
+      {{ currentTime }}
+    </div>
+
+    <!-- Timer controls -->
     <div class="timer-controls">
-      <button (click)="startTimer()" [disabled]="timerRunning">
-        {{ 'CLOCK.START' | translate }}
+      <button
+        class="control-btn start-btn"
+        (click)="startTimer()"
+        [disabled]="timerRunning"
+        [class.active]="timerRunning"
+      >
+        {{ "CLOCK.START" | translate }}
       </button>
-      <button (click)="stopTimer()" [disabled]="!timerRunning">
-        {{ 'CLOCK.STOP' | translate }}
+      <button
+        class="control-btn stop-btn"
+        (click)="stopTimer()"
+        [disabled]="!timerRunning"
+      >
+        {{ "CLOCK.STOP" | translate }}
       </button>
-      <button (click)="resetTimer()">{{ 'CLOCK.RESET' | translate }}</button>
+      <button class="control-btn reset-btn" (click)="resetTimer()">
+        {{ "CLOCK.RESET" | translate }}
+      </button>
     </div>
   </section>
 </div>

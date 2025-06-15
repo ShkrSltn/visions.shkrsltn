@@ -1,15 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HeroComponent } from '../../shared/components/hero/hero.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-clock',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeroComponent, TranslateModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './clock.component.html',
-  styleUrl: './clock.component.scss'
+  styleUrl: './clock.component.scss',
+  host: {
+    '[class.timer-running]': 'timerRunning'
+  }
 })
 export class ClockComponent implements OnInit, OnDestroy {
   currentTime: string = '';
@@ -31,13 +33,22 @@ export class ClockComponent implements OnInit, OnDestroy {
   }
 
   updateTime() {
-    this.currentTime = new Date().toLocaleTimeString();
+    const now = new Date();
+    this.currentTime = now.toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
   }
 
   startTimer() {
     if (!this.timerRunning) {
       this.timerRunning = true;
-      this.timerInterval = window.setInterval(() => this.timerSeconds++, 1000);
+      this.timerInterval = window.setInterval(() => {
+        this.timerSeconds++;
+        this.playBeep();
+      }, 1000);
     }
   }
 
@@ -55,14 +66,46 @@ export class ClockComponent implements OnInit, OnDestroy {
     this.timerSeconds = 0;
   }
 
+  getFormattedHours(): string {
+    return Math.floor(this.timerSeconds / 3600).toString().padStart(2, '0');
+  }
+
+  getFormattedMinutes(): string {
+    return Math.floor((this.timerSeconds % 3600) / 60).toString().padStart(2, '0');
+  }
+
+  getFormattedSeconds(): string {
+    return (this.timerSeconds % 60).toString().padStart(2, '0');
+  }
+
   formatTimer(): string {
-    const hrs = Math.floor(this.timerSeconds / 3600)
-      .toString()
-      .padStart(2, '0');
-    const mins = Math.floor((this.timerSeconds % 3600) / 60)
-      .toString()
-      .padStart(2, '0');
-    const secs = (this.timerSeconds % 60).toString().padStart(2, '0');
+    const hrs = this.getFormattedHours();
+    const mins = this.getFormattedMinutes();
+    const secs = this.getFormattedSeconds();
     return `${hrs}:${mins}:${secs}`;
+  }
+
+  private playBeep() {
+    // Simple beep implementation using Web Audio API
+    try {
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      oscillator.frequency.value = 800;
+      oscillator.type = 'sine';
+
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (error) {
+      // Fallback for browsers that don't support Web Audio API
+      console.log('Beep!');
+    }
   }
 }
