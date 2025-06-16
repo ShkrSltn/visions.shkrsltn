@@ -322,16 +322,16 @@ header.scrolled {
     }
 
     .language-icon {
-      font-size: 14px;
+      font-size: 16px;
       margin-left: 4px;
     }
   }
 
   .language-dropdown {
     position: absolute;
-    top: calc(100% + 2px);
+    top: calc(100% + 15px);
     right: 0;
-    background: #1a1a1a;
+    background: #0f0f0f;
     border-radius: 4px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     display: none;
