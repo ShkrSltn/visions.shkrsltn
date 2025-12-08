@@ -118,15 +118,14 @@
   </section>
 
   <section class="education animate-on-scroll">
-    <!-- Горизонтальная временная шкала карьеры -->
     <div class="career-path animate-on-scroll">
       <div class="section-title">{{ "ABOUT.CAREER_JOURNEY" | translate }}</div>
       <div class="horizontal-timeline">
-        <div class="timeline-track">
-          <div class="timeline-progress"></div>
+        <div class="timeline-track" #timelineTrack>
+          <div class="timeline-progress" [ngStyle]="timelineProgressStyle"></div>
         </div>
 
-        <div class="timeline-event">
+        <div class="timeline-event" #timelineEvent>
           <div class="event-dot">
             <div class="dot-pulse"></div>
           </div>
@@ -138,7 +137,7 @@
           </div>
         </div>
 
-        <div class="timeline-event">
+        <div class="timeline-event" #timelineEvent>
           <div class="event-dot">
             <div class="dot-pulse"></div>
           </div>
@@ -150,7 +149,7 @@
           </div>
         </div>
 
-        <div class="timeline-event">
+        <div class="timeline-event" #timelineEvent>
           <div class="event-dot">
             <div class="dot-pulse"></div>
           </div>
@@ -162,7 +161,7 @@
           </div>
         </div>
 
-        <div class="timeline-event current">
+        <div class="timeline-event" #timelineEvent>
           <div class="event-dot">
             <div class="dot-pulse"></div>
           </div>
@@ -176,7 +175,7 @@
           </div>
         </div>
 
-        <div class="timeline-event future">
+        <div class="timeline-event current" #timelineEvent>
           <div class="event-dot">
             <div class="dot-pulse"></div>
           </div>
@@ -184,6 +183,18 @@
             <div class="event-number">05</div>
             <h4>{{ "ABOUT.EVENT_5" | translate }}</h4>
             <p>{{ "ABOUT.EVENT_5_DESCRIPTION" | translate }}</p>
+            <span class="event-date"> </span>
+          </div>
+        </div>
+
+        <div class="timeline-event future" #timelineEvent>
+          <div class="event-dot">
+            <div class="dot-pulse"></div>
+          </div>
+          <div class="event-content">
+            <div class="event-number">06</div>
+            <h4>{{ "ABOUT.EVENT_6" | translate }}</h4>
+            <p>{{ "ABOUT.EVENT_6_DESCRIPTION" | translate }}</p>
             <span class="event-date"> </span>
           </div>
         </div>

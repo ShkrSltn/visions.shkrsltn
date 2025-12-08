@@ -1,4 +1,13 @@
-import { Component, AfterViewInit, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  HostListener,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  ViewChildren,
+  QueryList
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from '../../shared/components/hero/hero.component';
@@ -20,6 +29,9 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
   otherSkills: Skill[] = [];
   techStack: string[] = [];
   currentLang: string;
+  @ViewChild('timelineTrack') timelineTrack?: ElementRef<HTMLElement>;
+  @ViewChildren('timelineEvent') timelineEvents?: QueryList<ElementRef<HTMLElement>>;
+  timelineProgressStyle: { width?: string; height?: string } = {};
   constructor(
     private http: HttpClient,
     private languageService: LanguageService,
@@ -58,6 +70,10 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
 
     // Первоначальная проверка видимых элементов
     this.checkVisibility();
+    this.updateTimelineProgress();
+
+    // Даем браузеру дорисовать размеры, затем обновляем прогресс
+    setTimeout(() => this.updateTimelineProgress());
   }
 
   @HostListener('window:scroll')
@@ -72,6 +88,47 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
         element.classList.add('visible');
       }
     });
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.updateTimelineProgress();
+  }
+
+  private updateTimelineProgress() {
+    if (!this.timelineTrack || !this.timelineEvents || this.timelineEvents.length === 0) {
+      return;
+    }
+
+    const trackRect = this.timelineTrack.nativeElement.getBoundingClientRect();
+    const events = this.timelineEvents.toArray();
+    const currentEvent =
+      events.find(event => event.nativeElement.classList.contains('current')) ||
+      events.filter(event => !event.nativeElement.classList.contains('future')).pop() ||
+      events[events.length - 1];
+
+    if (!currentEvent) {
+      return;
+    }
+
+    const targetRect = currentEvent.nativeElement.getBoundingClientRect();
+    const isVertical = trackRect.height > trackRect.width;
+
+    if (isVertical) {
+      const progressPx = targetRect.top + targetRect.height / 2 - trackRect.top;
+      const clamped = Math.max(0, Math.min(progressPx, trackRect.height));
+      this.timelineProgressStyle = {
+        width: '100%',
+        height: `${clamped}px`
+      };
+    } else {
+      const progressPx = targetRect.left + targetRect.width / 2 - trackRect.left;
+      const clamped = Math.max(0, Math.min(progressPx, trackRect.width));
+      this.timelineProgressStyle = {
+        width: `${clamped}px`,
+        height: '100%'
+      };
+    }
   }
 
   // Новая функция для вычисления возраста
