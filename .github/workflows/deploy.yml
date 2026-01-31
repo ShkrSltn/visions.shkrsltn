@@ -33,6 +33,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          GITHUB_PAGES: true
           VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Copy 404 page
