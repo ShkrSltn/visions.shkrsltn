@@ -2,6 +2,25 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
 
+## Environment Configuration
+
+### Local Development
+
+Edit `src/environments/environment.ts` and add your API key:
+```typescript
+export const environment = {
+  production: false,
+  openaiApiKey: 'your_key_here',
+};
+```
+
+### Deployment
+
+Set `OPENAI_API_KEY` environment variable on your platform:
+- **GitHub Pages**: Add to repository secrets
+- **Railway**: Add to environment variables
+- **Vercel/Netlify**: Add to environment variables
+
 ## Development server
 
 To start a local development server, run:
