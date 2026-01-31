@@ -48,10 +48,6 @@ Thumbs.db
 .env.development
 .env.production
 .env.test
-/environments
-/src/environments
-/src/environments/environment.ts
-/src/environments/environment.prod.ts
 
 # Build artifacts
 /dist-server
