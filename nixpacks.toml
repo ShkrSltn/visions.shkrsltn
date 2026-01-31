@@ -5,7 +5,7 @@ nixPkgs = ["nodejs_20"]
 
 [phases.build]
 cmds = [
-  "npm ci",
+  "npm install",
   "echo \"export const environment = { production: true, openaiApiKey: '$OPENAI_API_KEY' };\" > src/environments/environment.prod.ts",
   "npm run build -- --configuration production"
 ]
