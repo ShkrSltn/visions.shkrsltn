@@ -29,7 +29,7 @@ export class SkillsService {
   getSkills(): Observable<SkillsData> {
     return this.languageService.currentLang$.pipe(
       switchMap(lang => {
-        return this.http.get<SkillsData>(`./assets/data/${lang}/skills.json`);
+        return this.http.get<SkillsData>(`/data/${lang}/skills.json`);
       })
     );
   }

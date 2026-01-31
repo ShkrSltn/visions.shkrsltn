@@ -3,7 +3,7 @@
     {
       "title": "visions.shkrsltn",
       "description": "Mein neuestes responsive Portfolio, das du jetzt siehst, wurde mit Angular, OpenAI API und SASS/SCSS erstellt, mit Animationen und interaktiven Elementen",
-      "image": "./assets/images/project-images/visions-shkrsltnv.png",
+      "image": "/images/project-images/visions-shkrsltnv.png",
       "technologies": ["Angular", "TypeScript", "OpenAI API", "SASS/SCSS"],
       "demoLink": "https://shkrsltn.github.io/visions.shkrsltn/",
       "codeLink": "https://github.com/ShkrSltn/visions.shkrsltn.git",
@@ -14,7 +14,7 @@
     {
       "title": "SAFI",
       "description": "SAFI visualisiert soziale Beziehungen, Wohlbefinden und Klima in Schulklassen und unterstützt somit Lehrkräfte bei der Förderung sozialer Prozesse.",
-      "image": "./assets/images/project-images/safi-survey.png",
+      "image": "/images/project-images/safi-survey.png",
       "technologies": ["Vue.js", "JavaScript/TypeScript", "HTML/CSS", "D3.js", "FastAPI/Python", "PostgreSQL", "Docker", "GitLab/Git", "Google Cloud Platform"],
       "demoLink": "https://safi-demo.example.com",
       "codeLink": "https://github.com/ShkrSltn/dashboard",
@@ -25,7 +25,7 @@
     {
       "title": "Green Kidney App",
       "description": "Interaktive Quiz-Anwendung, die sich auf umweltfreundliche Nierengesundheit konzentriert, entwickelt für ein Medizin-Konferenz in Bangalore, Indien",
-      "image": "./assets/images/project-images/green-admin.png",
+      "image": "/images/project-images/green-admin.png",
       "technologies": ["Vue.js/JavaScript", "TypeScript", "FastAPI/Python", "Docker"],
       "demoLink": "https://green-kidney.example.com",
       "codeLink": "private-repository",
@@ -36,7 +36,7 @@
     {
       "title": "FaciMath",
       "description": "Ein Hobby-Projekt über das Generieren von Mathe-Problemen und das Lösen von ihnen.",
-      "image": "./assets/images/project-images/facimath1-main.png",
+      "image": "/images/project-images/facimath1-main.png",
       "technologies": ["Angular", "TypeScript", "HTML/CSS", "Spring Boot/Java", "PostgreSQL"],
       "demoLink": "https://shkrsltn.github.io/Recede-the-math/",
       "codeLink": "https://github.com/ShkrSltn/Recede-the-math",
@@ -47,7 +47,7 @@
     {
       "title": "FaciMathPro",
       "description": "Aktualisierte Version von FaciMath, mit einer benutzerfreundlicheren Oberfläche und verbesserten Funktionen.",
-      "image": "./assets/images/project-images/facimath2.png",
+      "image": "/images/project-images/facimath2.png",
       "technologies": ["Angular", "TypeScript", "HTML/CSS", "Spring Boot/Java", "PostgreSQL"],
       "demoLink": "https://shkrsltn.github.io/Recede-the-math/",
       "codeLink": "https://github.com/ShkrSltn/faci-math2.0.git",
@@ -58,7 +58,7 @@
     {
       "title": "Legacy portfolio",
       "description": "Mein altes Portfolio, das mit Vanilla JavaScript, HTML und SCSS erstellt wurde. Dort sind auch meine alten Projekte für Lernzwecke und andere Dinge.",
-      "image": "./assets/images/project-images/legacy-portfolio.png",
+      "image": "/images/project-images/legacy-portfolio.png",
       "technologies": ["JavaScript", "HTML", "SCSS"],
       "demoLink": "https://tourmaline-gingersnap-95959a.netlify.app/projects/",
       "codeLink": "https://github.com/ShkrSltn/carpool-app-vue",

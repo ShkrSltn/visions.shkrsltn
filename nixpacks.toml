@@ -7,10 +7,7 @@ nixPkgs = ["nodejs_20"]
 cmds = ["npm install"]
 
 [phases.build]
-cmds = [
-  "echo \"export const environment = { production: true, openaiApiKey: '$OPENAI_API_KEY' };\" > src/environments/environment.prod.ts",
-  "npm run build -- --configuration production"
-]
+cmds = ["npm run build"]
 
 [start]
 cmd = "npx serve dist/visions.shkrsltn/browser -s -l ${PORT:-3000}"

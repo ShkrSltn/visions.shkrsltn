@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  openaiApiKey: '', // Set locally, don't commit with real key
+  openaiApiKey: import.meta.env.VITE_OPENAI_API_KEY || '',
 };

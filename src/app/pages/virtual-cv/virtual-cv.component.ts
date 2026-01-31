@@ -79,7 +79,7 @@ export class VirtualCvComponent implements AfterViewInit, OnInit {
     const link = document.createElement('a');
 
     // Set the href to the path of the PDF file
-    link.href = './assets/images/CVs/Sultanov__CV__Minimal.pdf';
+    link.href = '/images/CVs/Sultanov__CV__Minimal.pdf';
 
     // Set download attribute to suggest filename
     link.download = 'Shakir_Sultanov_CV.pdf';

@@ -83,7 +83,7 @@ export class CVService {
   getCVData(): Observable<CVData> {
     return this.languageService.currentLang$.pipe(
       switchMap(lang => {
-        return this.http.get<CVData>(`./assets/data/${lang}/cv-data.json`);
+        return this.http.get<CVData>(`/data/${lang}/cv-data.json`);
       })
     );
   }

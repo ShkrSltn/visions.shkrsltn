@@ -30,19 +30,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Create environment file
-        run: |
-          cat > src/environments/environment.prod.ts << EOF
-          export const environment = {
-            production: true,
-            openaiApiKey: '${{ secrets.OPENAI_API_KEY }}',
-          };
-          EOF
-
       - name: Build
-        run: |
-          npm run build -- --configuration production --base-href=/visions.shkrsltn/
-          cp dist/visions.shkrsltn/browser/index.html dist/visions.shkrsltn/browser/404.html
+        run: npm run build
+        env:
+          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Copy 404 page
+        run: cp dist/visions.shkrsltn/browser/index.html dist/visions.shkrsltn/browser/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

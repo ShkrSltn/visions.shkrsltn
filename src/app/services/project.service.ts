@@ -33,7 +33,7 @@ export class ProjectService {
   getProjects(): Observable<ProjectsData> {
     return this.languageService.currentLang$.pipe(
       switchMap(lang => {
-        return this.http.get<ProjectsData>(`./assets/data/${lang}/projects.json`);
+        return this.http.get<ProjectsData>(`/data/${lang}/projects.json`);
       })
     );
   }

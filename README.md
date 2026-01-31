@@ -2,24 +2,70 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
 
+# Portfolio
+
+Angular portfolio website built with **Vite** for blazingly fast builds and easy deployment.
+
+## Features
+
+- ⚡️ **Vite** - Lightning-fast dev server and builds
+- 🅰️ **Angular 19** - Modern Angular with standalone components
+- 🎨 **SCSS** - Styled with custom SCSS
+- 🌍 **i18n** - Multi-language support
+- 🤖 **AI Chat** - OpenAI-powered chat assistant
+
 ## Environment Configuration
 
 ### Local Development
 
-Edit `src/environments/environment.ts` and add your API key:
-```typescript
-export const environment = {
-  production: false,
-  openaiApiKey: 'your_key_here',
-};
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and add your API key:
+   ```bash
+   VITE_OPENAI_API_KEY=your_api_key_here
+   ```
+
+3. Start dev server:
+   ```bash
+   npm run dev
+   # or
+   npm start
+   ```
+
+   Server will run at `http://localhost:4200`
+
+### Production Build
+
+```bash
+VITE_OPENAI_API_KEY=your_key npm run build
 ```
 
 ### Deployment
 
-Set `OPENAI_API_KEY` environment variable on your platform:
-- **GitHub Pages**: Add to repository secrets
-- **Railway**: Add to environment variables
-- **Vercel/Netlify**: Add to environment variables
+Set `VITE_OPENAI_API_KEY` environment variable on your platform:
+
+#### GitHub Pages
+- Add `OPENAI_API_KEY` to repository secrets
+- Push to `main` branch - auto-deployed via GitHub Actions
+
+#### Railway
+- Add `VITE_OPENAI_API_KEY` to environment variables  
+- Connect repo and deploy
+
+#### Vercel/Netlify
+- Add `VITE_OPENAI_API_KEY` to environment variables
+- Build command: `npm run build`
+- Output directory: `dist/visions.shkrsltn/browser`
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm test` - Run tests
 
 ## Development server
 
