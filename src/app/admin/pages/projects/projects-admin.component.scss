@@ -1,0 +1,23 @@
+@use '../admin-shared' as *;
+
+.checkbox-inline {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  grid-column: 1 / -1;
+
+  .ck {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent-color);
+    }
+  }
+}

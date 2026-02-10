@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LanguageService } from './language.service';
 import { switchMap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface Skill {
   name: string;
@@ -28,9 +29,11 @@ export class SkillsService {
 
   getSkills(): Observable<SkillsData> {
     return this.languageService.currentLang$.pipe(
-      switchMap(lang => {
-        return this.http.get<SkillsData>(`/data/${lang}/skills.json`);
-      })
+      switchMap(lang =>
+        this.http.get<SkillsData>(
+          `${environment.apiUrl}/skills/by-language/${lang}`
+        )
+      )
     );
   }
 }

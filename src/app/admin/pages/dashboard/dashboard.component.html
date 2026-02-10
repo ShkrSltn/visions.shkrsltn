@@ -1,0 +1,40 @@
+<app-toast></app-toast>
+<app-confirm-dialog></app-confirm-dialog>
+
+<div class="dashboard">
+  <h1>Dashboard</h1>
+  <p class="subtitle">Portfolio overview</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">{{ stats.projects }}</div>
+      <div class="stat-label">Projects</div>
+      <a routerLink="/admin/projects" class="stat-link">Manage <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{ stats.skills }}</div>
+      <div class="stat-label">Skills</div>
+      <a routerLink="/admin/skills" class="stat-link">Manage <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{ stats.languages }}</div>
+      <div class="stat-label">Languages</div>
+      <a routerLink="/admin/languages" class="stat-link">Manage <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{ stats.cvSections }}</div>
+      <div class="stat-label">CV Sections</div>
+      <a routerLink="/admin/cv" class="stat-link">Manage <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <h2>Quick Actions</h2>
+    <div class="actions-grid">
+      <a routerLink="/admin/projects" class="action-btn"><i class="fa-solid fa-plus"></i> New Project</a>
+      <a routerLink="/admin/skills" class="action-btn"><i class="fa-solid fa-plus"></i> Add Skill</a>
+      <a routerLink="/admin/cv" class="action-btn"><i class="fa-solid fa-pen-to-square"></i> Edit CV</a>
+      <a routerLink="/" class="action-btn" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Site</a>
+    </div>
+  </div>
+</div>

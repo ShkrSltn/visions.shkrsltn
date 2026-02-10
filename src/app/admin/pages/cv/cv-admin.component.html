@@ -1,0 +1,556 @@
+<app-toast></app-toast>
+<app-confirm-dialog></app-confirm-dialog>
+
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>CV Data</h1>
+      <p class="subtitle">Manage your virtual CV content</p>
+    </div>
+    <select [(ngModel)]="selectedLanguageId" (ngModelChange)="onLanguageChange()" class="lang-select">
+      @for (lang of languages; track lang.id) {
+        <option [ngValue]="lang.id">{{ lang.name }} ({{ lang.code }})</option>
+      }
+    </select>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    @for (tab of tabs; track tab.id) {
+      <button class="tab" [class.active]="activeTab === tab.id" (click)="switchTab(tab.id)">
+        <i [class]="tab.icon"></i> {{ tab.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Profile Tab (LaTeX-like: editor left, preview right) -->
+  @if (activeTab === 'profile') {
+    <div class="master-detail">
+      <div class="master-panel profile-editor-panel">
+        <div class="detail-header">
+          <h2><i class="fa-solid fa-code"></i> Editor</h2>
+        </div>
+        <div class="editor-area">
+          <textarea [(ngModel)]="profile.content" placeholder="Write your profile summary..."></textarea>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-primary" (click)="saveProfile()"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-header">
+          <h2><i class="fa-solid fa-eye"></i> Preview</h2>
+        </div>
+        <div class="detail-body preview-body">
+          @if (profile.content) {
+            <p class="preview-text">{{ profile.content }}</p>
+          } @else {
+            <div class="detail-empty">
+              <i class="fa-solid fa-file-lines"></i>
+              <p>Start typing to see a preview</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Contact Tab (LaTeX-like: preview left, editor right) -->
+  @if (activeTab === 'contact') {
+    <div class="master-detail">
+      <div class="master-panel">
+        <div class="detail-header">
+          <h2><i class="fa-solid fa-eye"></i> Current Info</h2>
+        </div>
+        <div class="master-list contact-preview">
+          <div class="contact-row">
+            <span class="contact-label"><i class="fa-solid fa-flag"></i> Nationality</span>
+            <span class="contact-value">{{ contact.nationality || '—' }}</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label"><i class="fa-regular fa-calendar"></i> Birthdate</span>
+            <span class="contact-value">{{ contact.birthdate || '—' }}</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label"><i class="fa-solid fa-envelope"></i> Email</span>
+            <span class="contact-value">{{ contact.email || '—' }}</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label"><i class="fa-solid fa-phone"></i> Phone</span>
+            <span class="contact-value">{{ contact.phone || '—' }}</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label"><i class="fa-solid fa-location-dot"></i> Address</span>
+            <span class="contact-value">{{ contact.address || '—' }}</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label"><i class="fa-brands fa-linkedin"></i> LinkedIn</span>
+            <span class="contact-value">{{ contact.linkedin || '—' }}</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label"><i class="fa-solid fa-globe"></i> Portfolio</span>
+            <span class="contact-value">{{ contact.portfolio || '—' }}</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label"><i class="fa-brands fa-github"></i> GitHub</span>
+            <span class="contact-value">{{ contact.github || '—' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="detail-panel">
+        <div class="detail-header">
+          <h2><i class="fa-solid fa-pen"></i> Edit</h2>
+        </div>
+        <div class="detail-body">
+          <div class="detail-form-grid">
+            <div class="form-group"><label>Nationality</label><input type="text" [(ngModel)]="contact.nationality" /></div>
+            <div class="form-group"><label>Birthdate</label><input type="text" [(ngModel)]="contact.birthdate" /></div>
+            <div class="form-group"><label>Email</label><input type="text" [(ngModel)]="contact.email" /></div>
+            <div class="form-group"><label>Phone</label><input type="text" [(ngModel)]="contact.phone" /></div>
+            <div class="form-group full-width"><label>Address</label><input type="text" [(ngModel)]="contact.address" /></div>
+            <div class="form-group"><label>LinkedIn</label><input type="text" [(ngModel)]="contact.linkedin" /></div>
+            <div class="form-group"><label>Portfolio</label><input type="text" [(ngModel)]="contact.portfolio" /></div>
+            <div class="form-group"><label>GitHub</label><input type="text" [(ngModel)]="contact.github" /></div>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-primary" (click)="saveContact()"><i class="fa-solid fa-floppy-disk"></i> Save Contact</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- CV Skills Tab (master-detail) -->
+  @if (activeTab === 'skills') {
+    <div class="master-detail">
+      <div class="master-panel">
+        <div class="master-toolbar">
+          <select [(ngModel)]="skillLevelFilter" style="flex: 1;">
+            <option value="all">All Levels</option>
+            <option value="advanced">Advanced</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="beginner">Beginner</option>
+            <option value="basic">Basic</option>
+          </select>
+        </div>
+        <div class="master-list">
+          @for (skill of getFilteredCvSkills(); track skill.id) {
+            <div class="master-item" [class.active]="selectedCvSkill?.id === skill.id" (click)="selectCvSkill(skill)">
+              <div class="item-content">
+                <div class="item-title">{{ skill.name }}</div>
+              </div>
+              <span class="item-badge accent">{{ skill.level }}</span>
+              <div class="item-actions">
+                <button class="btn-icon-sm danger" (click)="deleteCvSkill(skill); $event.stopPropagation()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          }
+          @if (getFilteredCvSkills().length === 0) {
+            <div class="master-empty">No skills found</div>
+          }
+        </div>
+        <button class="master-add-btn" (click)="newCvSkillMode()"><i class="fa-solid fa-plus"></i> Add Skill</button>
+      </div>
+
+      <div class="detail-panel">
+        @if (cvSkillFormVisible) {
+          <div class="detail-header">
+            <div>
+              <h2>{{ selectedCvSkill ? 'Edit Skill' : 'New Skill' }}</h2>
+            </div>
+          </div>
+          <div class="detail-body">
+            <div class="detail-form-grid">
+              <div class="form-group">
+                <label>Skill Name</label>
+                <input type="text" [(ngModel)]="newCvSkill.name" placeholder="e.g. JavaScript/TypeScript" />
+              </div>
+              <div class="form-group">
+                <label>Level</label>
+                <select [(ngModel)]="newCvSkill.level">
+                  <option value="advanced">Advanced</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="basic">Basic</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn btn-secondary" (click)="cvSkillFormVisible = false">Cancel</button>
+            <button class="btn btn-primary" (click)="addCvSkill()" [disabled]="!newCvSkill.name"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+          </div>
+        } @else {
+          <div class="detail-empty">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <p>Select a skill to edit or add a new one</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Work Experience Tab (master-detail) -->
+  @if (activeTab === 'work') {
+    <div class="master-detail">
+      <div class="master-panel">
+        <div class="master-list">
+          @for (item of workExperiences; track item.id) {
+            <div class="master-item" [class.active]="editingWorkId === item.id" (click)="editWork(item)">
+              <div class="item-content">
+                <div class="item-title">{{ item.title }}</div>
+                <div class="item-subtitle">{{ item.period }} &middot; {{ item.location }}</div>
+              </div>
+              <div class="item-actions">
+                <button class="btn-icon-sm danger" (click)="deleteWork(item); $event.stopPropagation()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          }
+          @if (workExperiences.length === 0) {
+            <div class="master-empty">No work experience entries</div>
+          }
+        </div>
+        <button class="master-add-btn" (click)="resetWork(); workFormVisible = true"><i class="fa-solid fa-plus"></i> Add Experience</button>
+      </div>
+
+      <div class="detail-panel">
+        @if (workFormVisible) {
+          <div class="detail-header">
+            <h2>{{ editingWorkId ? 'Edit Experience' : 'New Experience' }}</h2>
+          </div>
+          <div class="detail-body">
+            <div class="detail-form-grid">
+              <div class="form-group">
+                <label>Period</label>
+                <input type="text" [(ngModel)]="newWork.period" placeholder="08.2024 - Present" />
+              </div>
+              <div class="form-group">
+                <label>Location</label>
+                <input type="text" [(ngModel)]="newWork.location" placeholder="City, Country" />
+              </div>
+              <div class="form-group full-width">
+                <label>Title</label>
+                <input type="text" [(ngModel)]="newWork.title" placeholder="Fullstack Developer, Company" />
+              </div>
+              <div class="form-group full-width">
+                <label>Responsibilities (one per line)</label>
+                <textarea [(ngModel)]="newWork.responsibilities" rows="6" placeholder="One responsibility per line"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn btn-secondary" (click)="workFormVisible = false; resetWork()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveWork()" [disabled]="!newWork.title"><i class="fa-solid fa-floppy-disk"></i> {{ editingWorkId ? 'Update' : 'Save' }}</button>
+          </div>
+        } @else {
+          <div class="detail-empty">
+            <i class="fa-solid fa-briefcase"></i>
+            <p>Select an entry to edit or add a new one</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Education Tab (master-detail) -->
+  @if (activeTab === 'education') {
+    <div class="master-detail">
+      <div class="master-panel">
+        <div class="master-list">
+          @for (item of educations; track item.id) {
+            <div class="master-item" [class.active]="editingEduId === item.id" (click)="editEdu(item)">
+              <div class="item-content">
+                <div class="item-title">{{ item.degree }}</div>
+                <div class="item-subtitle">{{ item.period }} &middot; {{ item.institution }}</div>
+              </div>
+              <div class="item-actions">
+                <button class="btn-icon-sm danger" (click)="deleteEdu(item); $event.stopPropagation()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          }
+          @if (educations.length === 0) {
+            <div class="master-empty">No education entries</div>
+          }
+        </div>
+        <button class="master-add-btn" (click)="resetEdu(); eduFormVisible = true"><i class="fa-solid fa-plus"></i> Add Education</button>
+      </div>
+
+      <div class="detail-panel">
+        @if (eduFormVisible) {
+          <div class="detail-header">
+            <h2>{{ editingEduId ? 'Edit Education' : 'New Education' }}</h2>
+          </div>
+          <div class="detail-body">
+            <div class="detail-form-grid">
+              <div class="form-group">
+                <label>Period</label>
+                <input type="text" [(ngModel)]="newEdu.period" placeholder="09.2018 - 07.2022" />
+              </div>
+              <div class="form-group">
+                <label>Location</label>
+                <input type="text" [(ngModel)]="newEdu.location" placeholder="City, Country" />
+              </div>
+              <div class="form-group full-width">
+                <label>Degree</label>
+                <input type="text" [(ngModel)]="newEdu.degree" placeholder="Bachelor of Computer Engineering" />
+              </div>
+              <div class="form-group full-width">
+                <label>Institution</label>
+                <input type="text" [(ngModel)]="newEdu.institution" placeholder="University name" />
+              </div>
+              <div class="form-group full-width">
+                <label>Details (one per line)</label>
+                <textarea [(ngModel)]="newEdu.details" rows="4" placeholder="One detail per line"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn btn-secondary" (click)="eduFormVisible = false; resetEdu()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveEdu()" [disabled]="!newEdu.degree"><i class="fa-solid fa-floppy-disk"></i> {{ editingEduId ? 'Update' : 'Save' }}</button>
+          </div>
+        } @else {
+          <div class="detail-empty">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <p>Select an entry to edit or add a new one</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Certifications Tab (master-detail) -->
+  @if (activeTab === 'certifications') {
+    <div class="master-detail">
+      <div class="master-panel">
+        <div class="master-list">
+          @for (item of certifications; track item.id) {
+            <div class="master-item" [class.active]="editingCertId === item.id" (click)="editCert(item)">
+              <div class="item-content">
+                <div class="item-title">{{ item.degree }}</div>
+                <div class="item-subtitle">{{ item.period }} &middot; {{ item.location }}</div>
+              </div>
+              <div class="item-actions">
+                <button class="btn-icon-sm danger" (click)="deleteCert(item); $event.stopPropagation()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          }
+          @if (certifications.length === 0) {
+            <div class="master-empty">No certifications</div>
+          }
+        </div>
+        <button class="master-add-btn" (click)="resetCert(); certFormVisible = true"><i class="fa-solid fa-plus"></i> Add Certification</button>
+      </div>
+
+      <div class="detail-panel">
+        @if (certFormVisible) {
+          <div class="detail-header">
+            <h2>{{ editingCertId ? 'Edit Certification' : 'New Certification' }}</h2>
+          </div>
+          <div class="detail-body">
+            <div class="detail-form-grid">
+              <div class="form-group full-width">
+                <label>Degree / Title</label>
+                <input type="text" [(ngModel)]="newCert.degree" placeholder="Certification title" />
+              </div>
+              <div class="form-group">
+                <label>Period</label>
+                <input type="text" [(ngModel)]="newCert.period" placeholder="Jan 2024 - Apr 2024" />
+              </div>
+              <div class="form-group">
+                <label>Location</label>
+                <input type="text" [(ngModel)]="newCert.location" placeholder="City, Country" />
+              </div>
+              <div class="form-group full-width">
+                <label>Details (one per line)</label>
+                <textarea [(ngModel)]="newCert.details" rows="4"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn btn-secondary" (click)="certFormVisible = false; resetCert()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveCert()" [disabled]="!newCert.degree"><i class="fa-solid fa-floppy-disk"></i> {{ editingCertId ? 'Update' : 'Save' }}</button>
+          </div>
+        } @else {
+          <div class="detail-empty">
+            <i class="fa-solid fa-certificate"></i>
+            <p>Select a certification to edit or add a new one</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Languages (spoken) Tab (master-detail) -->
+  @if (activeTab === 'languages') {
+    <div class="master-detail">
+      <div class="master-panel">
+        <div class="master-list">
+          @for (item of cvLanguages; track item.id) {
+            <div class="master-item" [class.active]="editingCvLangId === item.id" (click)="editCvLang(item)">
+              <div class="item-content">
+                <div class="item-title">{{ item.name }}</div>
+              </div>
+              <span class="item-badge">{{ item.level }}</span>
+              <div class="item-actions">
+                <button class="btn-icon-sm danger" (click)="deleteCvLang(item); $event.stopPropagation()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          }
+          @if (cvLanguages.length === 0) {
+            <div class="master-empty">No languages added</div>
+          }
+        </div>
+        <button class="master-add-btn" (click)="resetCvLang(); cvLangFormVisible = true"><i class="fa-solid fa-plus"></i> Add Language</button>
+      </div>
+
+      <div class="detail-panel">
+        @if (cvLangFormVisible) {
+          <div class="detail-header">
+            <h2>{{ editingCvLangId ? 'Edit Language' : 'New Language' }}</h2>
+          </div>
+          <div class="detail-body">
+            <div class="detail-form-grid">
+              <div class="form-group">
+                <label>Language Name</label>
+                <input type="text" [(ngModel)]="newCvLang.name" placeholder="e.g. English" />
+              </div>
+              <div class="form-group">
+                <label>Level</label>
+                <input type="text" [(ngModel)]="newCvLang.level" placeholder="e.g. B2, Native" />
+              </div>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn btn-secondary" (click)="cvLangFormVisible = false; resetCvLang()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveCvLang()" [disabled]="!newCvLang.name"><i class="fa-solid fa-floppy-disk"></i> {{ editingCvLangId ? 'Update' : 'Save' }}</button>
+          </div>
+        } @else {
+          <div class="detail-empty">
+            <i class="fa-solid fa-language"></i>
+            <p>Select a language to edit or add a new one</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- References Tab (master-detail) -->
+  @if (activeTab === 'references') {
+    <div class="master-detail">
+      <div class="master-panel">
+        <div class="master-list">
+          @for (item of references; track item.id) {
+            <div class="master-item" [class.active]="editingRefId === item.id" (click)="editRef(item)">
+              <div class="item-content">
+                <div class="item-title">{{ item.name }}</div>
+                <div class="item-subtitle">{{ item.position }}</div>
+              </div>
+              <div class="item-actions">
+                <button class="btn-icon-sm danger" (click)="deleteRef(item); $event.stopPropagation()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          }
+          @if (references.length === 0) {
+            <div class="master-empty">No references</div>
+          }
+        </div>
+        <button class="master-add-btn" (click)="resetRef(); refFormVisible = true"><i class="fa-solid fa-plus"></i> Add Reference</button>
+      </div>
+
+      <div class="detail-panel">
+        @if (refFormVisible) {
+          <div class="detail-header">
+            <h2>{{ editingRefId ? 'Edit Reference' : 'New Reference' }}</h2>
+          </div>
+          <div class="detail-body">
+            <div class="detail-form-grid">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" [(ngModel)]="newRef.name" placeholder="Full name" />
+              </div>
+              <div class="form-group">
+                <label>Position</label>
+                <input type="text" [(ngModel)]="newRef.position" placeholder="Position, Company" />
+              </div>
+              <div class="form-group">
+                <label>Contact (email)</label>
+                <input type="text" [(ngModel)]="newRef.contact" placeholder="email" />
+              </div>
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="text" [(ngModel)]="newRef.phone" placeholder="+41..." />
+              </div>
+              <div class="form-group full-width">
+                <label>Website</label>
+                <input type="text" [(ngModel)]="newRef.website" placeholder="https://..." />
+              </div>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn btn-secondary" (click)="refFormVisible = false; resetRef()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveRef()" [disabled]="!newRef.name"><i class="fa-solid fa-floppy-disk"></i> {{ editingRefId ? 'Update' : 'Save' }}</button>
+          </div>
+        } @else {
+          <div class="detail-empty">
+            <i class="fa-solid fa-user-group"></i>
+            <p>Select a reference to edit or add a new one</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Hobbies Tab (master-detail) -->
+  @if (activeTab === 'hobbies') {
+    <div class="master-detail">
+      <div class="master-panel">
+        <div class="master-list">
+          @for (item of hobbies; track item.id) {
+            <div class="master-item" [class.active]="editingHobbyId === item.id" (click)="editHobby(item)">
+              <div class="item-content">
+                <div class="item-title">{{ item.name }}</div>
+                <div class="item-subtitle">{{ item.description }}</div>
+              </div>
+              <div class="item-actions">
+                <button class="btn-icon-sm danger" (click)="deleteHobby(item); $event.stopPropagation()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          }
+          @if (hobbies.length === 0) {
+            <div class="master-empty">No hobbies</div>
+          }
+        </div>
+        <button class="master-add-btn" (click)="resetHobby(); hobbyFormVisible = true"><i class="fa-solid fa-plus"></i> Add Hobby</button>
+      </div>
+
+      <div class="detail-panel">
+        @if (hobbyFormVisible) {
+          <div class="detail-header">
+            <h2>{{ editingHobbyId ? 'Edit Hobby' : 'New Hobby' }}</h2>
+          </div>
+          <div class="detail-body">
+            <div class="detail-form-grid">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" [(ngModel)]="newHobby.name" placeholder="e.g. Reading" />
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <input type="text" [(ngModel)]="newHobby.description" placeholder="Brief description" />
+              </div>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button class="btn btn-secondary" (click)="hobbyFormVisible = false; resetHobby()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveHobby()" [disabled]="!newHobby.name"><i class="fa-solid fa-floppy-disk"></i> {{ editingHobbyId ? 'Update' : 'Save' }}</button>
+          </div>
+        } @else {
+          <div class="detail-empty">
+            <i class="fa-solid fa-heart"></i>
+            <p>Select a hobby to edit or add a new one</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

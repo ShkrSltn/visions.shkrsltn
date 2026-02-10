@@ -1,21 +1,6 @@
 {
   "frontendSkills": [
     {
-      "name": "HTML5 & CSS3",
-      "level": "Gut genug",
-      "description": "Erstellung von responsiven, zugänglichen und semantisch strukturierten Webseiten mit modernen CSS-Techniken, einschließlich Grid und Flexbox."
-    },
-    {
-      "name": "JavaScript",
-      "level": "Gut genug",
-      "description": "Entwicklung interaktiver Webanwendungen mit ES6+ Funktionen, asynchroner Programmierung und DOM-Manipulation."
-    },
-    {
-      "name": "TypeScript",
-      "level": "Nicht schlecht",
-      "description": "Entwicklung typsicherer Anwendungen mit Interfaces, Generics und fortgeschrittenen Typisierungsfunktionen."
-    },
-    {
       "name": "Angular",
       "level": "Ich denke nicht schlecht",
       "description": "Erstellung komponentenorientierter Anwendungen mit Services, Routing und Zustandsmanagement."

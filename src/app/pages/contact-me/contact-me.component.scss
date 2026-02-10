@@ -89,7 +89,7 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
-      .material-icons {
+      i {
         transition: transform 0.3s ease;
       }
     }
@@ -180,8 +180,8 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 
-  .material-icons {
-    font-size: 16px;
+  i {
+    font-size: 14px;
     color: #ffffff;
     transition: color 0.3s ease;
   }
@@ -194,7 +194,7 @@
 .copy-indicator.copied {
   background-color: rgba(76, 175, 80, 0.2);
 
-  .material-icons {
+  i {
     color: #4caf50;
   }
 }
@@ -365,8 +365,8 @@
     border-radius: 4px;
     animation: slideIn 0.3s ease;
 
-    .material-icons {
-      font-size: 1.2rem;
+    i {
+      font-size: 1.1rem;
     }
   }
 

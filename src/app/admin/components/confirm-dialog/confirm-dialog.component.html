@@ -1,0 +1,12 @@
+@if (dialogService.isOpen) {
+  <div class="overlay" (click)="dialogService.cancel()">
+    <div class="dialog" (click)="$event.stopPropagation()">
+      <h3>{{ dialogService.title }}</h3>
+      <p>{{ dialogService.message }}</p>
+      <div class="dialog-actions">
+        <button class="btn btn-secondary" (click)="dialogService.cancel()">Cancel</button>
+        <button class="btn btn-danger" (click)="dialogService.confirm()">Delete</button>
+      </div>
+    </div>
+  </div>
+}

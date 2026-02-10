@@ -134,8 +134,8 @@ $tag-background: rgba(255, 255, 255, 0.1);
       margin-right: 0.8rem;
       color: $secondary-text-color;
 
-      .material-icons {
-        font-size: 18px;
+      i {
+        font-size: 16px;
       }
     }
 
@@ -479,8 +479,8 @@ $tag-background: rgba(255, 255, 255, 0.1);
     background-color: $hover-background;
   }
 
-  .material-icons {
-    font-size: 1.2rem;
+  i {
+    font-size: 1.1rem;
   }
 }
 

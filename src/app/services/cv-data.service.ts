@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LanguageService } from './language.service';
 import { switchMap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface WorkExperience {
   title: string;
@@ -63,9 +64,11 @@ export class CvDataService {
 
   getCvData(): Observable<CVData> {
     return this.languageService.currentLang$.pipe(
-      switchMap(lang => {
-        return this.http.get<CVData>(`/data/${lang}/cv-data.json`);
-      })
+      switchMap(lang =>
+        this.http.get<CVData>(
+          `${environment.apiUrl}/cv/by-language/${lang}`
+        )
+      )
     );
   }
 }

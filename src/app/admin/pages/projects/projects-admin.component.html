@@ -1,0 +1,120 @@
+<app-toast></app-toast>
+<app-confirm-dialog></app-confirm-dialog>
+
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Projects</h1>
+      <p class="subtitle">Manage your portfolio projects</p>
+    </div>
+  </div>
+
+  <div class="master-detail">
+    <!-- Left: project list -->
+    <div class="master-panel">
+      <div class="master-toolbar">
+        <select [(ngModel)]="selectedLanguageId" (ngModelChange)="loadProjects()">
+          <option [ngValue]="null">All Languages</option>
+          @for (lang of languages; track lang.id) {
+            <option [ngValue]="lang.id">{{ lang.name }} ({{ lang.code }})</option>
+          }
+        </select>
+      </div>
+      <div class="master-list">
+        @for (project of projects; track project.id) {
+          <div
+            class="master-item"
+            [class.active]="selectedProject?.id === project.id"
+            (click)="selectProject(project)"
+          >
+            <div class="item-content">
+              <div class="item-title">{{ project.title }}</div>
+              <div class="item-subtitle">{{ project.description | slice:0:60 }}...</div>
+            </div>
+            @if (project.featured) {
+              <span class="item-badge accent">Featured</span>
+            }
+            <div class="item-actions">
+              <button class="btn-icon-sm danger" (click)="deleteProject(project); $event.stopPropagation()" title="Delete">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        }
+        @if (projects.length === 0) {
+          <div class="master-empty">No projects found</div>
+        }
+      </div>
+      <button class="master-add-btn" (click)="newProject()"><i class="fa-solid fa-plus"></i> New Project</button>
+    </div>
+
+    <!-- Right: project form -->
+    <div class="detail-panel">
+      @if (formVisible) {
+        <div class="detail-header">
+          <h2>{{ isEdit ? 'Edit Project' : 'New Project' }}</h2>
+          @if (isEdit) {
+            <span class="badge badge-active">ID: {{ selectedProject?.id }}</span>
+          }
+        </div>
+        <div class="detail-body">
+          <div class="detail-form-grid">
+            <div class="form-group">
+              <label>Language</label>
+              <select [(ngModel)]="form.languageId">
+                <option [ngValue]="null" disabled>Select language</option>
+                @for (lang of languages; track lang.id) {
+                  <option [ngValue]="lang.id">{{ lang.name }} ({{ lang.code }})</option>
+                }
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Order Index</label>
+              <input type="number" [(ngModel)]="form.orderIndex" />
+            </div>
+            <div class="form-group full-width">
+              <label>Title</label>
+              <input type="text" [(ngModel)]="form.title" placeholder="Project title" />
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea [(ngModel)]="form.description" rows="3" placeholder="Project description"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Image URL</label>
+              <input type="text" [(ngModel)]="form.imageUrl" placeholder="/images/project-images/..." />
+            </div>
+            <div class="form-group">
+              <label>Demo Link</label>
+              <input type="text" [(ngModel)]="form.demoLink" placeholder="https://..." />
+            </div>
+            <div class="form-group">
+              <label>Code Link</label>
+              <input type="text" [(ngModel)]="form.codeLink" placeholder="https://github.com/..." />
+            </div>
+            <div class="form-group full-width">
+              <label>Technologies (comma-separated)</label>
+              <input type="text" [(ngModel)]="technologiesString" placeholder="Angular, TypeScript, SASS" />
+            </div>
+            <div class="form-group checkbox-inline">
+              <label class="ck"><input type="checkbox" [(ngModel)]="form.featured" /> Featured</label>
+              <label class="ck"><input type="checkbox" [(ngModel)]="form.showDemo" /> Show Demo</label>
+              <label class="ck"><input type="checkbox" [(ngModel)]="form.showCode" /> Show Code</label>
+            </div>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-secondary" (click)="cancelForm()">Cancel</button>
+          <button class="btn btn-primary" (click)="saveProject()" [disabled]="saving || !form.title">
+            <i class="fa-solid fa-floppy-disk"></i> {{ saving ? 'Saving...' : (isEdit ? 'Update' : 'Create') }}
+          </button>
+        </div>
+      } @else {
+        <div class="detail-empty">
+          <i class="fa-solid fa-folder-open"></i>
+          <p>Select a project to edit or create a new one</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

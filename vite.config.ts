@@ -26,6 +26,13 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 4200,
       open: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
     },
     base: isGitHubPages ? '/visions.shkrsltn/' : '/',
   };

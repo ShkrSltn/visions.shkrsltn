@@ -1,0 +1,39 @@
+@use '../admin-shared' as *;
+
+.lang-select {
+  padding: 8px 12px;
+  border: 1px solid var(--form-border);
+  border-radius: 6px;
+  background: var(--form-background);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+
+  &:focus { border-color: var(--accent-color); }
+  option { background: var(--background-secondary); }
+}
+
+.master-detail--wide {
+  grid-template-columns: 420px 1fr;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 340px 1fr;
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stats-info {
+  display: flex;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+
+  strong {
+    color: var(--accent-color);
+  }
+}

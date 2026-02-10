@@ -44,6 +44,11 @@ export const routes: Routes = [
     title: 'Shkrsltnv | Clock'
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES),
+    title: 'Admin Panel'
+  },
+  {
     path: '**',
     redirectTo: '',
     title: 'Shkrsltnv | Home'
