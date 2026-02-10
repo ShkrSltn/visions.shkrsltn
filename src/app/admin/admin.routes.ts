@@ -51,6 +51,12 @@ export const ADMIN_ROUTES: Routes = [
           import('./pages/translations/translations-admin.component').then(m => m.TranslationsAdminComponent),
         title: 'Admin | Translations',
       },
+      {
+        path: 'blog',
+        loadComponent: () =>
+          import('./pages/blog/blog-admin.component').then(m => m.BlogAdminComponent),
+        title: 'Admin | Blog',
+      },
     ],
   },
 ];

@@ -20,6 +20,7 @@ export class AdminLayoutComponent {
     { path: '/admin/cv', label: 'CV Data', icon: 'fa-solid fa-file-lines' },
     { path: '/admin/languages', label: 'Languages', icon: 'fa-solid fa-globe' },
     { path: '/admin/translations', label: 'Translations', icon: 'fa-solid fa-language' },
+    { path: '/admin/blog', label: 'Blog', icon: 'fa-solid fa-blog' },
   ];
 
   constructor(private authService: AdminAuthService) {}
