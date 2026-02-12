@@ -95,15 +95,20 @@ export class AiChatService {
   }
 
   private loadData(): void {
-    // Cache the observables to avoid multiple HTTP requests
-    const projectsRequest = this.http.get<{ featuredProjects: Project[] }>(`/data/${this.translate.currentLang}/projects.json`).pipe(
+    const lang = this.translate.currentLang || 'en';
+
+    const projectsRequest = this.http.get<{ featuredProjects: Project[] }>(
+      `${environment.apiUrl}/projects/by-language/${lang}`
+    ).pipe(
       map(data => {
         this.projectsData = data;
         return data;
       })
     );
 
-    const skillsRequest = this.http.get<SkillsData>(`/data/${this.translate.currentLang}/skills.json`).pipe(
+    const skillsRequest = this.http.get<SkillsData>(
+      `${environment.apiUrl}/skills/by-language/${lang}`
+    ).pipe(
       map(data => {
         this.skillsData = data;
         return data;
@@ -168,14 +173,20 @@ export class AiChatService {
   }
 
   private loadDataAndSendRequest(userMessage: string): Observable<ChatResponse> {
-    const projectsRequest = this.http.get<{ featuredProjects: Project[] }>('/data/projects.json').pipe(
+    const lang = this.translate.currentLang || 'en';
+
+    const projectsRequest = this.http.get<{ featuredProjects: Project[] }>(
+      `${environment.apiUrl}/projects/by-language/${lang}`
+    ).pipe(
       map(data => {
         this.projectsData = data;
         return data;
       })
     );
 
-    const skillsRequest = this.http.get<SkillsData>('/data/skills.json').pipe(
+    const skillsRequest = this.http.get<SkillsData>(
+      `${environment.apiUrl}/skills/by-language/${lang}`
+    ).pipe(
       map(data => {
         this.skillsData = data;
         return data;

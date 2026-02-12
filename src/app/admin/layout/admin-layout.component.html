@@ -1,0 +1,39 @@
+<div class="admin-wrapper" [class.sidebar-collapsed]="sidebarCollapsed">
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <a routerLink="/admin/dashboard" class="sidebar-logo">
+        <span class="logo-text">Visions</span>
+        <span class="logo-sub">Admin</span>
+      </a>
+      <button class="sidebar-toggle" (click)="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+    </div>
+
+    <nav class="sidebar-nav">
+      @for (item of navItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          class="nav-item"
+        >
+          <span class="nav-icon"><i [class]="item.icon"></i></span>
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="sidebar-footer">
+      <a routerLink="/" class="nav-item" target="_blank">
+        <span class="nav-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        <span class="nav-label">View Site</span>
+      </a>
+      <button class="nav-item logout-btn" (click)="logout()">
+        <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+        <span class="nav-label">Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

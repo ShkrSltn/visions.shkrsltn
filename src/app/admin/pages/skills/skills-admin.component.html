@@ -1,0 +1,129 @@
+<app-toast></app-toast>
+<app-confirm-dialog></app-confirm-dialog>
+
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Skills</h1>
+      <p class="subtitle">Manage skills and tech stack</p>
+    </div>
+    <select [(ngModel)]="selectedLanguageId" (ngModelChange)="loadSkills()" class="lang-select">
+      @for (lang of languages; track lang.id) {
+        <option [ngValue]="lang.id">{{ lang.name }} ({{ lang.code }})</option>
+      }
+    </select>
+  </div>
+
+  <div class="master-detail">
+    <!-- Left: skill list -->
+    <div class="master-panel">
+      <div class="master-toolbar">
+        <select [(ngModel)]="categoryFilter" (ngModelChange)="filterSkills()">
+          <option value="all">All Categories</option>
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="other">Other</option>
+        </select>
+        <span class="count-badge">{{ filteredSkills.length }}</span>
+      </div>
+      <div class="master-list">
+        @for (skill of filteredSkills; track skill.id) {
+          <div
+            class="master-item"
+            [class.active]="editingSkillId === skill.id"
+            (click)="editSkill(skill)"
+          >
+            <div class="item-content">
+              <div class="item-title">{{ skill.name }}</div>
+              <div class="item-subtitle">{{ skill.level }}</div>
+            </div>
+            <span class="item-badge accent">{{ skill.category }}</span>
+            <div class="item-actions">
+              <button class="btn-icon-sm danger" (click)="deleteSkill(skill); $event.stopPropagation()">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        }
+        @if (filteredSkills.length === 0) {
+          <div class="master-empty">No skills found</div>
+        }
+      </div>
+      <button class="master-add-btn" (click)="newSkillMode()"><i class="fa-solid fa-plus"></i> Add Skill</button>
+    </div>
+
+    <!-- Right: skill form -->
+    <div class="detail-panel">
+      @if (formVisible) {
+        <div class="detail-header">
+          <h2>{{ editingSkillId ? 'Edit Skill' : 'New Skill' }}</h2>
+        </div>
+        <div class="detail-body">
+          <div class="detail-form-grid">
+            <div class="form-group">
+              <label>Category</label>
+              <select [(ngModel)]="newSkill.category">
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Order Index</label>
+              <input type="number" [(ngModel)]="newSkill.orderIndex" />
+            </div>
+            <div class="form-group full-width">
+              <label>Name</label>
+              <input type="text" [(ngModel)]="newSkill.name" placeholder="Skill name" />
+            </div>
+            <div class="form-group full-width">
+              <label>Level</label>
+              <input type="text" [(ngModel)]="newSkill.level" placeholder="e.g. Good enough" />
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea [(ngModel)]="newSkill.description" rows="3" placeholder="Brief description"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+          <button class="btn btn-primary" (click)="addSkill()" [disabled]="!newSkill.name">
+            <i class="fa-solid fa-floppy-disk"></i> {{ editingSkillId ? 'Update' : 'Save' }}
+          </button>
+        </div>
+      } @else {
+        <div class="detail-empty">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <p>Select a skill to edit or add a new one</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Tech Stack Section -->
+  <div class="section-divider">
+    <h2>Tech Stack</h2>
+    <p class="subtitle">Technologies displayed on the home page</p>
+  </div>
+
+  <div class="tech-stack-row">
+    <div class="tech-input-group">
+      <input type="text" [(ngModel)]="newTechName" placeholder="e.g. Docker" (keyup.enter)="addTechStackItem()" />
+      <button class="btn btn-primary btn-small" (click)="addTechStackItem()" [disabled]="!newTechName">
+        <i class="fa-solid fa-plus"></i> Add
+      </button>
+    </div>
+    <div class="tech-tags">
+      @for (item of techStackItems; track item.id) {
+        <span class="tech-tag">
+          {{ item.name }}
+          <button class="tech-tag-remove" (click)="removeTechStackItem(item)"><i class="fa-solid fa-xmark"></i></button>
+        </span>
+      }
+      @if (techStackItems.length === 0) {
+        <span class="text-muted">No tech stack items</span>
+      }
+    </div>
+  </div>
+</div>

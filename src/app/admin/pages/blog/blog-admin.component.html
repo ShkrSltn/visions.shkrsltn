@@ -1,0 +1,426 @@
+<app-toast></app-toast>
+<app-confirm-dialog></app-confirm-dialog>
+
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Blog</h1>
+      <p class="subtitle">Create and manage blog posts</p>
+    </div>
+  </div>
+
+  <div class="master-detail">
+    <!-- Left: Posts list -->
+    <div class="master-panel">
+      <div class="master-toolbar">
+        <span class="toolbar-label">Posts</span>
+        <span class="count-badge">{{ posts.length }}</span>
+      </div>
+      <div class="master-list">
+        @for (post of posts; track post.id) {
+          <div
+            class="master-item"
+            [class.active]="postForm.id === post.id"
+            (click)="selectPost(post)"
+          >
+            <div class="item-content">
+              <div class="item-title">{{ getPostTitle(post) }}</div>
+              <div class="item-subtitle">/{{ post.slug }}</div>
+            </div>
+            <span class="item-badge" [class.accent]="post.isPublished">
+              {{ getPostStatus(post) }}
+            </span>
+            <div class="item-actions">
+              <button
+                class="btn-icon-sm danger"
+                (click)="deletePost(post); $event.stopPropagation()"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        }
+        @if (posts.length === 0) {
+          <div class="master-empty">No blog posts yet</div>
+        }
+      </div>
+      <button class="master-add-btn" (click)="newPostMode()">
+        <i class="fa-solid fa-plus"></i> New Post
+      </button>
+    </div>
+
+    <!-- Right: Post editor -->
+    <div class="detail-panel">
+      @if (isNewPost || postForm.id) {
+        <div class="detail-header">
+          <h2>{{ isNewPost ? 'New Post' : 'Edit Post' }}</h2>
+          <div class="detail-header-actions">
+            @if (!isNewPost && postForm.id) {
+              <button
+                class="btn btn-small"
+                [class.btn-primary]="!postForm.isPublished"
+                [class.btn-secondary]="postForm.isPublished"
+                (click)="togglePublish()"
+              >
+                <i class="fa-solid" [class.fa-eye]="!postForm.isPublished" [class.fa-eye-slash]="postForm.isPublished"></i>
+                {{ postForm.isPublished ? 'Unpublish' : 'Publish' }}
+              </button>
+            }
+            <button class="btn btn-secondary btn-small" (click)="cancelEdit()">
+              <i class="fa-solid fa-xmark"></i> Close
+            </button>
+          </div>
+        </div>
+
+        <div class="detail-body">
+          <!-- Post metadata -->
+          <div class="meta-section">
+            <div class="detail-form-grid">
+              <div class="form-group">
+                <label>Slug</label>
+                <div class="slug-input-row">
+                  <input
+                    type="text"
+                    [(ngModel)]="postForm.slug"
+                    placeholder="my-awesome-post"
+                  />
+                  <button
+                    class="btn btn-secondary btn-small"
+                    (click)="autoSlug()"
+                    title="Generate from title"
+                  >
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Cover Image URL</label>
+                <input
+                  type="text"
+                  [(ngModel)]="postForm.coverImageUrl"
+                  placeholder="https://..."
+                />
+              </div>
+            </div>
+            @if (isNewPost) {
+              <div class="meta-actions">
+                <button
+                  class="btn btn-primary"
+                  (click)="savePost()"
+                  [disabled]="!postForm.slug"
+                >
+                  <i class="fa-solid fa-floppy-disk"></i> Create Post
+                </button>
+              </div>
+            } @else {
+              <div class="meta-actions">
+                <button
+                  class="btn btn-primary btn-small"
+                  (click)="savePost()"
+                  [disabled]="!postForm.slug"
+                >
+                  <i class="fa-solid fa-floppy-disk"></i> Save Metadata
+                </button>
+              </div>
+            }
+          </div>
+
+          <!-- Language tabs -->
+          @if (languages.length > 0) {
+            <div class="lang-tabs-section">
+              <div class="tabs">
+                @for (lang of languages; track lang.id) {
+                  <button
+                    class="tab"
+                    [class.active]="activeLanguageId === lang.id"
+                    (click)="activeLanguageId = lang.id"
+                  >
+                    {{ lang.name }}
+                    @if (translationMap[lang.id]?.isVisible) {
+                      <i class="fa-solid fa-circle tab-dot active"></i>
+                    } @else {
+                      <i class="fa-solid fa-circle tab-dot"></i>
+                    }
+                  </button>
+                }
+              </div>
+
+              <!-- Translation form for active language -->
+              @if (activeLanguageId && translationMap[activeLanguageId]) {
+                <div class="translation-form">
+                  <div class="translation-header">
+                    <div class="checkbox-inline">
+                      <input
+                        type="checkbox"
+                        [id]="'visible-' + activeLanguageId"
+                        [(ngModel)]="translationMap[activeLanguageId].isVisible"
+                      />
+                      <label [for]="'visible-' + activeLanguageId">
+                        Visible in {{ getLanguageName(activeLanguageId) }}
+                      </label>
+                    </div>
+                    <div class="undo-redo-group">
+                      <button class="btn-icon-sm" (click)="undo()" [disabled]="undoStack.length === 0" title="Undo (Ctrl+Z)">
+                        <i class="fa-solid fa-rotate-left"></i>
+                      </button>
+                      <button class="btn-icon-sm" (click)="redo()" [disabled]="redoStack.length === 0" title="Redo (Ctrl+Shift+Z)">
+                        <i class="fa-solid fa-rotate-right"></i>
+                      </button>
+                    </div>
+                    @if (!isNewPost && postForm.id) {
+                      <button
+                        class="btn btn-primary btn-small"
+                        (click)="saveTranslation(activeLanguageId)"
+                        [disabled]="!translationMap[activeLanguageId].title"
+                      >
+                        <i class="fa-solid fa-floppy-disk"></i> Save {{ getLanguageCode(activeLanguageId) | uppercase }}
+                      </button>
+                    }
+                  </div>
+
+                  <div class="detail-form-grid">
+                    <div class="form-group full-width">
+                      <label>Title</label>
+                      <input
+                        type="text"
+                        [(ngModel)]="translationMap[activeLanguageId].title"
+                        placeholder="Post title"
+                      />
+                    </div>
+                    <div class="form-group full-width">
+                      <label>Description</label>
+                      <div
+                        class="form-input-ce"
+                        [(ceModel)]="translationMap[activeLanguageId].description"
+                        data-placeholder="Short description for preview cards"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <!-- Block editor -->
+                  <div class="block-editor">
+                    <div class="block-editor-header">
+                      <h3>Content Blocks</h3>
+                      <span class="count-badge">{{ currentBlocks.length }}</span>
+                    </div>
+
+                    <div
+                      class="blocks-container"
+                      cdkDropList
+                      (cdkDropListDropped)="onBlockDrop($event)"
+                    >
+                      @for (block of currentBlocks; track trackByIndex($index); let i = $index) {
+                        <div class="block-row" cdkDrag>
+                          <div class="block-drag-handle" cdkDragHandle>
+                            <i class="fa-solid fa-grip-vertical"></i>
+                          </div>
+
+                          <div class="block-content-area">
+                            <div class="block-type-bar">
+                              <i class="fa-solid {{ getBlockIcon(block.type) }}"></i>
+                              <span class="block-type-label">{{ getBlockLabel(block.type) }}</span>
+
+                              <!-- Block-specific controls in the bar -->
+                              @if (block.type === 'heading') {
+                                <div class="block-inline-controls">
+                                  @for (lvl of [1, 2, 3]; track lvl) {
+                                    <button
+                                      class="level-btn"
+                                      [class.active]="block.metadata['level'] === lvl"
+                                      (click)="block.metadata['level'] = lvl"
+                                    >
+                                      H{{ lvl }}
+                                    </button>
+                                  }
+                                </div>
+                              }
+                              @if (block.type === 'list') {
+                                <div class="block-inline-controls">
+                                  <button
+                                    class="level-btn"
+                                    [class.active]="block.metadata['style'] === 'unordered'"
+                                    (click)="block.metadata['style'] = 'unordered'"
+                                  >
+                                    <i class="fa-solid fa-list-ul"></i>
+                                  </button>
+                                  <button
+                                    class="level-btn"
+                                    [class.active]="block.metadata['style'] === 'ordered'"
+                                    (click)="block.metadata['style'] = 'ordered'"
+                                  >
+                                    <i class="fa-solid fa-list-ol"></i>
+                                  </button>
+                                </div>
+                              }
+                              @if (block.type === 'code') {
+                                <select
+                                  class="code-lang-select"
+                                  [(ngModel)]="block.metadata['language']"
+                                >
+                                  @for (lang of codeLanguages; track lang) {
+                                    <option [value]="lang">{{ lang }}</option>
+                                  }
+                                </select>
+                              }
+                              @if (block.type === 'callout') {
+                                <div class="block-inline-controls">
+                                  @for (ct of ['info', 'warning', 'success', 'error']; track ct) {
+                                    <button
+                                      class="level-btn callout-type-btn"
+                                      [class.active]="block.metadata['type'] === ct"
+                                      [attr.data-callout]="ct"
+                                      (click)="block.metadata['type'] = ct"
+                                    >
+                                      {{ ct }}
+                                    </button>
+                                  }
+                                </div>
+                              }
+
+                              <div class="block-actions">
+                                <button class="btn-icon-sm" (click)="moveBlockUp(i)" [disabled]="i === 0" title="Move up">
+                                  <i class="fa-solid fa-chevron-up"></i>
+                                </button>
+                                <button class="btn-icon-sm" (click)="moveBlockDown(i)" [disabled]="i === currentBlocks.length - 1" title="Move down">
+                                  <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                                <button class="btn-icon-sm" (click)="duplicateBlock(i)" title="Duplicate">
+                                  <i class="fa-solid fa-copy"></i>
+                                </button>
+                                <button class="btn-icon-sm danger" (click)="removeBlock(i)" title="Delete">
+                                  <i class="fa-solid fa-trash"></i>
+                                </button>
+                              </div>
+                            </div>
+
+                            <!-- Block editing UI (contenteditable) -->
+                            @switch (block.type) {
+                              @case ('heading') {
+                                @switch (block.metadata['level']) {
+                                  @case (1) { <div class="ce-block heading-ce h1" [(ceModel)]="block.content" data-placeholder="Heading text..." (keydown.enter)="$event.preventDefault()"></div> }
+                                  @case (2) { <div class="ce-block heading-ce h2" [(ceModel)]="block.content" data-placeholder="Heading text..." (keydown.enter)="$event.preventDefault()"></div> }
+                                  @case (3) { <div class="ce-block heading-ce h3" [(ceModel)]="block.content" data-placeholder="Heading text..." (keydown.enter)="$event.preventDefault()"></div> }
+                                  @default { <div class="ce-block heading-ce h2" [(ceModel)]="block.content" data-placeholder="Heading text..." (keydown.enter)="$event.preventDefault()"></div> }
+                                }
+                              }
+                              @case ('paragraph') {
+                                <div class="ce-block paragraph-ce" [(ceModel)]="block.content" data-placeholder="Write something..."></div>
+                              }
+                              @case ('list') {
+                                <div class="ce-block list-ce" [(ceModel)]="block.content" data-placeholder="One item per line..."></div>
+                              }
+                              @case ('quote') {
+                                <div class="ce-block quote-ce" [(ceModel)]="block.content" data-placeholder="Quote text..."></div>
+                              }
+                              @case ('divider') {
+                                <div class="divider-preview">
+                                  <hr />
+                                </div>
+                              }
+                              @case ('code') {
+                                <pre class="code-ce-wrap"><code class="ce-block code-ce" [(ceModel)]="block.content" data-placeholder="// Paste your code here..." spellcheck="false" (keydown.tab)="onCodeTab($event)"></code></pre>
+                              }
+                              @case ('image') {
+                                <div class="image-block-form">
+                                  <div class="form-group">
+                                    <label>Image URL</label>
+                                    <input
+                                      type="text"
+                                      [(ngModel)]="block.metadata['url']"
+                                      placeholder="https://..."
+                                    />
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Caption</label>
+                                    <input
+                                      type="text"
+                                      [(ngModel)]="block.metadata['caption']"
+                                      placeholder="Image caption..."
+                                    />
+                                  </div>
+                                  @if (block.metadata['url']) {
+                                    <div class="image-preview">
+                                      <img [src]="block.metadata['url']" alt="Preview" />
+                                    </div>
+                                  }
+                                </div>
+                              }
+                              @case ('callout') {
+                                <div class="callout-preview" [attr.data-callout]="block.metadata['type']">
+                                  <div class="ce-block callout-ce" [(ceModel)]="block.content" data-placeholder="Callout text..."></div>
+                                </div>
+                              }
+                              @case ('toggle') {
+                                <div class="toggle-block-form">
+                                  <div class="form-group">
+                                    <label>Summary (visible text)</label>
+                                    <div class="form-input-ce" [(ceModel)]="block.metadata['summary']" data-placeholder="Click to expand..." (keydown.enter)="$event.preventDefault()"></div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Hidden content</label>
+                                    <div class="ce-block toggle-content-ce" [(ceModel)]="block.content" data-placeholder="Content shown when expanded..."></div>
+                                  </div>
+                                </div>
+                              }
+                            }
+                          </div>
+                        </div>
+
+                        <!-- Add block between rows -->
+                        <div class="add-block-divider" (click)="openBlockPicker(i + 1)">
+                          <div class="add-block-line"></div>
+                          <button class="add-block-btn-inline">
+                            <i class="fa-solid fa-plus"></i>
+                          </button>
+                          <div class="add-block-line"></div>
+                        </div>
+                      }
+                    </div>
+
+                    <!-- Add block at bottom (or if no blocks) -->
+                    @if (currentBlocks.length === 0) {
+                      <div class="blocks-empty">
+                        <p>No content blocks yet</p>
+                      </div>
+                    }
+
+                    <button class="add-block-btn" (click)="openBlockPicker(currentBlocks.length)">
+                      <i class="fa-solid fa-plus"></i> Add Block
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="detail-empty">
+          <i class="fa-solid fa-blog"></i>
+          <p>Select a post to edit or create a new one</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Block type picker modal -->
+@if (showBlockPicker) {
+  <div class="picker-overlay" (click)="closeBlockPicker()">
+    <div class="picker-modal" (click)="$event.stopPropagation()">
+      <div class="picker-header">
+        <h3>Add Block</h3>
+        <button class="btn-icon-sm" (click)="closeBlockPicker()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="picker-grid">
+        @for (bt of blockTypes; track bt.type) {
+          <button class="picker-item" (click)="selectBlockType(bt.type)">
+            <i class="fa-solid {{ bt.icon }}"></i>
+            <span>{{ bt.label }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+}

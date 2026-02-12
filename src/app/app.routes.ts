@@ -6,6 +6,8 @@ import { ContactMeComponent } from './pages/contact-me/contact-me.component';
 import { AiAssistantComponent } from './pages/ai-assistant/ai-assistant.component';
 import { VirtualCvComponent } from './pages/virtual-cv/virtual-cv.component';
 import { ClockComponent } from './pages/clock/clock.component';
+import { BlogListComponent } from './pages/blog/blog-list.component';
+import { BlogPostComponent } from './pages/blog/blog-post/blog-post.component';
 export const routes: Routes = [
   {
     path: '',
@@ -42,6 +44,21 @@ export const routes: Routes = [
     path: 'clock',
     component: ClockComponent,
     title: 'Shkrsltnv | Clock'
+  },
+  {
+    path: 'blog',
+    component: BlogListComponent,
+    title: 'Shkrsltnv | Blog'
+  },
+  {
+    path: 'blog/:slug',
+    component: BlogPostComponent,
+    title: 'Shkrsltnv | Blog Post'
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES),
+    title: 'Admin Panel'
   },
   {
     path: '**',

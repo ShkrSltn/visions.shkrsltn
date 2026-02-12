@@ -1,0 +1,90 @@
+<app-toast></app-toast>
+<app-confirm-dialog></app-confirm-dialog>
+
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Languages</h1>
+      <p class="subtitle">Manage system languages for content localization</p>
+    </div>
+  </div>
+
+  <div class="master-detail">
+    <!-- Left: language list -->
+    <div class="master-panel">
+      <div class="master-list">
+        @for (lang of languages; track lang.id) {
+          <div
+            class="master-item"
+            [class.active]="editingId === lang.id"
+            (click)="edit(lang)"
+          >
+            <div class="item-content">
+              <div class="item-title">{{ lang.name }}</div>
+              <div class="item-subtitle">Code: {{ lang.code }}</div>
+            </div>
+            <div class="lang-badges">
+              @if (lang.isDefault) {
+                <span class="item-badge accent">Default</span>
+              }
+              @if (lang.isActive) {
+                <span class="item-badge accent">Active</span>
+              } @else {
+                <span class="item-badge">Inactive</span>
+              }
+            </div>
+            <div class="item-actions">
+              <button class="btn-icon-sm danger" (click)="remove(lang); $event.stopPropagation()">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        }
+        @if (languages.length === 0) {
+          <div class="master-empty">No languages found</div>
+        }
+      </div>
+      <button class="master-add-btn" (click)="newLang()"><i class="fa-solid fa-plus"></i> Add Language</button>
+    </div>
+
+    <!-- Right: language form -->
+    <div class="detail-panel">
+      @if (formVisible) {
+        <div class="detail-header">
+          <h2>{{ editingId ? 'Edit Language' : 'New Language' }}</h2>
+        </div>
+        <div class="detail-body">
+          <div class="detail-form-grid">
+            <div class="form-group">
+              <label>Code</label>
+              <input type="text" [(ngModel)]="form.code" placeholder="en" maxlength="5" [disabled]="!!editingId" />
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" [(ngModel)]="form.name" placeholder="English" />
+            </div>
+            <div class="form-group checkbox-inline">
+              <label class="ck">
+                <input type="checkbox" [(ngModel)]="form.isActive" /> Active
+              </label>
+              <label class="ck">
+                <input type="checkbox" [(ngModel)]="form.isDefault" /> Default
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+          <button class="btn btn-primary" (click)="save()" [disabled]="!form.code || !form.name">
+            <i class="fa-solid fa-floppy-disk"></i> {{ editingId ? 'Update' : 'Create' }}
+          </button>
+        </div>
+      } @else {
+        <div class="detail-empty">
+          <i class="fa-solid fa-globe"></i>
+          <p>Select a language to edit or add a new one</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,14 +1,18 @@
-<div
-  appRippleEffect
-  [rippleRadius]="100"
-  [starsCount]="5"
-  class="ripple-container"
->
-  <app-header></app-header>
+@if (isAdminRoute) {
+  <router-outlet></router-outlet>
+} @else {
+  <div
+    appRippleEffect
+    [rippleRadius]="100"
+    [starsCount]="5"
+    class="ripple-container"
+  >
+    <app-header></app-header>
 
-  <main>
-    <router-outlet></router-outlet>
-  </main>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
 
-  <app-footer></app-footer>
-</div>
+    <app-footer></app-footer>
+  </div>
+}

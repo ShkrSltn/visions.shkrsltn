@@ -1,0 +1,125 @@
+<div class="blog-container container">
+  <app-hero
+    title="Blog"
+    subtitle="Thoughts, tutorials and insights"
+  ></app-hero>
+
+  <!-- Admin: New Post button -->
+  @if (isAdmin) {
+    <div class="admin-bar">
+      <button class="new-post-btn" (click)="openNewPostModal()">
+        <i class="fa-solid fa-plus"></i> New Post
+      </button>
+    </div>
+  }
+
+  <section class="blog-posts animate-on-scroll">
+    @if (loading) {
+      <div class="loading-state">
+        <p>Loading posts...</p>
+      </div>
+    } @else if (isAdmin) {
+      <!-- Admin view: all posts including drafts -->
+      @if (adminPosts.length === 0) {
+        <div class="empty-state">
+          <p>No blog posts yet. Create your first one!</p>
+        </div>
+      } @else {
+        <div class="posts-grid">
+          @for (post of adminPosts; track post.id) {
+            <a [routerLink]="['/blog', post.slug]" class="post-card">
+              @if (post.coverImageUrl) {
+                <div class="post-cover">
+                  <img [src]="post.coverImageUrl" [alt]="getAdminPostTitle(post)" />
+                </div>
+              }
+              <div class="post-info">
+                <div class="post-meta-row">
+                  <span class="post-date">{{ formatDate(post.publishedAt || post.createdAt) }}</span>
+                  <span class="post-status" [class.published]="post.isPublished">
+                    {{ post.isPublished ? 'Published' : 'Draft' }}
+                  </span>
+                </div>
+                <h2 class="post-title">{{ getAdminPostTitle(post) }}</h2>
+                @if (getAdminPostDescription(post)) {
+                  <p class="post-description">{{ getAdminPostDescription(post) }}</p>
+                }
+                <div class="post-card-footer">
+                  <span class="read-more">Edit &rarr;</span>
+                  <button class="delete-btn" (click)="deletePost(post, $event)">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </a>
+          }
+        </div>
+      }
+    } @else {
+      <!-- Public view -->
+      @if (posts.length === 0) {
+        <div class="empty-state">
+          <p>No posts published yet. Stay tuned!</p>
+        </div>
+      } @else {
+        <div class="posts-grid">
+          @for (post of posts; track post.id) {
+            <a [routerLink]="['/blog', post.slug]" class="post-card">
+              @if (post.coverImageUrl) {
+                <div class="post-cover">
+                  <img [src]="post.coverImageUrl" [alt]="post.title" />
+                </div>
+              }
+              <div class="post-info">
+                <span class="post-date">{{ formatDate(post.publishedAt || post.createdAt) }}</span>
+                <h2 class="post-title">{{ post.title }}</h2>
+                @if (post.description) {
+                  <p class="post-description">{{ post.description }}</p>
+                }
+                <span class="read-more">Read more &rarr;</span>
+              </div>
+            </a>
+          }
+        </div>
+      }
+    }
+  </section>
+</div>
+
+<!-- New Post Modal -->
+@if (showNewPostModal) {
+  <div class="modal-overlay" (click)="closeNewPostModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>New Post</h3>
+      <div class="modal-form">
+        <div class="modal-field">
+          <label>Title</label>
+          <input
+            type="text"
+            [(ngModel)]="newTitle"
+            placeholder="My awesome post"
+            (ngModelChange)="autoSlugFromTitle()"
+          />
+        </div>
+        <div class="modal-field">
+          <label>Slug</label>
+          <input
+            type="text"
+            [(ngModel)]="newSlug"
+            placeholder="my-awesome-post"
+          />
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn secondary" (click)="closeNewPostModal()">Cancel</button>
+        <button
+          class="modal-btn primary"
+          (click)="createPost()"
+          [disabled]="!newSlug || creating"
+        >
+          {{ creating ? 'Creating...' : 'Create' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

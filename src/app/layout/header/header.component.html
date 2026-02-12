@@ -58,6 +58,14 @@
           >{{ "HEADER.CV" | translate }}</a
         >
       </li>
+      <li>
+        <a
+          routerLink="/blog"
+          class="nav-link"
+          (click)="closeMobileMenu()"
+          >Blog</a
+        >
+      </li>
       <div class="language-selector">
         <button
           class="language-toggle"
@@ -65,7 +73,7 @@
           aria-haspopup="true"
         >
           {{ getLanguageDisplay(currentLang) }}
-          <span class="language-icon">🌐</span>
+          <span class="language-icon"><i class="fa-solid fa-globe"></i></span>
         </button>
         <div class="language-dropdown">
           <button

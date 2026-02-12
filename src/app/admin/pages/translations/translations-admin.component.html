@@ -1,0 +1,117 @@
+<app-toast></app-toast>
+<app-confirm-dialog></app-confirm-dialog>
+
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Translations</h1>
+      <p class="subtitle">Manage i18n translations for all languages</p>
+    </div>
+    <select [(ngModel)]="selectedLang" (ngModelChange)="onLanguageChange()" class="lang-select">
+      @for (lang of languages; track lang.id) {
+        <option [value]="lang.code">{{ lang.name }} ({{ lang.code }})</option>
+      }
+    </select>
+  </div>
+
+  <div class="master-detail master-detail--wide">
+    <!-- Left: translation list -->
+    <div class="master-panel">
+      <div class="master-toolbar">
+        <div class="search-input">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="filterTranslations()"
+            placeholder="Search..."
+          />
+        </div>
+        <select [(ngModel)]="selectedNamespace" (ngModelChange)="filterTranslations()">
+          <option value="">All</option>
+          @for (ns of namespaces; track ns) {
+            <option [value]="ns">{{ ns }}</option>
+          }
+        </select>
+      </div>
+      <div class="master-list">
+        @for (t of filteredTranslations; track t.id) {
+          <div
+            class="master-item"
+            [class.active]="selectedTranslation?.id === t.id"
+            (click)="selectTranslation(t)"
+          >
+            <div class="item-content">
+              <div class="item-title">{{ t.key }}</div>
+              <div class="item-subtitle">{{ t.value | slice:0:50 }}</div>
+            </div>
+            <span class="item-badge">{{ t.namespace }}</span>
+            <div class="item-actions">
+              <button class="btn-icon-sm danger" (click)="deleteTranslation(t); $event.stopPropagation()">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        }
+        @if (filteredTranslations.length === 0) {
+          <div class="master-empty">
+            @if (translations.length === 0) {
+              No translations for this language
+            } @else {
+              No results matching your search
+            }
+          </div>
+        }
+      </div>
+      <button class="master-add-btn" (click)="newTranslationMode()"><i class="fa-solid fa-plus"></i> Add Translation</button>
+    </div>
+
+    <!-- Right: translation form -->
+    <div class="detail-panel">
+      @if (formVisible) {
+        <div class="detail-header">
+          <h2>{{ selectedTranslation ? 'Edit Translation' : 'New Translation' }}</h2>
+          @if (selectedTranslation) {
+            <span class="badge badge-active">ID: {{ selectedTranslation.id }}</span>
+          }
+        </div>
+        <div class="detail-body">
+          <div class="detail-form-grid">
+            <div class="form-group">
+              <label>Namespace</label>
+              <input type="text" [(ngModel)]="editForm.namespace" placeholder="HEADER" [disabled]="!!selectedTranslation" />
+            </div>
+            <div class="form-group">
+              <label>Key</label>
+              <input type="text" [(ngModel)]="editForm.key" placeholder="HOME" [disabled]="!!selectedTranslation" />
+            </div>
+            <div class="form-group full-width">
+              <label>Value</label>
+              <textarea [(ngModel)]="editForm.value" rows="4" placeholder="Translation text..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-secondary" (click)="cancelForm()">Cancel</button>
+          <button
+            class="btn btn-primary"
+            (click)="saveForm()"
+            [disabled]="!editForm.namespace || !editForm.key || !editForm.value"
+          >
+            <i class="fa-solid fa-floppy-disk"></i> {{ selectedTranslation ? 'Update' : 'Create' }}
+          </button>
+        </div>
+      } @else {
+        <div class="detail-empty">
+          <i class="fa-solid fa-language"></i>
+          <p>Select a translation to edit or add a new one</p>
+          <div class="stats-info">
+            <span><strong>{{ filteredTranslations.length }}</strong> of {{ translations.length }} keys shown</span>
+            <span>&middot;</span>
+            <span><strong>{{ namespaces.length }}</strong> namespaces</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -24,7 +24,7 @@
       >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons" aria-hidden="true">email</span>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
           </div>
         </div>
         <h3>{{ "CONTACT.EMAIL" | translate }}</h3>
@@ -33,7 +33,7 @@
           class="copy-indicator"
           [class.copied]="copiedText === contactInfo.email"
         >
-          <span class="material-icons">content_copy</span>
+          <i class="fa-regular fa-copy"></i>
         </div>
       </div>
 
@@ -47,7 +47,7 @@
       >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons" aria-hidden="true">phone</span>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
           </div>
         </div>
         <h3>{{ "CONTACT.PHONE" | translate }}</h3>
@@ -56,7 +56,7 @@
           class="copy-indicator"
           [class.copied]="copiedText === contactInfo.phone"
         >
-          <span class="material-icons">content_copy</span>
+          <i class="fa-regular fa-copy"></i>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
       >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons" aria-hidden="true">location_on</span>
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
           </div>
         </div>
         <h3>{{ "CONTACT.LOCATION" | translate }}</h3>
@@ -79,7 +79,7 @@
           class="copy-indicator"
           [class.copied]="copiedText === contactInfo.location"
         >
-          <span class="material-icons">content_copy</span>
+          <i class="fa-regular fa-copy"></i>
         </div>
       </div>
 
@@ -93,7 +93,7 @@
       >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons" aria-hidden="true">code</span>
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
           </div>
         </div>
         <h3>GitHub</h3>
@@ -110,7 +110,7 @@
       >
         <div class="info-icon">
           <div class="icon-placeholder">
-            <span class="material-icons" aria-hidden="true">business</span>
+            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
           </div>
         </div>
         <h3>LinkedIn</h3>
@@ -261,11 +261,11 @@
 
         <div class="form-status" role="status">
           <div class="success-message" *ngIf="formSuccess" role="alert">
-            <span class="material-icons">check_circle</span>
+            <i class="fa-solid fa-circle-check"></i>
             {{ "CONTACT.MESSAGE.SUCCESS_DESCRIPTION" | translate }}
           </div>
           <div class="error-message form-error" *ngIf="formError" role="alert">
-            <span class="material-icons">error</span>
+            <i class="fa-solid fa-circle-exclamation"></i>
             {{ "CONTACT.MESSAGE.ERROR_DESCRIPTION" | translate }}
           </div>
         </div>
