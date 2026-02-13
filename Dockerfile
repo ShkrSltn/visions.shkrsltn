@@ -12,8 +12,6 @@ RUN npm ci
 # Copy source and build
 COPY . .
 
-# Build args are passed at build time and only live in this stage
-# They don't leak into the final image (multi-stage)
 ARG VITE_OPENAI_API_KEY
 ARG VITE_API_URL
 
@@ -24,15 +22,9 @@ RUN VITE_OPENAI_API_KEY=$VITE_OPENAI_API_KEY \
 # ── Stage 2: Serve ────────────────────────────────────
 FROM nginx:alpine
 
-# Copy custom nginx config for SPA routing
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy built static files
 COPY --from=build /app/dist/visions.shkrsltn/browser /usr/share/nginx/html
 
-# Railway injects PORT env var
-ENV PORT=3000
 EXPOSE 3000
 
-# Replace placeholder with actual PORT and start nginx
-ENTRYPOINT ["sh", "-c", "sed -i s/PORT_PLACEHOLDER/$PORT/g /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
+CMD ["nginx", "-g", "daemon off;"]
