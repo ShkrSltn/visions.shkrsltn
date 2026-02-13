@@ -35,4 +35,4 @@ ENV PORT=3000
 EXPOSE 3000
 
 # Replace placeholder with actual PORT and start nginx
-ENTRYPOINT ["sh", "-c", "sed -i 's/PORT_PLACEHOLDER/'\"$PORT\"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+ENTRYPOINT ["sh", "-c", "sed -i s/PORT_PLACEHOLDER/$PORT/g /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
