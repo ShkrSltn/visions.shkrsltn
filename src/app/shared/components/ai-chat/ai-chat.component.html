@@ -77,22 +77,29 @@
 
   <!-- Input -->
   <div class="terminal-input">
-    <span class="input-prompt">$</span>
-    <input
-      type="text"
-      [(ngModel)]="userMessage"
-      placeholder="{{ 'AI_ASSISTANT.AI_CHAT.CHAT_INPUT_PLACEHOLDER' | translate }}"
-      (keydown)="onInputKeydown($event)"
-      (keyup.enter)="sendMessage()"
-      spellcheck="false"
-      autocomplete="off"
-    />
-    <button
-      class="enter-btn"
-      (click)="sendMessage()"
-      [disabled]="isLoading || !userMessage.trim()"
-    >
-      <span>&#9166;</span>
-    </button>
+    <div class="input-row" (click)="chatInput.focus()">
+      <span class="input-prompt">$</span>
+      <input
+        #chatInput
+        type="text"
+        [(ngModel)]="userMessage"
+        placeholder="{{ 'AI_ASSISTANT.AI_CHAT.CHAT_INPUT_PLACEHOLDER' | translate }}"
+        (keydown)="onInputKeydown($event)"
+        (keyup.enter)="sendMessage()"
+        spellcheck="false"
+        autocomplete="off"
+      />
+      <button
+        class="enter-btn"
+        (click)="sendMessage()"
+        [disabled]="isLoading || !userMessage.trim()"
+      >
+        <span class="enter-label">Enter</span>
+        <span class="enter-icon">&#9166;</span>
+      </button>
+    </div>
+    <div class="input-hint">
+      <span>Press <kbd>Enter</kbd> to send</span>
+    </div>
   </div>
 </div>

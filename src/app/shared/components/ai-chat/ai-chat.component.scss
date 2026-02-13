@@ -280,14 +280,28 @@ $mono:           "SF Mono", "Fira Code", "Consolas", "Courier New", monospace;
 
 // ─── Input Line ──────────────────────────────────────
 .terminal-input {
-  display: flex;
-  align-items: center;
-  padding: 14px 20px;
+  padding: 12px 20px 10px;
   border-top: 1px solid $phosphor-muted;
   background: $surface;
   flex-shrink: 0;
   z-index: 1;
-  gap: 10px;
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba($phosphor, 0.03);
+    border: 1px solid rgba($phosphor-muted, 0.6);
+    border-radius: 6px;
+    padding: 12px 14px;
+    cursor: text;
+    transition: border-color 0.15s ease, background 0.15s ease;
+
+    &:focus-within {
+      border-color: $phosphor-dim;
+      background: rgba($phosphor, 0.05);
+    }
+  }
 
   .input-prompt {
     color: $phosphor;
@@ -309,7 +323,7 @@ $mono:           "SF Mono", "Fira Code", "Consolas", "Courier New", monospace;
 
     &::placeholder {
       color: $phosphor-muted;
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
     &:focus {
@@ -319,20 +333,31 @@ $mono:           "SF Mono", "Fira Code", "Consolas", "Courier New", monospace;
 
   .enter-btn {
     background: transparent;
-    border: 1px solid $phosphor-muted;
+    border: 1px solid rgba($phosphor-muted, 0.5);
     border-radius: 4px;
     color: $phosphor-dim;
     font-family: $mono;
-    font-size: 1.1rem;
-    width: 36px;
-    height: 32px;
+    font-size: 0.7rem;
+    height: 30px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 4px;
+    padding: 0 10px;
     cursor: pointer;
     flex-shrink: 0;
     transition: all 0.15s ease;
-    padding: 0;
+    white-space: nowrap;
+
+    .enter-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .enter-icon {
+      font-size: 0.9rem;
+      line-height: 1;
+    }
 
     &:hover:not(:disabled) {
       border-color: $phosphor;
@@ -341,8 +366,32 @@ $mono:           "SF Mono", "Fira Code", "Consolas", "Courier New", monospace;
     }
 
     &:disabled {
-      opacity: 0.25;
+      opacity: 0.2;
       cursor: not-allowed;
+    }
+  }
+
+  .input-hint {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px 4px 0;
+
+    span {
+      font-size: 0.62rem;
+      color: $phosphor-muted;
+      opacity: 0.5;
+      letter-spacing: 0.03em;
+
+      kbd {
+        display: inline-block;
+        padding: 0 4px;
+        border: 1px solid rgba($phosphor-muted, 0.4);
+        border-radius: 2px;
+        font-family: $mono;
+        font-size: 0.6rem;
+        color: $phosphor-dim;
+        margin: 0 2px;
+      }
     }
   }
 }
@@ -476,9 +525,11 @@ $mono:           "SF Mono", "Fira Code", "Consolas", "Courier New", monospace;
   }
 
   .terminal-input {
-    padding: 10px 14px;
+    padding: 8px 14px 6px;
     input { font-size: 0.82rem; }
-    .enter-btn { width: 32px; height: 28px; font-size: 1rem; }
+    .input-row { padding: 8px 10px; }
+    .enter-btn .enter-label { display: none; }
+    .input-hint { display: none; }
   }
 }
 
@@ -495,7 +546,8 @@ $mono:           "SF Mono", "Fira Code", "Consolas", "Courier New", monospace;
 
   .terminal-output { padding: 12px; font-size: 0.78rem; }
   .terminal-input {
-    padding: 8px 12px;
+    padding: 6px 12px 4px;
     input { font-size: 0.78rem; }
+    .input-row { padding: 7px 8px; }
   }
 }
