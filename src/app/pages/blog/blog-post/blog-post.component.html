@@ -39,6 +39,14 @@
             </button>
           </div>
           <button
+            class="toolbar-btn preview-btn"
+            [class.active]="previewMode"
+            (click)="togglePreview()"
+          >
+            <i class="fa-solid" [class.fa-desktop]="!previewMode" [class.fa-pen]="previewMode"></i>
+            {{ previewMode ? 'Edit' : 'Preview' }}
+          </button>
+          <button
             class="toolbar-btn"
             [class.published]="fullPost.isPublished"
             (click)="togglePublish()"
@@ -58,203 +66,305 @@
       </div>
     }
 
-    <!-- Language tabs -->
-    @if (languages.length > 0) {
-      <div class="lang-tabs">
-        @for (lang of languages; track lang.id) {
-          <button
-            class="lang-tab"
-            [class.active]="activeLanguageId === lang.id"
-            (click)="switchLanguage(lang.id)"
+    @if (!previewMode) {
+      <!-- Language tabs -->
+      @if (languages.length > 0) {
+        <div class="lang-tabs">
+          @for (lang of languages; track lang.id) {
+            <button
+              class="lang-tab"
+              [class.active]="activeLanguageId === lang.id"
+              (click)="switchLanguage(lang.id)"
+            >
+              {{ lang.code | uppercase }}
+              @if (translationMap[lang.id]?.isVisible) {
+                <span class="lang-dot active"></span>
+              } @else {
+                <span class="lang-dot"></span>
+              }
+            </button>
+          }
+          @if (activeLanguageId && translationMap[activeLanguageId]) {
+            <label class="visibility-toggle">
+              <input
+                type="checkbox"
+                [(ngModel)]="translationMap[activeLanguageId].isVisible"
+              />
+              Visible
+            </label>
+          }
+        </div>
+      }
+
+      <!-- Cover image -->
+      @if (fullPost.coverImageUrl) {
+        <div class="cover-image">
+          <img [src]="fullPost.coverImageUrl" [alt]="currentTranslation?.title" />
+        </div>
+      }
+
+      <!-- Editable title & description -->
+      @if (currentTranslation) {
+        <header class="post-header">
+          <h1 class="post-title" [(ceModel)]="currentTranslation.title" data-placeholder="Post title..." (keydown.enter)="$event.preventDefault()"></h1>
+          <p class="post-description" [(ceModel)]="currentTranslation.description" data-placeholder="Short description..."></p>
+        </header>
+
+        <!-- Block editor -->
+        <article class="post-content">
+          <div
+            class="blocks-editor"
+            cdkDropList
+            (cdkDropListDropped)="onBlockDrop($event)"
           >
-            {{ lang.code | uppercase }}
-            @if (translationMap[lang.id]?.isVisible) {
-              <span class="lang-dot active"></span>
-            } @else {
-              <span class="lang-dot"></span>
-            }
-          </button>
-        }
-        @if (activeLanguageId && translationMap[activeLanguageId]) {
-          <label class="visibility-toggle">
-            <input
-              type="checkbox"
-              [(ngModel)]="translationMap[activeLanguageId].isVisible"
-            />
-            Visible
-          </label>
-        }
-      </div>
-    }
+            @for (block of currentBlocks; track trackByIndex($index); let i = $index) {
+              <div class="edit-block" cdkDrag>
+                <!-- Drag handle + type bar -->
+                <div class="edit-block-bar">
+                  <span class="drag-handle" cdkDragHandle>
+                    <i class="fa-solid fa-grip-vertical"></i>
+                  </span>
+                  <i class="fa-solid {{ getBlockIcon(block.type) }} block-type-icon"></i>
+                  <span class="block-type-name">{{ getBlockLabel(block.type) }}</span>
 
-    <!-- Cover image -->
-    @if (fullPost.coverImageUrl) {
-      <div class="cover-image">
-        <img [src]="fullPost.coverImageUrl" [alt]="currentTranslation?.title" />
-      </div>
-    }
+                  <!-- Inline controls per type -->
+                  @if (block.type === 'heading') {
+                    <div class="inline-ctrls">
+                      @for (lvl of [1, 2, 3]; track lvl) {
+                        <button
+                          class="ctrl-btn"
+                          [class.active]="block.metadata['level'] === lvl"
+                          (click)="block.metadata['level'] = lvl"
+                        >H{{ lvl }}</button>
+                      }
+                    </div>
+                  }
+                  @if (block.type === 'list') {
+                    <div class="inline-ctrls">
+                      <button class="ctrl-btn" [class.active]="block.metadata['style'] === 'unordered'" (click)="block.metadata['style'] = 'unordered'">
+                        <i class="fa-solid fa-list-ul"></i>
+                      </button>
+                      <button class="ctrl-btn" [class.active]="block.metadata['style'] === 'ordered'" (click)="block.metadata['style'] = 'ordered'">
+                        <i class="fa-solid fa-list-ol"></i>
+                      </button>
+                    </div>
+                  }
+                  @if (block.type === 'code') {
+                    <select class="code-select" [(ngModel)]="block.metadata['language']">
+                      @for (lang of codeLanguages; track lang) {
+                        <option [value]="lang">{{ lang }}</option>
+                      }
+                    </select>
+                  }
+                  @if (block.type === 'callout') {
+                    <div class="inline-ctrls">
+                      @for (ct of ['info', 'warning', 'success', 'error']; track ct) {
+                        <button
+                          class="ctrl-btn"
+                          [class.active]="block.metadata['type'] === ct"
+                          (click)="block.metadata['type'] = ct"
+                        >{{ ct }}</button>
+                      }
+                    </div>
+                  }
 
-    <!-- Editable title & description -->
-    @if (currentTranslation) {
-      <header class="post-header">
-        <h1 class="post-title" [(ceModel)]="currentTranslation.title" data-placeholder="Post title..." (keydown.enter)="$event.preventDefault()"></h1>
-        <p class="post-description" [(ceModel)]="currentTranslation.description" data-placeholder="Short description..."></p>
-      </header>
-
-      <!-- Block editor -->
-      <article class="post-content">
-        <div
-          class="blocks-editor"
-          cdkDropList
-          (cdkDropListDropped)="onBlockDrop($event)"
-        >
-          @for (block of currentBlocks; track trackByIndex($index); let i = $index) {
-            <div class="edit-block" cdkDrag>
-              <!-- Drag handle + type bar -->
-              <div class="edit-block-bar">
-                <span class="drag-handle" cdkDragHandle>
-                  <i class="fa-solid fa-grip-vertical"></i>
-                </span>
-                <i class="fa-solid {{ getBlockIcon(block.type) }} block-type-icon"></i>
-                <span class="block-type-name">{{ getBlockLabel(block.type) }}</span>
-
-                <!-- Inline controls per type -->
-                @if (block.type === 'heading') {
-                  <div class="inline-ctrls">
-                    @for (lvl of [1, 2, 3]; track lvl) {
-                      <button
-                        class="ctrl-btn"
-                        [class.active]="block.metadata['level'] === lvl"
-                        (click)="block.metadata['level'] = lvl"
-                      >H{{ lvl }}</button>
-                    }
+                  <div class="block-actions">
+                    <button class="act-btn" (click)="moveBlockUp(i)" [disabled]="i === 0"><i class="fa-solid fa-chevron-up"></i></button>
+                    <button class="act-btn" (click)="moveBlockDown(i)" [disabled]="i === currentBlocks.length - 1"><i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="act-btn" (click)="duplicateBlock(i)"><i class="fa-solid fa-copy"></i></button>
+                    <button class="act-btn danger" (click)="removeBlock(i)"><i class="fa-solid fa-trash"></i></button>
                   </div>
-                }
-                @if (block.type === 'list') {
-                  <div class="inline-ctrls">
-                    <button class="ctrl-btn" [class.active]="block.metadata['style'] === 'unordered'" (click)="block.metadata['style'] = 'unordered'">
-                      <i class="fa-solid fa-list-ul"></i>
-                    </button>
-                    <button class="ctrl-btn" [class.active]="block.metadata['style'] === 'ordered'" (click)="block.metadata['style'] = 'ordered'">
-                      <i class="fa-solid fa-list-ol"></i>
-                    </button>
-                  </div>
-                }
-                @if (block.type === 'code') {
-                  <select class="code-select" [(ngModel)]="block.metadata['language']">
-                    @for (lang of codeLanguages; track lang) {
-                      <option [value]="lang">{{ lang }}</option>
-                    }
-                  </select>
-                }
-                @if (block.type === 'callout') {
-                  <div class="inline-ctrls">
-                    @for (ct of ['info', 'warning', 'success', 'error']; track ct) {
-                      <button
-                        class="ctrl-btn"
-                        [class.active]="block.metadata['type'] === ct"
-                        (click)="block.metadata['type'] = ct"
-                      >{{ ct }}</button>
-                    }
-                  </div>
-                }
+                </div>
 
-                <div class="block-actions">
-                  <button class="act-btn" (click)="moveBlockUp(i)" [disabled]="i === 0"><i class="fa-solid fa-chevron-up"></i></button>
-                  <button class="act-btn" (click)="moveBlockDown(i)" [disabled]="i === currentBlocks.length - 1"><i class="fa-solid fa-chevron-down"></i></button>
-                  <button class="act-btn" (click)="duplicateBlock(i)"><i class="fa-solid fa-copy"></i></button>
-                  <button class="act-btn danger" (click)="removeBlock(i)"><i class="fa-solid fa-trash"></i></button>
+                <!-- Block editing area (same elements as preview, but contenteditable) -->
+                <div class="edit-block-body">
+                  @switch (block.type) {
+                    @case ('heading') {
+                      @switch (block.metadata['level']) {
+                        @case (1) { <h1 class="block-heading h1" [(ceModel)]="block.content" data-placeholder="Heading..." (keydown.enter)="$event.preventDefault()"></h1> }
+                        @case (2) { <h2 class="block-heading h2" [(ceModel)]="block.content" data-placeholder="Heading..." (keydown.enter)="$event.preventDefault()"></h2> }
+                        @case (3) { <h3 class="block-heading h3" [(ceModel)]="block.content" data-placeholder="Heading..." (keydown.enter)="$event.preventDefault()"></h3> }
+                        @default { <h2 class="block-heading h2" [(ceModel)]="block.content" data-placeholder="Heading..." (keydown.enter)="$event.preventDefault()"></h2> }
+                      }
+                    }
+                    @case ('paragraph') {
+                      <p class="block-paragraph" [(ceModel)]="block.content" data-placeholder="Write something..."></p>
+                    }
+                    @case ('list') {
+                      <div class="block-list-edit" [(ceModel)]="block.content" data-placeholder="One item per line..."></div>
+                    }
+                    @case ('quote') {
+                      <blockquote class="block-quote">
+                        <p [(ceModel)]="block.content" data-placeholder="Quote..."></p>
+                      </blockquote>
+                    }
+                    @case ('divider') {
+                      <hr class="block-divider" />
+                    }
+                    @case ('code') {
+                      <div class="block-code">
+                        @if (block.metadata['language']) {
+                          <span class="code-lang-label">{{ block.metadata['language'] }}</span>
+                        }
+                        <pre><code [(ceModel)]="block.content" data-placeholder="// Code..." spellcheck="false" (keydown.tab)="onCodeTab($event)"></code></pre>
+                      </div>
+                    }
+                    @case ('image') {
+                      <div class="image-edit-form">
+                        <input type="text" [(ngModel)]="block.metadata['url']" placeholder="Image URL..." />
+                        <input type="text" [(ngModel)]="block.metadata['caption']" placeholder="Caption..." />
+                        @if (block.metadata['url']) {
+                          <img [src]="block.metadata['url']" alt="preview" class="image-edit-preview" />
+                        }
+                      </div>
+                    }
+                    @case ('callout') {
+                      <div class="block-callout" [attr.data-type]="block.metadata['type'] || 'info'">
+                        <div class="callout-icon">
+                          @switch (block.metadata['type']) {
+                            @case ('warning') { <i class="fa-solid fa-triangle-exclamation"></i> }
+                            @case ('success') { <i class="fa-solid fa-circle-check"></i> }
+                            @case ('error') { <i class="fa-solid fa-circle-xmark"></i> }
+                            @default { <i class="fa-solid fa-circle-info"></i> }
+                          }
+                        </div>
+                        <p class="callout-text" [(ceModel)]="block.content" data-placeholder="Callout text..."></p>
+                      </div>
+                    }
+                    @case ('toggle') {
+                      <div class="block-toggle expanded">
+                        <div class="toggle-summary-bar">
+                          <i class="fa-solid fa-caret-right toggle-arrow"></i>
+                          <span class="toggle-summary-text" [(ceModel)]="block.metadata['summary']" data-placeholder="Summary..." (keydown.enter)="$event.preventDefault()"></span>
+                        </div>
+                        <div class="toggle-content">
+                          <p [(ceModel)]="block.content" data-placeholder="Hidden content..."></p>
+                        </div>
+                      </div>
+                    }
+                  }
                 </div>
               </div>
 
-              <!-- Block editing area (same elements as preview, but contenteditable) -->
-              <div class="edit-block-body">
-                @switch (block.type) {
-                  @case ('heading') {
-                    @switch (block.metadata['level']) {
-                      @case (1) { <h1 class="block-heading h1" [(ceModel)]="block.content" data-placeholder="Heading..." (keydown.enter)="$event.preventDefault()"></h1> }
-                      @case (2) { <h2 class="block-heading h2" [(ceModel)]="block.content" data-placeholder="Heading..." (keydown.enter)="$event.preventDefault()"></h2> }
-                      @case (3) { <h3 class="block-heading h3" [(ceModel)]="block.content" data-placeholder="Heading..." (keydown.enter)="$event.preventDefault()"></h3> }
-                      @default { <h2 class="block-heading h2" [(ceModel)]="block.content" data-placeholder="Heading..." (keydown.enter)="$event.preventDefault()"></h2> }
-                    }
-                  }
-                  @case ('paragraph') {
-                    <p class="block-paragraph" [(ceModel)]="block.content" data-placeholder="Write something..."></p>
-                  }
-                  @case ('list') {
-                    <div class="block-list-edit" [(ceModel)]="block.content" data-placeholder="One item per line..."></div>
-                  }
-                  @case ('quote') {
-                    <blockquote class="block-quote">
-                      <p [(ceModel)]="block.content" data-placeholder="Quote..."></p>
-                    </blockquote>
-                  }
-                  @case ('divider') {
-                    <hr class="block-divider" />
-                  }
-                  @case ('code') {
-                    <div class="block-code">
-                      @if (block.metadata['language']) {
-                        <span class="code-lang-label">{{ block.metadata['language'] }}</span>
-                      }
-                      <pre><code [(ceModel)]="block.content" data-placeholder="// Code..." spellcheck="false" (keydown.tab)="onCodeTab($event)"></code></pre>
-                    </div>
-                  }
-                  @case ('image') {
-                    <div class="image-edit-form">
-                      <input type="text" [(ngModel)]="block.metadata['url']" placeholder="Image URL..." />
-                      <input type="text" [(ngModel)]="block.metadata['caption']" placeholder="Caption..." />
-                      @if (block.metadata['url']) {
-                        <img [src]="block.metadata['url']" alt="preview" class="image-edit-preview" />
-                      }
-                    </div>
-                  }
-                  @case ('callout') {
-                    <div class="block-callout" [attr.data-type]="block.metadata['type'] || 'info'">
-                      <div class="callout-icon">
-                        @switch (block.metadata['type']) {
-                          @case ('warning') { <i class="fa-solid fa-triangle-exclamation"></i> }
-                          @case ('success') { <i class="fa-solid fa-circle-check"></i> }
-                          @case ('error') { <i class="fa-solid fa-circle-xmark"></i> }
-                          @default { <i class="fa-solid fa-circle-info"></i> }
-                        }
-                      </div>
-                      <p class="callout-text" [(ceModel)]="block.content" data-placeholder="Callout text..."></p>
-                    </div>
-                  }
-                  @case ('toggle') {
-                    <div class="block-toggle expanded">
-                      <div class="toggle-summary-bar">
-                        <i class="fa-solid fa-caret-right toggle-arrow"></i>
-                        <span class="toggle-summary-text" [(ceModel)]="block.metadata['summary']" data-placeholder="Summary..." (keydown.enter)="$event.preventDefault()"></span>
-                      </div>
-                      <div class="toggle-content">
-                        <p [(ceModel)]="block.content" data-placeholder="Hidden content..."></p>
-                      </div>
-                    </div>
-                  }
-                }
+              <!-- Add block between -->
+              <div class="add-between" (click)="openBlockPicker(i + 1)">
+                <div class="add-line"></div>
+                <button class="add-circle"><i class="fa-solid fa-plus"></i></button>
+                <div class="add-line"></div>
               </div>
-            </div>
+            }
+          </div>
 
-            <!-- Add block between -->
-            <div class="add-between" (click)="openBlockPicker(i + 1)">
-              <div class="add-line"></div>
-              <button class="add-circle"><i class="fa-solid fa-plus"></i></button>
-              <div class="add-line"></div>
+          <!-- Add block at bottom -->
+          @if (currentBlocks.length === 0) {
+            <div class="empty-blocks">
+              <p>No content blocks yet. Add your first one!</p>
             </div>
           }
-        </div>
+          <button class="add-block-full" (click)="openBlockPicker(currentBlocks.length)">
+            <i class="fa-solid fa-plus"></i> Add Block
+          </button>
+        </article>
+      }
+    } @else {
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ADMIN: Preview mode (guest-like view)       -->
+      <!-- ═══════════════════════════════════════════ -->
 
-        <!-- Add block at bottom -->
-        @if (currentBlocks.length === 0) {
-          <div class="empty-blocks">
-            <p>No content blocks yet. Add your first one!</p>
-          </div>
+      <div class="preview-banner">
+        <i class="fa-solid fa-desktop"></i>
+        Preview Mode — This is how visitors will see this post
+      </div>
+
+      @if (fullPost.coverImageUrl) {
+        <div class="cover-image">
+          <img [src]="fullPost.coverImageUrl" [alt]="previewTitle" />
+        </div>
+      }
+
+      <header class="post-header">
+        <span class="post-date">{{ (fullPost.publishedAt || fullPost.createdAt) | appDateFormat }}</span>
+        <h1 class="post-title">{{ previewTitle }}</h1>
+        @if (previewDescription) {
+          <p class="post-description">{{ previewDescription }}</p>
         }
-        <button class="add-block-full" (click)="openBlockPicker(currentBlocks.length)">
-          <i class="fa-solid fa-plus"></i> Add Block
-        </button>
+      </header>
+
+      <article class="post-content">
+        @for (block of previewBlocks; track trackByIndex($index); let i = $index) {
+          @switch (block.type) {
+            @case ('heading') {
+              @switch (block.metadata?.['level']) {
+                @case (1) { <h1 class="block-heading h1">{{ block.content }}</h1> }
+                @case (2) { <h2 class="block-heading h2">{{ block.content }}</h2> }
+                @case (3) { <h3 class="block-heading h3">{{ block.content }}</h3> }
+                @default { <h2 class="block-heading h2">{{ block.content }}</h2> }
+              }
+            }
+            @case ('paragraph') {
+              <p class="block-paragraph">{{ block.content }}</p>
+            }
+            @case ('list') {
+              @if (block.metadata?.['style'] === 'ordered') {
+                <ol class="block-list ordered">
+                  @for (item of getListItems(block.content); track item) { <li>{{ item }}</li> }
+                </ol>
+              } @else {
+                <ul class="block-list unordered">
+                  @for (item of getListItems(block.content); track item) { <li>{{ item }}</li> }
+                </ul>
+              }
+            }
+            @case ('quote') {
+              <blockquote class="block-quote"><p>{{ block.content }}</p></blockquote>
+            }
+            @case ('divider') {
+              <hr class="block-divider" />
+            }
+            @case ('code') {
+              <div class="block-code">
+                @if (block.metadata?.['language']) {
+                  <span class="code-lang-label">{{ block.metadata['language'] }}</span>
+                }
+                <pre><code>{{ block.content }}</code></pre>
+              </div>
+            }
+            @case ('image') {
+              <figure class="block-image">
+                @if (block.metadata?.['url']) {
+                  <img [src]="block.metadata['url']" [alt]="block.metadata?.['caption'] || 'Blog image'" />
+                }
+                @if (block.metadata?.['caption']) {
+                  <figcaption>{{ block.metadata['caption'] }}</figcaption>
+                }
+              </figure>
+            }
+            @case ('callout') {
+              <div class="block-callout" [attr.data-type]="block.metadata?.['type'] || 'info'">
+                <div class="callout-icon">
+                  @switch (block.metadata?.['type']) {
+                    @case ('warning') { <i class="fa-solid fa-triangle-exclamation"></i> }
+                    @case ('success') { <i class="fa-solid fa-circle-check"></i> }
+                    @case ('error') { <i class="fa-solid fa-circle-xmark"></i> }
+                    @default { <i class="fa-solid fa-circle-info"></i> }
+                  }
+                </div>
+                <p class="callout-text">{{ block.content }}</p>
+              </div>
+            }
+            @case ('toggle') {
+              <div class="block-toggle" [class.expanded]="isToggleExpanded(i)">
+                <button class="toggle-summary" (click)="toggleExpand(i)">
+                  <i class="fa-solid fa-caret-right toggle-arrow"></i>
+                  <span>{{ block.metadata?.['summary'] || 'Details' }}</span>
+                </button>
+                @if (isToggleExpanded(i)) {
+                  <div class="toggle-content"><p>{{ block.content }}</p></div>
+                }
+              </div>
+            }
+          }
+        }
       </article>
     }
 
@@ -272,7 +382,7 @@
     }
 
     <header class="post-header">
-      <span class="post-date">{{ formatDate(post.publishedAt || post.createdAt) }}</span>
+      <span class="post-date">{{ (post.publishedAt || post.createdAt) | appDateFormat }}</span>
       <h1 class="post-title">{{ title }}</h1>
       @if (description) {
         <p class="post-description">{{ description }}</p>

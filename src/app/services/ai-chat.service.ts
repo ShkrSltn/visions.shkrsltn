@@ -4,7 +4,8 @@ import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { TranslateService } from '@ngx-translate/core';
-
+import { Project } from '../shared/models/project.model';
+import { Skill, SkillsData } from './skills.service';
 
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
@@ -23,34 +24,12 @@ export interface ChatResponse {
   object: string;
 }
 
-export interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  demoLink: string;
-  codeLink: string;
-  featured: boolean;
-}
-
-export interface Skill {
-  name: string;
-  level: string;
-  description: string;
-}
-
-export interface SkillsData {
-  frontendSkills: Skill[];
-  backendSkills: Skill[];
-  otherSkills: Skill[];
-  techStack: string[];
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class AiChatService {
   private apiUrl = 'https://api.openai.com/v1/chat/completions';
-  private model = 'gpt-4o-mini'; // Можно изменить на другую модель при необходимости
+  private model = 'gpt-4o-mini';
   private projectsData: { featuredProjects: Project[] } | null = null;
   private skillsData: SkillsData | null = null;
 

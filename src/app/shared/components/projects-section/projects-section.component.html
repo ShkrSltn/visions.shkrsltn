@@ -1,12 +1,13 @@
 <section class="projects animate-on-scroll">
   <div class="section-title">{{ title }}</div>
   <div class="projects-grid">
-    <app-project-card
-      *ngFor="let project of projects"
-      [project]="project"
-      [displayMode]="displayMode"
-      [maxTechnologies]="maxTechnologies"
-    >
-    </app-project-card>
+    @for (project of projects; track project.title) {
+      <app-project-card
+        [project]="project"
+        [displayMode]="displayMode"
+        [maxTechnologies]="maxTechnologies"
+      >
+      </app-project-card>
+    }
   </div>
 </section>

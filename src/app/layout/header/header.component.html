@@ -76,13 +76,14 @@
           <span class="language-icon"><i class="fa-solid fa-globe"></i></span>
         </button>
         <div class="language-dropdown">
-          <button
-            *ngFor="let lang of availableLanguages"
-            (click)="selectLanguage(lang); $event.stopPropagation()"
-            [class.active]="currentLang === lang"
-          >
-            {{ getLanguageDisplay(lang) }}
-          </button>
+          @for (lang of availableLanguages; track lang) {
+            <button
+              (click)="selectLanguage(lang); $event.stopPropagation()"
+              [class.active]="currentLang === lang"
+            >
+              {{ getLanguageDisplay(lang) }}
+            </button>
+          }
         </div>
       </div>
     </ul>

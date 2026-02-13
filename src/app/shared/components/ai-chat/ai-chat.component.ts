@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, SecurityContext, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, SecurityContext, ViewChild, ElementRef, AfterViewChecked, DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AiChatService, ChatMessage } from '../../../services/ai-chat.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -44,6 +45,8 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_6"
   ];
 
+  private destroyRef = inject(DestroyRef);
+
   constructor(
     private aiChatService: AiChatService,
     private sanitizer: DomSanitizer,
@@ -51,10 +54,11 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   ) { }
 
   ngOnInit(): void {
-    // Подписываемся на изменения языка
-    this.translate.onLangChange.subscribe(() => {
-      this.initializeChat();
-    });
+    this.translate.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.initializeChat();
+      });
 
     this.initializeChat();
   }

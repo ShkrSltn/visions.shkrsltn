@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
@@ -12,43 +13,36 @@ import { LanguageService } from '../../services/language.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
-  logoText: string = 'shkrsltnv';
-  fullLogoText: string = 'shakirsultanov';
-  isScrolled: boolean = false;
-  isMobileMenuOpen: boolean = false;
-  isLanguageMenuOpen: boolean = false;
-  currentLang: string = 'en';
+  logoText = 'shkrsltnv';
+  fullLogoText = 'shakirsultanov';
+  isScrolled = false;
+  isMobileMenuOpen = false;
+  isLanguageMenuOpen = false;
+  currentLang = 'en';
   availableLanguages: string[] = [];
 
   constructor(private languageService: LanguageService) {
     this.availableLanguages = this.languageService.availableLanguages;
+
+    this.languageService.currentLang$
+      .pipe(takeUntilDestroyed())
+      .subscribe(lang => {
+        this.currentLang = lang;
+      });
   }
 
   ngOnInit(): void {
-    this.languageService.currentLang$.subscribe(lang => {
-      this.currentLang = lang;
-    });
-
-    // Начальная проверка прокрутки
     this.onWindowScroll();
   }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
-    const headerElement = document.querySelector('header');
-    if (headerElement) {
-      if (this.isScrolled) {
-        headerElement.classList.add('scrolled');
-      } else {
-        headerElement.classList.remove('scrolled');
-      }
-    }
+    // Template binding [class.scrolled]="isScrolled" handles the class — no DOM query needed
   }
 
   @HostListener('window:resize', [])
   onWindowResize() {
-    // Закрыть мобильное меню при изменении размера окна (больше 768px)
     if (window.innerWidth > 768 && this.isMobileMenuOpen) {
       this.closeMobileMenu();
     }
@@ -56,7 +50,6 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    // Закрыть выпадающее меню языков при клике вне его
     const languageSelector = document.querySelector('.language-selector');
     if (languageSelector && this.isLanguageMenuOpen &&
         !languageSelector.contains(event.target as Node)) {
@@ -92,5 +85,3 @@ export class HeaderComponent implements OnInit {
     return this.languageService.getLanguageDisplay(lang);
   }
 }
-
-

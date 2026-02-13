@@ -1,12 +1,15 @@
-import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BlogService, BlogPostListItem } from '../../services/blog.service';
 import { AdminAuthService } from '../../admin/services/admin-auth.service';
 import { AdminApiService } from '../../admin/services/admin-api.service';
 import { HeroComponent } from '../../shared/components/hero/hero.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ScrollAnimateDirective } from '../../shared/directives/scroll-animate.directive';
+import { DateFormatPipe } from '../../shared/pipes/date-format.pipe';
 
 interface AdminPost {
   id: number;
@@ -26,21 +29,22 @@ interface AdminPost {
 @Component({
   selector: 'app-blog-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, HeroComponent, TranslateModule],
+  imports: [CommonModule, RouterModule, FormsModule, HeroComponent, TranslateModule, ScrollAnimateDirective, DateFormatPipe],
   templateUrl: './blog-list.component.html',
   styleUrl: './blog-list.component.scss',
 })
-export class BlogListComponent implements OnInit, AfterViewInit {
+export class BlogListComponent implements OnInit {
   posts: BlogPostListItem[] = [];
   adminPosts: AdminPost[] = [];
   loading = true;
   isAdmin = false;
 
-  // New post modal
   showNewPostModal = false;
   newSlug = '';
   newTitle = '';
   creating = false;
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private blogService: BlogService,
@@ -55,13 +59,15 @@ export class BlogListComponent implements OnInit, AfterViewInit {
     if (this.isAdmin) {
       this.loadAdminPosts();
     } else {
-      this.blogService.getPosts().subscribe({
-        next: (data) => {
-          this.posts = data;
-          this.loading = false;
-        },
-        error: () => (this.loading = false),
-      });
+      this.blogService.getPosts()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: (data) => {
+            this.posts = data;
+            this.loading = false;
+          },
+          error: () => (this.loading = false),
+        });
     }
   }
 
@@ -144,28 +150,4 @@ export class BlogListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => this.checkVisibility(), 100);
-  }
-
-  @HostListener('window:scroll')
-  checkVisibility(): void {
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    elements.forEach((element) => {
-      const position = element.getBoundingClientRect();
-      if (position.top < window.innerHeight * 0.85) {
-        element.classList.add('visible');
-      }
-    });
-  }
-
-  formatDate(dateStr: string | undefined): string {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  }
 }

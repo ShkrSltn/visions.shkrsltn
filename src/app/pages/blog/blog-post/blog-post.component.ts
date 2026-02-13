@@ -1,13 +1,15 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { BlogService, BlogPostFull, BlogBlock } from '../../../services/blog.service';
 import { ContentEditableModelDirective } from '../../../shared/directives/content-editable-model.directive';
 import { AdminAuthService } from '../../../admin/services/admin-auth.service';
 import { AdminApiService } from '../../../admin/services/admin-api.service';
 import { ToastService, ToastComponent } from '../../../admin/components/toast/toast.component';
+import { DateFormatPipe } from '../../../shared/pipes/date-format.pipe';
 
 interface EditableBlock {
   type: string;
@@ -74,7 +76,7 @@ const CODE_LANGUAGES = [
 @Component({
   selector: 'app-blog-post',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, DragDropModule, ContentEditableModelDirective, ToastComponent],
+  imports: [CommonModule, RouterModule, FormsModule, DragDropModule, ContentEditableModelDirective, ToastComponent, DateFormatPipe],
   templateUrl: './blog-post.component.html',
   styleUrl: './blog-post.component.scss',
 })
@@ -83,6 +85,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   loading = true;
   notFound = false;
   isAdmin = false;
+  previewMode = false;
 
   // ─── Read-only (guest) ───
   post: BlogPostFull | null = null;
@@ -109,6 +112,8 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   redoStack: EditorSnapshot[] = [];
   private lastAutoSnapshot = '';
   private autoSnapshotTimer: ReturnType<typeof setInterval> | null = null;
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private route: ActivatedRoute,
@@ -161,7 +166,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   // ─── Public loading ───
 
   private loadPublicPost(slug: string): void {
-    this.blogService.getPost(slug).subscribe({
+    this.blogService.getPost(slug).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (data) => {
         this.post = data;
         const t = data.translations?.[0];
@@ -533,17 +538,25 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     this.initAutoSnapshot();
   }
 
-  // ─── Shared helpers ───
+  // ─── Preview mode ───
 
-  formatDate(dateStr: string | undefined): string {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
+  togglePreview(): void {
+    this.previewMode = !this.previewMode;
   }
+
+  get previewBlocks(): EditableBlock[] {
+    return this.currentBlocks;
+  }
+
+  get previewTitle(): string {
+    return this.currentTranslation?.title || '';
+  }
+
+  get previewDescription(): string {
+    return this.currentTranslation?.description || '';
+  }
+
+  // ─── Shared helpers ───
 
   getListItems(content: string | undefined): string[] {
     if (!content) return [];

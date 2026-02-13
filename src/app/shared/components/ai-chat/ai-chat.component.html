@@ -5,42 +5,49 @@
   </div>
 
   <div class="chat-messages" #chatMessages>
-    <div
-      *ngFor="let message of chatHistory"
-      class="message"
-      [ngClass]="{
-        'user-message': message.role === 'user',
-        'assistant-message': message.role === 'assistant',
-        typing: message.isTyping
-      }"
-    >
-      <div class="message-content">
-        <span *ngIf="message.role === 'user'">{{ message.content }}</span>
-        <span
-          *ngIf="message.role === 'assistant'"
-          [innerHTML]="message.processedContent"
-        ></span>
-        <span *ngIf="message.isTyping" class="typing-cursor"></span>
+    @for (message of chatHistory; track $index) {
+      <div
+        class="message"
+        [ngClass]="{
+          'user-message': message.role === 'user',
+          'assistant-message': message.role === 'assistant',
+          typing: message.isTyping
+        }"
+      >
+        <div class="message-content">
+          @if (message.role === 'user') {
+            <span>{{ message.content }}</span>
+          }
+          @if (message.role === 'assistant') {
+            <span [innerHTML]="message.processedContent"></span>
+          }
+          @if (message.isTyping) {
+            <span class="typing-cursor"></span>
+          }
+        </div>
       </div>
-    </div>
+    }
 
-    <div *ngIf="isLoading" class="loading-indicator">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
-
-    <div class="suggested-questions" *ngIf="chatHistory.length <= 2">
-      <p>{{ "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_TITLE" | translate }}</p>
-      <div class="question-chips">
-        <button
-          *ngFor="let question of suggestedQuestions"
-          (click)="askSuggestedQuestion(question)"
-        >
-          {{ question | translate }}
-        </button>
+    @if (isLoading) {
+      <div class="loading-indicator">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
       </div>
-    </div>
+    }
+
+    @if (chatHistory.length <= 2) {
+      <div class="suggested-questions">
+        <p>{{ "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_TITLE" | translate }}</p>
+        <div class="question-chips">
+          @for (question of suggestedQuestions; track question) {
+            <button (click)="askSuggestedQuestion(question)">
+              {{ question | translate }}
+            </button>
+          }
+        </div>
+      </div>
+    }
   </div>
 
   <div class="chat-input">

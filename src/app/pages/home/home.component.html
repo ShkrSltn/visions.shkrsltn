@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" appScrollAnimate>
   <section class="hero">
     <div class="hero-text">
       <h1 class="animate-in">
@@ -27,7 +27,9 @@
           {{ "HOME.ME_DESCRIPTION" | translate }}
         </p>
         <div class="tech-stack">
-          <div class="tech-item" *ngFor="let tech of techStack">{{ tech }}</div>
+          @for (tech of techStack; track tech) {
+            <div class="tech-item">{{ tech }}</div>
+          }
         </div>
       </div>
       <div class="about-image">

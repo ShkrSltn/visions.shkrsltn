@@ -1,4 +1,4 @@
-<div class="about-me-container container">
+<div class="about-me-container container" appScrollAnimate>
   <app-hero
     [title]="'HERO_TITLES.ABOUT_ME' | translate"
     [subtitle]="'HERO_TITLES.ABOUT_ME_SUBTITLE' | translate"
@@ -59,19 +59,20 @@
         <div class="category-number">01</div>
         <h3>Frontend</h3>
         <div class="skills-layers">
-          <div
-            class="skill-layer"
-            *ngFor="let skill of frontendSkills; let i = index"
-            [style.animationDelay]="i * 0.1 + 's'"
-          >
-            <div class="skill-header">
-              <div class="skill-name">{{ skill.name }}</div>
-              <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
-                {{ skill.level }}
+          @for (skill of frontendSkills; track skill.name; let i = $index) {
+            <div
+              class="skill-layer"
+              [style.animationDelay]="i * 0.1 + 's'"
+            >
+              <div class="skill-header">
+                <div class="skill-name">{{ skill.name }}</div>
+                <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
+                  {{ skill.level }}
+                </div>
               </div>
+              <div class="skill-description">{{ skill.description }}</div>
             </div>
-            <div class="skill-description">{{ skill.description }}</div>
-          </div>
+          }
         </div>
       </div>
 
@@ -79,19 +80,20 @@
         <div class="category-number">02</div>
         <h3>Backend</h3>
         <div class="skills-layers">
-          <div
-            class="skill-layer"
-            *ngFor="let skill of backendSkills; let i = index"
-            [style.animationDelay]="i * 0.1 + 's'"
-          >
-            <div class="skill-header">
-              <div class="skill-name">{{ skill.name }}</div>
-              <div class="skill-level" [ngClass]="skill.level">
-                {{ skill.level }}
+          @for (skill of backendSkills; track skill.name; let i = $index) {
+            <div
+              class="skill-layer"
+              [style.animationDelay]="i * 0.1 + 's'"
+            >
+              <div class="skill-header">
+                <div class="skill-name">{{ skill.name }}</div>
+                <div class="skill-level" [ngClass]="skill.level">
+                  {{ skill.level }}
+                </div>
               </div>
+              <div class="skill-description">{{ skill.description }}</div>
             </div>
-            <div class="skill-description">{{ skill.description }}</div>
-          </div>
+          }
         </div>
       </div>
 
@@ -99,19 +101,20 @@
         <div class="category-number">03</div>
         <h3>{{ "ABOUT.SKILLS.OTHER_SKILLS" | translate }}</h3>
         <div class="skills-layers">
-          <div
-            class="skill-layer"
-            *ngFor="let skill of otherSkills; let i = index"
-            [style.animationDelay]="i * 0.1 + 's'"
-          >
-            <div class="skill-header">
-              <div class="skill-name">{{ skill.name }}</div>
-              <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
-                {{ skill.level }}
+          @for (skill of otherSkills; track skill.name; let i = $index) {
+            <div
+              class="skill-layer"
+              [style.animationDelay]="i * 0.1 + 's'"
+            >
+              <div class="skill-header">
+                <div class="skill-name">{{ skill.name }}</div>
+                <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
+                  {{ skill.level }}
+                </div>
               </div>
+              <div class="skill-description">{{ skill.description }}</div>
             </div>
-            <div class="skill-description">{{ skill.description }}</div>
-          </div>
+          }
         </div>
       </div>
     </div>

@@ -1,58 +1,50 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { AboutMeComponent } from './pages/about-me/about-me.component';
-import { ProjectsComponent } from './pages/projects/projects.component';
-import { ContactMeComponent } from './pages/contact-me/contact-me.component';
-import { AiAssistantComponent } from './pages/ai-assistant/ai-assistant.component';
-import { VirtualCvComponent } from './pages/virtual-cv/virtual-cv.component';
-import { ClockComponent } from './pages/clock/clock.component';
-import { BlogListComponent } from './pages/blog/blog-list.component';
-import { BlogPostComponent } from './pages/blog/blog-post/blog-post.component';
+
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent),
     pathMatch: 'full',
     title: 'Shkrsltnv | Home'
   },
   {
     path: 'about-me',
-    component: AboutMeComponent,
+    loadComponent: () => import('./pages/about-me/about-me.component').then(m => m.AboutMeComponent),
     title: 'Shkrsltnv | About Me'
   },
   {
     path: 'projects',
-    component: ProjectsComponent,
+    loadComponent: () => import('./pages/projects/projects.component').then(m => m.ProjectsComponent),
     title: 'Shkrsltnv | Projects'
   },
   {
     path: 'contact',
-    component: ContactMeComponent,
+    loadComponent: () => import('./pages/contact-me/contact-me.component').then(m => m.ContactMeComponent),
     title: 'Shkrsltnv | Contact'
   },
   {
     path: 'ai-assistant',
-    component: AiAssistantComponent,
+    loadComponent: () => import('./pages/ai-assistant/ai-assistant.component').then(m => m.AiAssistantComponent),
     title: 'Shkrsltnv | AI Assistant'
   },
   {
     path: 'cv',
-    component: VirtualCvComponent,
+    loadComponent: () => import('./pages/virtual-cv/virtual-cv.component').then(m => m.VirtualCvComponent),
     title: 'Shkrsltnv | CV'
   },
   {
     path: 'clock',
-    component: ClockComponent,
+    loadComponent: () => import('./pages/clock/clock.component').then(m => m.ClockComponent),
     title: 'Shkrsltnv | Clock'
   },
   {
     path: 'blog',
-    component: BlogListComponent,
+    loadComponent: () => import('./pages/blog/blog-list.component').then(m => m.BlogListComponent),
     title: 'Shkrsltnv | Blog'
   },
   {
     path: 'blog/:slug',
-    component: BlogPostComponent,
+    loadComponent: () => import('./pages/blog/blog-post/blog-post.component').then(m => m.BlogPostComponent),
     title: 'Shkrsltnv | Blog Post'
   },
   {

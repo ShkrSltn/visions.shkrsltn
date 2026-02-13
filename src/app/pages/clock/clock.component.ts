@@ -14,11 +14,12 @@ import { TranslateModule } from '@ngx-translate/core';
   }
 })
 export class ClockComponent implements OnInit, OnDestroy {
-  currentTime: string = '';
+  currentTime = '';
   timerSeconds = 0;
   timerRunning = false;
   private clockInterval?: number;
   private timerInterval?: number;
+  private audioContext: AudioContext | null = null;
 
   ngOnInit() {
     this.updateTime();
@@ -30,6 +31,8 @@ export class ClockComponent implements OnInit, OnDestroy {
       clearInterval(this.clockInterval);
     }
     this.stopTimer();
+    this.audioContext?.close();
+    this.audioContext = null;
   }
 
   updateTime() {
@@ -85,27 +88,38 @@ export class ClockComponent implements OnInit, OnDestroy {
     return `${hrs}:${mins}:${secs}`;
   }
 
+  private getAudioContext(): AudioContext | null {
+    if (!this.audioContext) {
+      try {
+        this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      } catch {
+        return null;
+      }
+    }
+    return this.audioContext;
+  }
+
   private playBeep() {
-    // Simple beep implementation using Web Audio API
+    const ctx = this.getAudioContext();
+    if (!ctx) return;
+
     try {
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
 
       oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
+      gainNode.connect(ctx.destination);
 
       oscillator.frequency.value = 800;
       oscillator.type = 'sine';
 
-      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+      gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
 
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.1);
-    } catch (error) {
-      // Fallback for browsers that don't support Web Audio API
-      console.log('Beep!');
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.1);
+    } catch {
+      // Fallback silently
     }
   }
 }

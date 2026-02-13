@@ -1,4 +1,4 @@
-<div class="blog-container container">
+<div class="blog-container container" appScrollAnimate>
   <app-hero
     title="Blog"
     subtitle="Thoughts, tutorials and insights"
@@ -35,7 +35,7 @@
               }
               <div class="post-info">
                 <div class="post-meta-row">
-                  <span class="post-date">{{ formatDate(post.publishedAt || post.createdAt) }}</span>
+                  <span class="post-date">{{ (post.publishedAt || post.createdAt) | appDateFormat }}</span>
                   <span class="post-status" [class.published]="post.isPublished">
                     {{ post.isPublished ? 'Published' : 'Draft' }}
                   </span>
@@ -71,7 +71,7 @@
                 </div>
               }
               <div class="post-info">
-                <span class="post-date">{{ formatDate(post.publishedAt || post.createdAt) }}</span>
+                <span class="post-date">{{ (post.publishedAt || post.createdAt) | appDateFormat }}</span>
                 <h2 class="post-title">{{ post.title }}</h2>
                 @if (post.description) {
                   <p class="post-description">{{ post.description }}</p>

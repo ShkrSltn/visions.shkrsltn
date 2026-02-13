@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { SOCIAL_LINKS } from '../../shared/constants/social-links';
 
 @Component({
   selector: 'app-footer',
@@ -11,7 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-  logoText: string = 'shkrsltnv';
-  currentYear: number = new Date().getFullYear();
-  constructor(private translate: TranslateService) {}
+  logoText = 'shkrsltnv';
+  currentYear = new Date().getFullYear();
+  socialLinks = SOCIAL_LINKS;
 }
