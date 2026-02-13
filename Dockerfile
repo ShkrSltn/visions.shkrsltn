@@ -32,5 +32,5 @@ COPY --from=build /app/dist/visions.shkrsltn/browser /usr/share/nginx/html
 ENV PORT=3000
 EXPOSE 3000
 
-# nginx with envsubst for dynamic port
-CMD sh -c "sed -i \"s/\${PORT}/$PORT/g\" /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+# Replace placeholder with actual PORT and start nginx
+CMD sh -c "sed -i 's/PORT_PLACEHOLDER/'\"$PORT\"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
