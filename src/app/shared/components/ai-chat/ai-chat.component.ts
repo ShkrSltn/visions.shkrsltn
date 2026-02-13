@@ -6,14 +6,142 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AiChatService, ChatMessage } from '../../../services/ai-chat.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-
-
-// Расширяем интерфейс для хранения обработанного контента
 interface DisplayChatMessage extends ChatMessage {
   processedContent?: SafeHtml;
   isTyping?: boolean;
   visibleContent?: string;
   fullContent?: string;
+}
+
+class TerminalSFX {
+  private ctx: AudioContext | null = null;
+  private _muted = false;
+  private lastKeystroke = 0;
+
+  get muted(): boolean { return this._muted; }
+
+  toggleMute(): boolean {
+    this._muted = !this._muted;
+    return this._muted;
+  }
+
+  private getCtx(): AudioContext | null {
+    if (!this.ctx) {
+      try {
+        this.ctx = new AudioContext();
+      } catch {
+        return null;
+      }
+    }
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+    return this.ctx;
+  }
+
+  private beep(freq: number, duration: number, volume: number, type: OscillatorType = 'square'): void {
+    if (this._muted) return;
+    const ctx = this.getCtx();
+    if (!ctx) return;
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + duration);
+  }
+
+  /** Subtle keystroke tick — throttled to avoid spam */
+  keystroke(): void {
+    const now = Date.now();
+    if (now - this.lastKeystroke < 40) return;
+    this.lastKeystroke = now;
+
+    const freq = 1800 + Math.random() * 600; // slight randomness
+    this.beep(freq, 0.025, 0.03, 'square');
+  }
+
+  /** Command submitted */
+  send(): void {
+    if (this._muted) return;
+    const ctx = this.getCtx();
+    if (!ctx) return;
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(600, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(1200, ctx.currentTime + 0.06);
+    gain.gain.setValueAtTime(0.06, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.08);
+  }
+
+  /** AI response received — two-tone descending */
+  receive(): void {
+    if (this._muted) return;
+    const ctx = this.getCtx();
+    if (!ctx) return;
+
+    // First beep
+    const o1 = ctx.createOscillator();
+    const g1 = ctx.createGain();
+    o1.type = 'square';
+    o1.frequency.value = 1000;
+    g1.gain.setValueAtTime(0.05, ctx.currentTime);
+    g1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+    o1.connect(g1);
+    g1.connect(ctx.destination);
+    o1.start(ctx.currentTime);
+    o1.stop(ctx.currentTime + 0.06);
+
+    // Second beep (lower)
+    const o2 = ctx.createOscillator();
+    const g2 = ctx.createGain();
+    o2.type = 'square';
+    o2.frequency.value = 750;
+    g2.gain.setValueAtTime(0.05, ctx.currentTime + 0.08);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.14);
+    o2.connect(g2);
+    g2.connect(ctx.destination);
+    o2.start(ctx.currentTime + 0.08);
+    o2.stop(ctx.currentTime + 0.14);
+  }
+
+  /** Click for buttons */
+  click(): void {
+    this.beep(1400, 0.02, 0.04, 'square');
+  }
+
+  /** Boot sequence — ascending arpeggio */
+  boot(): void {
+    if (this._muted) return;
+    const ctx = this.getCtx();
+    if (!ctx) return;
+
+    const notes = [400, 600, 800, 1000];
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.value = freq;
+      const t = ctx.currentTime + i * 0.06;
+      gain.gain.setValueAtTime(0.04, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.05);
+    });
+  }
 }
 
 @Component({
@@ -26,16 +154,18 @@ interface DisplayChatMessage extends ChatMessage {
 export class AiChatComponent implements OnInit, AfterViewChecked {
   @Input() title: string = "Shakir's AI clone";
   @Input() subtitle: string = "Ask me anything";
-  @ViewChild('chatMessages') chatMessagesRef!: ElementRef; // Ссылка на контейнер сообщений
-
+  @ViewChild('chatMessages') chatMessagesRef!: ElementRef;
 
   userMessage: string = '';
   chatHistory: DisplayChatMessage[] = [];
   isLoading: boolean = false;
-  shouldScrollToBottom: boolean = false; // Флаг для отслеживания необходимости прокрутки
-  typingSpeed: number = 3; // Символов в миллисекунду (можно настроить)
+  shouldScrollToBottom: boolean = false;
+  typingSpeed: number = 3;
 
-  // Предустановленные вопросы для быстрого выбора
+  // Sound engine
+  sfx = new TerminalSFX();
+  soundMuted = false;
+
   suggestedQuestions: string[] = [
     "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_1",
     "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_2",
@@ -51,7 +181,7 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     private aiChatService: AiChatService,
     private sanitizer: DomSanitizer,
     private translate: TranslateService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.translate.onLangChange
@@ -64,31 +194,30 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   }
 
   private initializeChat(): void {
-    // Очищаем историю сообщений перед добавлением нового приветствия
     this.chatHistory = [];
 
     const firstMessage = this.translate.instant("AI_ASSISTANT.AI_CHAT.FIRST_MESSAGE");
-    // Добавляем приветственное сообщение
     this.addMessageToHistory({
       role: 'assistant',
       content: firstMessage
     });
 
     this.shouldScrollToBottom = true;
+
+    // Boot sound (slightly delayed so AudioContext can initialize from user gesture)
+    setTimeout(() => this.sfx.boot(), 300);
   }
 
   ngAfterViewChecked() {
-    // Проверяем флаг и выполняем прокрутку, если нужно
     if (this.shouldScrollToBottom) {
       this.scrollToBottom();
-      this.shouldScrollToBottom = false; // Сбрасываем флаг
+      this.shouldScrollToBottom = false;
     }
   }
 
-  // Метод для прокрутки чата вниз
   scrollToBottom(): void {
     try {
-      if (this.chatMessagesRef && this.chatMessagesRef.nativeElement) {
+      if (this.chatMessagesRef?.nativeElement) {
         this.chatMessagesRef.nativeElement.scrollTop = this.chatMessagesRef.nativeElement.scrollHeight;
       }
     } catch (err) {
@@ -96,7 +225,20 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  // Метод для эффекта печатания
+  // ─── Sound Controls ──────────────────────────────────
+  toggleSound(): void {
+    this.soundMuted = this.sfx.toggleMute();
+    if (!this.soundMuted) {
+      this.sfx.click();
+    }
+  }
+
+  onInputKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') return; // handled separately
+    this.sfx.keystroke();
+  }
+
+  // ─── Typing Effect ───────────────────────────────────
   startTypingEffect(message: DisplayChatMessage): void {
     if (!message.fullContent) return;
 
@@ -104,32 +246,25 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     const fullContent = message.fullContent;
     const totalLength = fullContent.length;
 
-    // Используем более надежный интервал
     const typingInterval = setInterval(() => {
       try {
         if (currentIndex < totalLength) {
-          // Добавляем следующий символ
           message.visibleContent = fullContent.substring(0, currentIndex + 1);
-          // Обновляем отображаемый контент
           message.processedContent = this.sanitizer.bypassSecurityTrustHtml(message.visibleContent);
           currentIndex++;
 
-          // Проверяем, что HTML-теги корректно закрыты
           if (this.hasUnclosedTags(message.visibleContent)) {
-            // Если есть незакрытые теги, ускоряем печатание до закрытия тега
             currentIndex = this.findNextTagClose(fullContent, currentIndex);
           }
 
           this.shouldScrollToBottom = true;
         } else {
-          // Завершаем эффект печатания
           clearInterval(typingInterval);
           message.isTyping = false;
           message.processedContent = this.sanitizer.bypassSecurityTrustHtml(fullContent);
         }
       } catch (error) {
         console.error('Error during typing effect:', error);
-        // В случае ошибки завершаем эффект и показываем полный текст
         clearInterval(typingInterval);
         message.isTyping = false;
         message.processedContent = this.sanitizer.bypassSecurityTrustHtml(fullContent);
@@ -137,45 +272,37 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     }, this.typingSpeed);
   }
 
-  // Проверка на наличие незакрытых HTML-тегов
   private hasUnclosedTags(html: string): boolean {
     const openTagsCount = (html.match(/<[^\/][^>]*>/g) || []).length;
     const closeTagsCount = (html.match(/<\/[^>]*>/g) || []).length;
     return openTagsCount > closeTagsCount;
   }
 
-  // Поиск позиции закрытия следующего тега
   private findNextTagClose(content: string, startIndex: number): number {
     const nextCloseTag = content.indexOf('>', startIndex);
     return nextCloseTag !== -1 ? nextCloseTag + 1 : startIndex;
   }
 
-  // Добавление сообщения в историю с обработкой контента
   addMessageToHistory(message: ChatMessage): void {
     const displayMessage: DisplayChatMessage = { ...message };
-    this.chatHistory.push(displayMessage); // Сначала добавляем в историю
+    this.chatHistory.push(displayMessage);
     this.shouldScrollToBottom = true;
 
-    // Затем обрабатываем контент (асинхронно)
     setTimeout(() => {
       this.processMessageContent(displayMessage);
     }, 0);
   }
 
-  // Метод для обработки HTML в сообщениях
   processMessageContent(message: DisplayChatMessage): void {
     if (message.role === 'assistant') {
       try {
-        // Санитизируем HTML, чтобы предотвратить XSS-атаки
         const sanitizedHtml = this.sanitizer.sanitize(SecurityContext.HTML, message.content) || '';
 
-        // Проверяем, что контент не пустой
         if (sanitizedHtml.trim()) {
           message.fullContent = sanitizedHtml;
           message.visibleContent = '';
           message.isTyping = true;
 
-          // Начинаем эффект печатания
           this.startTypingEffect(message);
         } else {
           message.processedContent = this.sanitizer.bypassSecurityTrustHtml(message.content);
@@ -192,7 +319,8 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   sendMessage(): void {
     if (!this.userMessage.trim()) return;
 
-    // Добавляем сообщение пользователя в историю
+    this.sfx.send();
+
     this.addMessageToHistory({
       role: 'user',
       content: this.userMessage
@@ -201,33 +329,32 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     const messageToSend = this.userMessage;
     this.userMessage = '';
     this.isLoading = true;
-
-    // Прокручиваем чат вниз после отправки сообщения пользователя
     this.shouldScrollToBottom = true;
 
-    // Отправляем запрос к API
     this.aiChatService.chat(messageToSend).subscribe({
       next: (response) => {
         if (response.choices && response.choices.length > 0) {
+          this.sfx.receive();
           this.addMessageToHistory(response.choices[0].message);
         }
         this.isLoading = false;
-        this.shouldScrollToBottom = true; // Устанавливаем флаг для прокрутки после получения ответа
+        this.shouldScrollToBottom = true;
       },
       error: (error) => {
         console.error('Error communicating with AI service:', error);
+        this.sfx.receive();
         this.addMessageToHistory({
           role: 'assistant',
           content: "I'm sorry, I encountered an error while processing your request. Please try again later."
         });
         this.isLoading = false;
-        this.shouldScrollToBottom = true; // Устанавливаем флаг для прокрутки после ошибки
+        this.shouldScrollToBottom = true;
       }
     });
   }
 
   askSuggestedQuestion(question: string): void {
-    // Переводим ключ вопроса перед отправкой
+    this.sfx.click();
     const translatedQuestion = this.translate.instant(question);
     this.userMessage = translatedQuestion;
     this.sendMessage();

@@ -1,48 +1,73 @@
-<div class="chat-container">
-  <div class="chat-header">
-    <h3>{{ "AI_ASSISTANT.AI_CHAT.CHAT_TITLE" | translate }}</h3>
-    <p>{{ "AI_ASSISTANT.AI_CHAT.CHAT_SUBTITLE" | translate }}</p>
+<div class="terminal">
+  <!-- Scanline overlay -->
+  <div class="scanlines"></div>
+
+  <!-- Title bar -->
+  <div class="terminal-bar">
+    <div class="bar-left">
+      <span class="bar-dot"></span>
+      <span class="bar-dot"></span>
+      <span class="bar-dot"></span>
+    </div>
+    <div class="bar-title">
+      {{ "AI_ASSISTANT.AI_CHAT.CHAT_TITLE" | translate }}
+    </div>
+    <div class="bar-right">
+      <button class="sound-toggle" (click)="toggleSound()" [title]="soundMuted ? 'Unmute' : 'Mute'">
+        <i [class]="soundMuted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high'"></i>
+      </button>
+      <span class="bar-status">session:{{ chatHistory.length }}</span>
+    </div>
   </div>
 
-  <div class="chat-messages" #chatMessages>
+  <!-- Output -->
+  <div class="terminal-output" #chatMessages>
+    <div class="boot-line">{{ "AI_ASSISTANT.AI_CHAT.CHAT_SUBTITLE" | translate }}</div>
+    <div class="divider">────────────────────────────────────────</div>
+
     @for (message of chatHistory; track $index) {
       <div
-        class="message"
+        class="line"
         [ngClass]="{
-          'user-message': message.role === 'user',
-          'assistant-message': message.role === 'assistant',
+          'line-user': message.role === 'user',
+          'line-ai': message.role === 'assistant',
           typing: message.isTyping
         }"
       >
-        <div class="message-content">
-          @if (message.role === 'user') {
-            <span>{{ message.content }}</span>
-          }
-          @if (message.role === 'assistant') {
-            <span [innerHTML]="message.processedContent"></span>
-          }
-          @if (message.isTyping) {
-            <span class="typing-cursor"></span>
-          }
-        </div>
+        @if (message.role === 'user') {
+          <span class="prompt user-prompt">$</span>
+          <span class="line-text">{{ message.content }}</span>
+        }
+        @if (message.role === 'assistant') {
+          <span class="prompt ai-prompt">&gt;</span>
+          <div class="line-text">
+            <span class="message-content" [innerHTML]="message.processedContent"></span>
+            @if (message.isTyping) {
+              <span class="cursor-blink">█</span>
+            }
+          </div>
+        }
       </div>
     }
 
     @if (isLoading) {
-      <div class="loading-indicator">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+      <div class="line line-ai">
+        <span class="prompt ai-prompt">&gt;</span>
+        <span class="line-text thinking">
+          <span class="think-dot">.</span><span class="think-dot">.</span><span class="think-dot">.</span>
+        </span>
       </div>
     }
 
     @if (chatHistory.length <= 2) {
-      <div class="suggested-questions">
-        <p>{{ "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_TITLE" | translate }}</p>
-        <div class="question-chips">
-          @for (question of suggestedQuestions; track question) {
-            <button (click)="askSuggestedQuestion(question)">
-              {{ question | translate }}
+      <div class="suggestions">
+        <div class="divider">────────────────────────────────────────</div>
+        <div class="sugg-label">{{ "AI_ASSISTANT.AI_CHAT.SUGGESTED_QUESTIONS_TITLE" | translate }}</div>
+        <div class="sugg-grid">
+          @for (question of suggestedQuestions; track question; let i = $index) {
+            <button class="sugg-item" (click)="askSuggestedQuestion(question)">
+              <span class="sugg-key">[{{ i + 1 }}]</span>
+              <span class="sugg-text">{{ question | translate }}</span>
             </button>
           }
         </div>
@@ -50,20 +75,24 @@
     }
   </div>
 
-  <div class="chat-input">
+  <!-- Input -->
+  <div class="terminal-input">
+    <span class="input-prompt">$</span>
     <input
       type="text"
       [(ngModel)]="userMessage"
-      placeholder="{{
-        'AI_ASSISTANT.AI_CHAT.CHAT_INPUT_PLACEHOLDER' | translate
-      }}"
+      placeholder="{{ 'AI_ASSISTANT.AI_CHAT.CHAT_INPUT_PLACEHOLDER' | translate }}"
+      (keydown)="onInputKeydown($event)"
       (keyup.enter)="sendMessage()"
+      spellcheck="false"
+      autocomplete="off"
     />
     <button
+      class="enter-btn"
       (click)="sendMessage()"
       [disabled]="isLoading || !userMessage.trim()"
     >
-      <i class="fa-solid fa-paper-plane"></i>
+      <span>&#9166;</span>
     </button>
   </div>
 </div>
