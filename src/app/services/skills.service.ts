@@ -15,6 +15,7 @@ export interface SkillsData {
   frontendSkills: Skill[];
   backendSkills: Skill[];
   otherSkills: Skill[];
+  aiSkills?: Skill[];
   techStack: string[];
 }
 

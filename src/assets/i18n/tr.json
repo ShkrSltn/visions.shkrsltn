@@ -66,7 +66,8 @@
     "EVENT_5_DESCRIPTION": "Dünden daha iyi ol",
     "SKILLS":{
       "TITLE": "Beceriler",
-      "OTHER_SKILLS": "Diğer Beceriler"
+      "OTHER_SKILLS": "Diğer Beceriler",
+      "AI_COMING_SOON": "AI becerileri yakında gelecek..."
     },
     "INTERESTS": "İlgi Alanları & Hobiler",
     "MOVIES_AND_SERIES": "Filmler ve Diziler",

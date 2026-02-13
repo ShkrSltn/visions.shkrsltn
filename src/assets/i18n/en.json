@@ -68,7 +68,8 @@
     "EVENT_6_DESCRIPTION": "Be better than yesterday",
     "SKILLS":{
       "TITLE": "Skills",
-      "OTHER_SKILLS": "Other Skills"
+      "OTHER_SKILLS": "Other Skills",
+      "AI_COMING_SOON": "AI skills coming soon..."
     },
     "INTERESTS": "Interests & Hobbies",
     "MOVIES_AND_SERIES": "Movies and Series",

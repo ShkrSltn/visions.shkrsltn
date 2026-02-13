@@ -30,7 +30,9 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
   frontendSkills: Skill[] = [];
   backendSkills: Skill[] = [];
   otherSkills: Skill[] = [];
+  aiSkills: Skill[] = [];
   techStack: string[] = [];
+  activeCategory: string = 'all';
   currentLang: string;
   @ViewChild('timelineTrack') timelineTrack?: ElementRef<HTMLElement>;
   @ViewChildren('timelineEvent') timelineEvents?: QueryList<ElementRef<HTMLElement>>;
@@ -57,6 +59,7 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
         this.frontendSkills = data.frontendSkills;
         this.backendSkills = data.backendSkills;
         this.otherSkills = data.otherSkills;
+        this.aiSkills = data.aiSkills || [];
         this.techStack = data.techStack;
       });
   }
@@ -105,6 +108,10 @@ export class AboutMeComponent implements AfterViewInit, OnInit {
         height: '100%'
       };
     }
+  }
+
+  setActiveCategory(cat: string): void {
+    this.activeCategory = cat;
   }
 
   myYear(): number {

@@ -54,69 +54,98 @@
 
   <section class="skills animate-on-scroll">
     <div class="section-title">{{ "ABOUT.SKILLS.TITLE" | translate }}</div>
-    <div class="skills-content">
-      <div class="skill-category">
-        <div class="category-number">01</div>
-        <h3>Frontend</h3>
-        <div class="skills-layers">
-          @for (skill of frontendSkills; track skill.name; let i = $index) {
-            <div
-              class="skill-layer"
-              [style.animationDelay]="i * 0.1 + 's'"
-            >
-              <div class="skill-header">
-                <div class="skill-name">{{ skill.name }}</div>
-                <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
-                  {{ skill.level }}
-                </div>
-              </div>
-              <div class="skill-description">{{ skill.description }}</div>
-            </div>
-          }
-        </div>
-      </div>
 
-      <div class="skill-category">
-        <div class="category-number">02</div>
-        <h3>Backend</h3>
-        <div class="skills-layers">
-          @for (skill of backendSkills; track skill.name; let i = $index) {
-            <div
-              class="skill-layer"
-              [style.animationDelay]="i * 0.1 + 's'"
-            >
-              <div class="skill-header">
-                <div class="skill-name">{{ skill.name }}</div>
-                <div class="skill-level" [ngClass]="skill.level">
-                  {{ skill.level }}
-                </div>
-              </div>
-              <div class="skill-description">{{ skill.description }}</div>
-            </div>
-          }
-        </div>
-      </div>
+    <!-- Category nav -->
+    <div class="skills-tabs">
+      <button
+        class="skills-tab"
+        [class.active]="activeCategory === 'all'"
+        (click)="setActiveCategory('all')"
+      >
+        <span class="tab-label">All</span>
+      </button>
+      <button
+        class="skills-tab"
+        [class.active]="activeCategory === 'frontend'"
+        (click)="setActiveCategory('frontend')"
+      >
+        <span class="tab-label">Frontend</span>
+        <span class="tab-count">{{ frontendSkills.length }}</span>
+      </button>
+      <button
+        class="skills-tab"
+        [class.active]="activeCategory === 'backend'"
+        (click)="setActiveCategory('backend')"
+      >
+        <span class="tab-label">Backend</span>
+        <span class="tab-count">{{ backendSkills.length }}</span>
+      </button>
+      @if (aiSkills.length > 0) {
+        <button
+          class="skills-tab"
+          [class.active]="activeCategory === 'ai'"
+          (click)="setActiveCategory('ai')"
+        >
+          <span class="tab-label">AI</span>
+          <span class="tab-count">{{ aiSkills.length }}</span>
+        </button>
+      }
+      <button
+        class="skills-tab"
+        [class.active]="activeCategory === 'other'"
+        (click)="setActiveCategory('other')"
+      >
+        <span class="tab-label">{{ "ABOUT.SKILLS.OTHER_SKILLS" | translate }}</span>
+        <span class="tab-count">{{ otherSkills.length }}</span>
+      </button>
+    </div>
 
-      <div class="skill-category">
-        <div class="category-number">03</div>
-        <h3>{{ "ABOUT.SKILLS.OTHER_SKILLS" | translate }}</h3>
-        <div class="skills-layers">
-          @for (skill of otherSkills; track skill.name; let i = $index) {
-            <div
-              class="skill-layer"
-              [style.animationDelay]="i * 0.1 + 's'"
-            >
-              <div class="skill-header">
-                <div class="skill-name">{{ skill.name }}</div>
-                <div class="skill-level" [ngClass]="skill.level.toLowerCase()">
-                  {{ skill.level }}
-                </div>
-              </div>
-              <div class="skill-description">{{ skill.description }}</div>
-            </div>
+    <!-- All skills grid -->
+    <div class="skills-grid">
+      @for (skill of frontendSkills; track skill.name) {
+        <div class="skill-chip" [class.dimmed]="activeCategory !== 'all' && activeCategory !== 'frontend'">
+          <div class="chip-top">
+            <span class="chip-name">{{ skill.name }}</span>
+            <span class="chip-level">{{ skill.level }}</span>
+          </div>
+          @if (skill.description) {
+            <div class="chip-desc">{{ skill.description }}</div>
           }
         </div>
-      </div>
+      }
+      @for (skill of backendSkills; track skill.name) {
+        <div class="skill-chip" [class.dimmed]="activeCategory !== 'all' && activeCategory !== 'backend'">
+          <div class="chip-top">
+            <span class="chip-name">{{ skill.name }}</span>
+            <span class="chip-level">{{ skill.level }}</span>
+          </div>
+          @if (skill.description) {
+            <div class="chip-desc">{{ skill.description }}</div>
+          }
+        </div>
+      }
+      @for (skill of aiSkills; track skill.name) {
+        <div class="skill-chip" [class.dimmed]="activeCategory !== 'all' && activeCategory !== 'ai'">
+          <div class="chip-top">
+            <span class="chip-name">{{ skill.name }}</span>
+            <span class="chip-level">{{ skill.level }}</span>
+          </div>
+          @if (skill.description) {
+            <div class="chip-desc">{{ skill.description }}</div>
+          }
+        </div>
+      }
+      @for (skill of otherSkills; track skill.name) {
+        <div class="skill-chip" [class.dimmed]="activeCategory !== 'all' && activeCategory !== 'other'">
+          <div class="chip-top">
+            <span class="chip-name">{{ skill.name }}</span>
+            <span class="chip-level">{{ skill.level }}</span>
+          </div>
+          @if (skill.description) {
+            <div class="chip-desc">{{ skill.description }}</div>
+          }
+        </div>
+      }
     </div>
   </section>
 
@@ -186,7 +215,6 @@
             <div class="event-number">05</div>
             <h4>{{ "ABOUT.EVENT_5" | translate }}</h4>
             <p>{{ "ABOUT.EVENT_5_DESCRIPTION" | translate }}</p>
-            <span class="event-date"> </span>
           </div>
         </div>
 
@@ -198,7 +226,6 @@
             <div class="event-number">06</div>
             <h4>{{ "ABOUT.EVENT_6" | translate }}</h4>
             <p>{{ "ABOUT.EVENT_6_DESCRIPTION" | translate }}</p>
-            <span class="event-date"> </span>
           </div>
         </div>
       </div>

@@ -65,7 +65,8 @@
     "EVENT_5_DESCRIPTION": "Быть лучше, чем вчера",
     "SKILLS":{
       "TITLE": "Навыки",
-      "OTHER_SKILLS": "Другие навыки"
+      "OTHER_SKILLS": "Другие навыки",
+      "AI_COMING_SOON": "AI навыки скоро появятся..."
     },
     "INTERESTS": "Интересы и хобби",
     "MOVIES_AND_SERIES": "Фильмы и сериалы",

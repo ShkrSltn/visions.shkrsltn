@@ -65,7 +65,8 @@
     "EVENT_5_DESCRIPTION": "Бути кращим, ніж вчора",
     "SKILLS":{
       "TITLE": "Навички",
-      "OTHER_SKILLS": "Інші навички"
+      "OTHER_SKILLS": "Інші навички",
+      "AI_COMING_SOON": "AI навички незабаром з'являться..."
     },
     "INTERESTS": "Інтереси та хобі",
     "MOVIES_AND_SERIES": "Фільми та серіали",
