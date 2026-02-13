@@ -12,12 +12,14 @@ RUN npm ci
 # Copy source and build
 COPY . .
 
+# Build args are passed at build time and only live in this stage
+# They don't leak into the final image (multi-stage)
 ARG VITE_OPENAI_API_KEY
 ARG VITE_API_URL
-ENV VITE_OPENAI_API_KEY=$VITE_OPENAI_API_KEY
-ENV VITE_API_URL=$VITE_API_URL
 
-RUN npm run build
+RUN VITE_OPENAI_API_KEY=$VITE_OPENAI_API_KEY \
+    VITE_API_URL=$VITE_API_URL \
+    npm run build
 
 # ── Stage 2: Serve ────────────────────────────────────
 FROM nginx:alpine
@@ -33,4 +35,4 @@ ENV PORT=3000
 EXPOSE 3000
 
 # Replace placeholder with actual PORT and start nginx
-CMD sh -c "sed -i 's/PORT_PLACEHOLDER/'\"$PORT\"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+ENTRYPOINT ["sh", "-c", "sed -i 's/PORT_PLACEHOLDER/'\"$PORT\"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
